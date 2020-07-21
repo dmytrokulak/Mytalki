@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+#section-lesson-types .collapsible-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#section-lesson-types .collapsible-header span {
+  margin: 0.6rem 0;
+  font-size: medium;
+}
+
+#section-lesson-types .collapsible-body blockquote {
+  margin: 0 0 1rem 1rem;
+  font-size: medium;
+}
+
+#section-lesson-types .collapsible-body .card-content a {
+  width: 100%;
+  margin: 0.1rem 0;
+}
