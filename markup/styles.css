@@ -12,6 +12,12 @@
   font-size: medium;
 }
 
+#section-lesson-types .collapsible-header h5 span {
+  margin: 0.4rem 1rem;
+  font-size: medium;
+  border-radius: 5px;
+}
+
 #section-lesson-types .collapsible-body blockquote {
   margin: 0 0 1rem 1rem;
   font-size: medium;
@@ -20,4 +26,13 @@
 #section-lesson-types .collapsible-body .card-content a {
   width: 100%;
   margin: 0.1rem 0;
+}
+
+#section-lesson-types .collapsible-body .card-content input {
+  max-width: 3rem;
+  max-height: 1rem;
+}
+
+#section-lesson-types .collapsible-body .lesson-type-actions a {
+  margin: -0.5rem 0.7rem;
 }
