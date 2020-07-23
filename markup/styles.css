@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+body {
+  background: #fcfcfc;
+}
+
+nav a {
+  font-weight: bold;
+}
+
+.sidenav li > a {
+  font-size: x-large;
+  padding-bottom: 4rem;
+}
+
 #section-lesson-types .collapsible-header {
   display: flex;
   justify-content: space-between;
