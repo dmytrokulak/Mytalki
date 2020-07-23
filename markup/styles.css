@@ -36,3 +36,13 @@
 #section-lesson-types .collapsible-body .lesson-type-actions a {
   margin: -0.5rem 0.7rem;
 }
+
+#lesson-type-modal .modal-content {
+  padding-bottom: 0;
+}
+
+#lesson-type-modal .modal-content > div,
+#lesson-type-modal .modal-content > input,
+#lesson-type-modal .modal-content > textarea {
+  margin: 1rem 0;
+}
