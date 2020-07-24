@@ -22,6 +22,7 @@ nav a {
   padding-bottom: 4rem;
 }
 
+/* Lesson Types */
 #section-lesson-types .collapsible-header {
   display: flex;
   justify-content: space-between;
@@ -65,4 +66,28 @@ nav a {
 #lesson-type-modal .modal-content > input,
 #lesson-type-modal .modal-content > textarea {
   margin: 1rem 0;
+}
+
+/* Calendar */
+
+.vacant {
+  background: #62ff62;
+}
+
+.booked {
+  background: #ff6262;
+}
+
+.booked-first-half {
+  background: #ff6262;
+  background: linear-gradient(180deg, #ff6262 50%, #fff 50%);
+}
+
+.requested {
+  background-color: #ff6262;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, #62ff62 0, #fff 3px);
+}
+
+#section-calendar td {
+  border: solid #adadad 1px;
 }
