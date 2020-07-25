@@ -4,6 +4,7 @@ import {
   SET_LOADING,
   GET_LESSON_TYPES,
   ADD_LESSON_TYPE,
+  DELETE_LESSON_TYPE,
   UPDATE_LESSON_TYPE,
   LESSON_TYPE_ERROR,
 } from '../actions/types';
@@ -22,6 +23,34 @@ export default (state = initialState, action) => {
         ...state,
         collection: action.payload,
         loading: false,
+      };
+    case ADD_LESSON_TYPE:
+      return {
+        ...state,
+        collection: [...state.collection, action.payload],
+        loading: false,
+      };
+    case UPDATE_LESSON_TYPE:
+      return {
+        ...state,
+        collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
+        loading: false,
+      };
+    case DELETE_LESSON_TYPE:
+      return {
+        ...state,
+        collection: state.collection.filter((item) => item.id !== action.payload),
+        loading: false,
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null,
       };
     case SET_LOADING:
       return {

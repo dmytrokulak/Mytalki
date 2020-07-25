@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LessonTypeOffer from './LessonTypeOffer';
+import { setCurrent } from '../../actions/lessonTypeActions';
 
-const LessonType = ({ item }) => {
+const LessonType = ({ item, setCurrent }) => {
   let active = item.offers.map((o) => o.active).reduce((a, b) => a + b);
   let total = item.offers.map((o) => o.done).reduce((a, b) => a + b) + active;
 
@@ -36,7 +39,11 @@ const LessonType = ({ item }) => {
           <a href='#!' className='waves-effect waves-light red btn right'>
             Suspend
           </a>
-          <a href='#lesson-type-modal' className='waves-effect waves-light blue btn right modal-trigger'>
+          <a
+            href='#lesson-type-modal'
+            onClick={() => setCurrent(item)}
+            className='waves-effect waves-light blue btn right modal-trigger'
+          >
             Change
           </a>
           <div className='clearfix'></div>
@@ -46,4 +53,9 @@ const LessonType = ({ item }) => {
   );
 };
 
-export default LessonType;
+LessonType.propTypes = {
+  item: PropTypes.object.isRequired,
+  setCurrent: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setCurrent })(LessonType);
