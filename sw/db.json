@@ -1,0 +1,109 @@
+{
+  "lessontypes": [
+    {
+      "id": 1,
+      "name": "Chinese for beginners",
+      "description": "Suitable for those just starting learning the language.",
+      "offers": [
+        {
+          "id": 1,
+          "time": 30,
+          "price": 5.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 2,
+          "time": 45,
+          "price": 7.5,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 3,
+          "time": 60,
+          "price": 10.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 4,
+          "time": 90,
+          "price": 13.5,
+          "currency": "USD",
+          "onsale": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Structured converstational course",
+      "description": "For advance learns to improve fluency and start speaking like a native.",
+      "offers": [
+        {
+          "id": 1,
+          "time": 30,
+          "price": 5.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 2,
+          "time": 45,
+          "price": 7.5,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 3,
+          "time": 60,
+          "price": 10.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 4,
+          "time": 90,
+          "price": 13.5,
+          "currency": "USD",
+          "onsale": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Business Chinese",
+      "description": "Helps develop essential vocabulary for business people.",
+      "offers": [
+        {
+          "id": 1,
+          "time": 30,
+          "price": 5.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 2,
+          "time": 45,
+          "price": 7.5,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 3,
+          "time": 60,
+          "price": 10.0,
+          "currency": "USD",
+          "onsale": true
+        },
+        {
+          "id": 4,
+          "time": 90,
+          "price": 13.5,
+          "currency": "USD",
+          "onsale": true
+        }
+      ]
+    }
+  ]
+}
