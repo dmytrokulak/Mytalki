@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MyTalki",
+  "name": "Single teacher analogue of italki",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
