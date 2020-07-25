@@ -10,28 +10,36 @@
           "time": 30,
           "price": 5.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 0,
+          "done": 1
         },
         {
           "id": 2,
           "time": 45,
           "price": 7.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 0,
+          "done": 5
         },
         {
           "id": 3,
           "time": 60,
           "price": 10.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 0,
+          "done": 2
         },
         {
           "id": 4,
           "time": 90,
           "price": 13.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": false,
+          "active": 0,
+          "done": 4
         }
       ]
     },
@@ -45,28 +53,36 @@
           "time": 30,
           "price": 5.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 1,
+          "done": 3
         },
         {
           "id": 2,
           "time": 45,
           "price": 7.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": false,
+          "active": 1,
+          "done": 5
         },
         {
           "id": 3,
           "time": 60,
           "price": 10.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 1,
+          "done": 4
         },
         {
           "id": 4,
           "time": 90,
           "price": 13.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 2,
+          "done": 1
         }
       ]
     },
@@ -80,28 +96,36 @@
           "time": 30,
           "price": 5.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 1,
+          "done": 3
         },
         {
           "id": 2,
           "time": 45,
           "price": 7.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 1,
+          "done": 5
         },
         {
           "id": 3,
           "time": 60,
           "price": 10.0,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 0,
+          "done": 2
         },
         {
           "id": 4,
           "time": 90,
           "price": 13.5,
           "currency": "USD",
-          "onsale": true
+          "onsale": true,
+          "active": 3,
+          "done": 0
         }
       ]
     }

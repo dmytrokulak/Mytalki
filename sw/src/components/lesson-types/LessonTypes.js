@@ -15,9 +15,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
     <div id='section-lesson-types' className='section'>
       <h4 className='center-align'>Lesson Types</h4>
       <ul className='collapsible popout'>
-        <LessonType />
-        <LessonType />
-        <LessonType />
+        {!loading && collection && collection.map((item) => <LessonType item={item} key={item.id} />)}
       </ul>
       <div className='fixed-action-btn'>
         <a
