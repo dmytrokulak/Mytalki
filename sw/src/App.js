@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AppNavbar from './components/layout/AppNavbar';
 import './App.css';
 
-function App() {
-  return <div className='App'>App works!</div>;
-}
+const App = () => {
+  return (
+    <Router>
+      <Fragment>
+        <AppNavbar />
+        <div className='container'>
+          {/* <Switch>
+            <Route exact path='/' component={} />
+          </Switch> */}
+        </div>
+      </Fragment>
+    </Router>
+  );
+};
 
 export default App;
