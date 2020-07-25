@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import LessonType from './LessonType';
 import LessonTypeModal from './LessonTypeModal';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import PropTypes from 'prop-types';
+import { getLessonTypes } from '../../actions/lessonTypeActions';
 
-const LessonTypes = () => {
+const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) => {
   useEffect(() => {
     M.AutoInit();
-  });
+    getLessonTypes();
+  }, []);
   return (
     <div id='section-lesson-types' className='section'>
       <h4 className='center-align'>Lesson Types</h4>
@@ -25,9 +29,17 @@ const LessonTypes = () => {
           <i className='large material-icons'>add</i>
         </a>
       </div>
-      <LessonTypeModal />
+      {/* <LessonTypeModal /> */}
     </div>
   );
 };
 
-export default LessonTypes;
+LessonTypes.propTypes = {
+  lessonTypes: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  lessonTypes: state.lessonTypes,
+});
+
+export default connect(mapStateToProps, { getLessonTypes })(LessonTypes);
