@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import AppNavbar from './components/layout/AppNavbar';
-import AppFooter from './components/layout/AppFooter';
 import LessonTypes from './components/lesson-types/LessonTypes';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -29,7 +28,6 @@ const App = () => {
               </Switch>
             </div>
           </main>
-          {/* <AppFooter /> */}
         </Fragment>
       </Router>
     </Provider>

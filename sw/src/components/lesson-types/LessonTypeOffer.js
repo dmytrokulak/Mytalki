@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LessonTypeOffer = ({ offer }) => {
-  console.log(offer);
   return (
     <div className={'card ' + (!offer.onsale && 'grey lighten-2')}>
       <div className='card-content'>
@@ -21,7 +20,7 @@ const LessonTypeOffer = ({ offer }) => {
                 {offer.price} {offer.currency}
               </td>
             </tr>
-            <tr className={offer.active > 0 && 'teal white-text'}>
+            <tr className={offer.active > 0 ? 'teal white-text' : ''}>
               <td>
                 <i className='material-icons'>priority_high</i>
               </td>
@@ -35,7 +34,7 @@ const LessonTypeOffer = ({ offer }) => {
             </tr>
           </tbody>
         </table>
-        <a className={`waves-effect waves-light ${offer.onsale ? 'red' : 'green'}  btn`}>
+        <a href='#!' className={`waves-effect waves-light ${offer.onsale ? 'red' : 'green'}  btn`}>
           {offer.onsale ? 'Suspend' : 'Restore'}
         </a>
       </div>

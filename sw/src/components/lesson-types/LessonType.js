@@ -27,13 +27,15 @@ const LessonType = ({ item }) => {
         <blockquote>{item.description}</blockquote>
         <div className='row'>
           {item.offers.map((offer) => (
-            <div class=' col l3'>
-              <LessonTypeOffer offer={offer} key={offer.id} />
+            <div className='col l3' key={offer.id}>
+              <LessonTypeOffer offer={offer} />
             </div>
           ))}
         </div>
         <div className='lesson-type-actions'>
-          <a className='waves-effect waves-light red btn right'>Suspend</a>
+          <a href='#!' className='waves-effect waves-light red btn right'>
+            Suspend
+          </a>
           <a href='#lesson-type-modal' className='waves-effect waves-light blue btn right modal-trigger'>
             Change
           </a>

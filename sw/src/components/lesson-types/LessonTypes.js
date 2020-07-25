@@ -10,6 +10,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
   useEffect(() => {
     M.AutoInit();
     getLessonTypes();
+    //eslint-disable-next-line
   }, []);
   return (
     <div id='section-lesson-types' className='section'>
