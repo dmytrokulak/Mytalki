@@ -6,12 +6,46 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import { getCalendar, addSlotToCalendar, deleteSlotFromCalendar } from '../../actions/calendarActions';
 
 const daysVisible = 7;
+const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
 
 const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalendar, deleteSlotFromCalendar }) => {
   useEffect(() => {
     getCalendar();
     //eslint-disable-next-line
   }, []);
+
+  const selectSlotSprint = (e) => {
+    const hours = +e.target.dataset.hours;
+    const minutes = +e.target.dataset.minutes;
+    for (let i = 0; i < daysVisible; i++) {
+      let slotMoment = initMoment.clone();
+      slotMoment.add(i, 'd').hours(hours).minutes(minutes);
+      const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+      if (!slot) {
+        setTimeout(() => {
+          addSlotToCalendar({
+            start: slotMoment,
+            booked: false,
+          });
+        }, 1500);
+      }
+    }
+  };
+
+  const deSelectSlotSprint = (e) => {
+    const hours = +e.target.dataset.hours;
+    const minutes = +e.target.dataset.minutes;
+    for (let i = 0; i < daysVisible; i++) {
+      let slotMoment = initMoment.clone();
+      slotMoment.add(i, 'd').hours(hours).minutes(minutes);
+      const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+      if (slot && !slot.booked) {
+        setTimeout(() => {
+          deleteSlotFromCalendar(slot.id);
+        }, 1500);
+      }
+    }
+  };
 
   const toggleSlotAvailability = (e) => {
     if (e.target.dataset.available === 'true') {
@@ -65,7 +99,6 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
         <tbody>
           {(() => {
             const slotSprint = [];
-            const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
             for (let i = 0; i < 24 * 2; i++) {
               let timeMoment = initMoment.clone();
               timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
@@ -110,10 +143,24 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
                   })()}
                   <td className='action-cell'>
                     <span className='green-text'>
-                      <i className='small material-icons'>add</i>
+                      <i
+                        className='small material-icons'
+                        data-hours={timeMoment.hours()}
+                        data-minutes={timeMoment.minutes()}
+                        onClick={selectSlotSprint}
+                      >
+                        add
+                      </i>
                     </span>
                     <span className='red-text'>
-                      <i className='small material-icons'>remove</i>
+                      <i
+                        className='small material-icons'
+                        data-hours={timeMoment.hours()}
+                        data-minutes={timeMoment.minutes()}
+                        onClick={deSelectSlotSprint}
+                      >
+                        remove
+                      </i>
                     </span>
                   </td>
                 </tr>
