@@ -103,3 +103,12 @@ nav a {
 #section-calendar td {
   border: solid #adadad 1px;
 }
+
+#section-calendar .action-cell {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#section-calendar .action-cell i {
+  cursor: pointer;
+}

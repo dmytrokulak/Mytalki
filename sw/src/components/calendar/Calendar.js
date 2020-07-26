@@ -29,6 +29,14 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
               }
               return slots;
             })()}
+            <th class='center-align'>
+              <label>
+                <input type='checkbox' checked='checked' />
+                <span>
+                  <small> Recurrent</small>
+                </span>
+              </label>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +70,14 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
                     }
                     return slots;
                   })()}
+                  <td class='action-cell'>
+                    <span class='green-text'>
+                      <i className='small material-icons'>add</i>
+                    </span>
+                    <span class='red-text'>
+                      <i className='small material-icons'>remove</i>
+                    </span>
+                  </td>
                 </tr>
               );
             }
