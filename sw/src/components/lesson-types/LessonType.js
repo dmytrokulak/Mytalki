@@ -16,9 +16,11 @@ const LessonType = ({ item, setCurrent }) => {
           {item.title}
         </h5>
         <span>
-          <span className='badge' data-badge-caption='Total'>
-            {total}
-          </span>
+          {total > 0 && (
+            <span className='badge' data-badge-caption='Total'>
+              {total}
+            </span>
+          )}
           {active > 0 && (
             <span className='new badge' data-badge-caption='Active'>
               {active}

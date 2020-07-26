@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateLessonType, clearCurrent } from '../../actions/lessonTypeActions';
+import { addLessonType, updateLessonType, clearCurrent } from '../../actions/lessonTypeActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurrent }) => {
+const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLessonType, clearCurrent }) => {
   const offersDefault = [
     {
       time: 30,
-      price: 5.0,
+      price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
       time: 45,
-      price: 7.5,
+      price: 1.0,
       currency: 'USD',
       onsale: false,
     },
     {
       time: 60,
-      price: 10.0,
+      price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
       time: 90,
-      price: 15.0,
+      price: 1.0,
       currency: 'USD',
-      onsale: true,
+      onsale: false,
     },
   ];
   const [title, setTitle] = useState('');
@@ -49,17 +49,26 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurr
     } else if (!description) {
       M.toast({ html: 'Please enter description!' });
     } else {
-      updateLessonType({
-        id: current.id,
-        title,
-        description,
-        offers,
-      });
+      if (current) {
+        updateLessonType({
+          id: current.id,
+          title,
+          description,
+          offers,
+        });
+        M.toast({ html: 'Lesson type updated.' });
+        clearCurrent();
+      } else {
+        addLessonType({
+          title,
+          description,
+          offers,
+        });
+        M.toast({ html: 'Lesson type added.' });
+      }
 
       M.Modal.getInstance(document.getElementById('lesson-type-modal')).close();
-      M.toast({ html: 'Lesson type updated.' });
 
-      clearCurrent();
       setTitle('');
       setDescription('');
       setOffers(offersDefault);
@@ -74,6 +83,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurr
           type='text'
           className='validate'
           value={title}
+          placeholder='Please enter title...'
           onChange={(e) => setTitle(e.target.value)}
           required
         />
@@ -81,6 +91,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurr
           name='description'
           className='materialize-textarea validate'
           value={description}
+          placeholder='Please enter description...'
           onChange={(e) => setDescription(e.target.value)}
           required
         />
@@ -135,6 +146,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurr
 
 LessonTypeModal.propTypes = {
   lessonTypes: PropTypes.object.isRequired,
+  addLessonType: PropTypes.func.isRequired,
   updateLessonType: PropTypes.func.isRequired,
   clearCurrent: PropTypes.func.isRequired,
 };
@@ -143,4 +155,4 @@ const mapStateToProps = (state) => ({
   lessonTypes: state.lessonTypes,
 });
 
-export default connect(mapStateToProps, { updateLessonType, clearCurrent })(LessonTypeModal);
+export default connect(mapStateToProps, { addLessonType, updateLessonType, clearCurrent })(LessonTypeModal);
