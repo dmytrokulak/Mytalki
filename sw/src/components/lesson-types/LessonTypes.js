@@ -21,7 +21,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
       <div className='fixed-action-btn'>
         <a
           href='#lesson-type-modal'
-          className='btn-floating btn-large teal darken-1 tooltipped modal-trigger'
+          className='btn-floating btn-large teal tooltipped modal-trigger'
           data-position='left'
           data-tooltip='Add new lesson type'
         >

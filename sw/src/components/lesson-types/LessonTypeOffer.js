@@ -20,23 +20,39 @@ const LessonTypeOffer = ({ offer }) => {
                 {offer.price} {offer.currency}
               </td>
             </tr>
-            <tr className={offer.active > 0 ? 'teal white-text' : ''}>
+            <tr>
               <td>
-                <i className='material-icons'>priority_high</i>
+                {offer.active > 0 ? (
+                  <i className='teal-text material-icons'> priority_high </i>
+                ) : (
+                  <i className='material-icons'> exposure_zero </i>
+                )}
               </td>
               <td>{offer.active} Active</td>
             </tr>
             <tr>
               <td>
-                <i className='material-icons'>check_circle</i>
+                <i className='material-icons'>done_all</i>
               </td>
               <td>{offer.done} Done</td>
             </tr>
+            {offer.onsale ? (
+              <tr>
+                <td>
+                  <i className='green-text material-icons'>check_circle</i>
+                </td>
+                <td>On sale</td>
+              </tr>
+            ) : (
+              <tr>
+                <td>
+                  <i className='red-text material-icons'>cancel</i>
+                </td>
+                <td>Suspended</td>
+              </tr>
+            )}
           </tbody>
         </table>
-        <a href='#!' className={`waves-effect waves-light ${offer.onsale ? 'red' : 'green'}  btn`}>
-          {offer.onsale ? 'Suspend' : 'Restore'}
-        </a>
       </div>
     </div>
   );

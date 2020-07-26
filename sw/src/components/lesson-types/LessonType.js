@@ -44,7 +44,7 @@ const LessonType = ({ item, setCurrent }) => {
           <a
             href='#lesson-type-modal'
             onClick={() => setCurrent(item)}
-            className='waves-effect waves-light blue btn right modal-trigger'
+            className='waves-effect waves-light teal btn right modal-trigger'
           >
             Change
           </a>
