@@ -61,8 +61,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
           active: current.active,
           offers,
         });
-        M.toast({ html: 'Lesson type updated.' });
-        clearCurrent();
+        M.toast({ html: `Lesson type ${title} updated.` });
       } else {
         addLessonType({
           title,
@@ -70,15 +69,21 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
           active: true,
           offers,
         });
-        M.toast({ html: 'Lesson type added.' });
+        M.toast({ html: `Lesson type ${title} added.` });
       }
 
       M.Modal.getInstance(document.getElementById('lesson-type-modal')).close();
-
-      setTitle('');
-      setDescription('');
-      setOffers(offersDefault);
+      doCleanUp();
     }
+  };
+
+  const doCleanUp = () => {
+    if (current) {
+      clearCurrent();
+    }
+    setTitle('');
+    setDescription('');
+    setOffers(offersDefault);
   };
 
   return (
@@ -142,7 +147,10 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
       </div>
 
       <div className='modal-footer'>
-        <a href='#!' onClick={onSubmit} className='waves-effect waves-light teal btn'>
+        <a href='#!' onClick={doCleanUp} className='waves-effect waves-light grey lighten-3 btn-flat modal-close'>
+          Cancel
+        </a>
+        <a href='#!' onClick={onSubmit} className='waves-effect waves-light teal white-text btn-flat'>
           Save
         </a>
       </div>
