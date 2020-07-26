@@ -54,6 +54,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
           id: current.id,
           title,
           description,
+          active: current.active,
           offers,
         });
         M.toast({ html: 'Lesson type updated.' });
@@ -62,6 +63,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
         addLessonType({
           title,
           description,
+          active: true,
           offers,
         });
         M.toast({ html: 'Lesson type added.' });
@@ -76,7 +78,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
   };
 
   return (
-    <div onSubmit={onSubmit} id='lesson-type-modal' className='modal'>
+    <div id='lesson-type-modal' className='modal'>
       <div className='modal-content'>
         <input
           name='title'

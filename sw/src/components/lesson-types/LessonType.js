@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LessonTypeOffer from './LessonTypeOffer';
-import { setCurrent } from '../../actions/lessonTypeActions';
+import { setCurrent, updateLessonType, deleteLessonType } from '../../actions/lessonTypeActions';
 
-const LessonType = ({ item, setCurrent }) => {
+const LessonType = ({ item, setCurrent, updateLessonType, deleteLessonType }) => {
   let active = item.offers.map((o) => o.active).reduce((a, b) => a + b);
   let total = item.offers.map((o) => o.done).reduce((a, b) => a + b) + active;
+
+  const suspendLessonType = () => {
+    item.active = false;
+    updateLessonType(item);
+  };
+
+  const restoreLessonType = () => {
+    item.active = true;
+    updateLessonType(item);
+  };
 
   return (
     <li>
@@ -14,6 +24,11 @@ const LessonType = ({ item, setCurrent }) => {
         <h5>
           <i className='material-icons'>details</i>
           {item.title}
+          {!item.active && (
+            <span className='new badge red' data-badge-caption=''>
+              suspended
+            </span>
+          )}
         </h5>
         <span>
           {total > 0 && (
@@ -38,9 +53,24 @@ const LessonType = ({ item, setCurrent }) => {
           ))}
         </div>
         <div className='lesson-type-actions'>
-          <a href='#!' className='waves-effect waves-light red btn right'>
-            Suspend
-          </a>
+          {item.active ? (
+            <a href='#!' onClick={suspendLessonType} className='waves-effect waves-light red btn right'>
+              Suspend
+            </a>
+          ) : (
+            <Fragment>
+              <a
+                href='#confirm-delete-modal'
+                onClick={() => setCurrent(item)}
+                className='waves-effect waves-light red btn right modal-trigger'
+              >
+                Delete
+              </a>
+              <a href='#!' onClick={restoreLessonType} className='waves-effect waves-light green btn right'>
+                Restore
+              </a>
+            </Fragment>
+          )}
           <a
             href='#lesson-type-modal'
             onClick={() => setCurrent(item)}
@@ -58,6 +88,8 @@ const LessonType = ({ item, setCurrent }) => {
 LessonType.propTypes = {
   item: PropTypes.object.isRequired,
   setCurrent: PropTypes.func.isRequired,
+  updateLessonType: PropTypes.func.isRequired,
+  deleteLessonType: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setCurrent })(LessonType);
+export default connect(null, { setCurrent, updateLessonType, deleteLessonType })(LessonType);

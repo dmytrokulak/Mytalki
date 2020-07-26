@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import LessonType from './LessonType';
 import LessonTypeModal from './LessonTypeModal';
+import LessonTypeDeleteModal from './LessonTypeDeleteModal';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 import { getLessonTypes } from '../../actions/lessonTypeActions';
@@ -29,6 +30,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
         </a>
       </div>
       <LessonTypeModal />
+      <LessonTypeDeleteModal />
     </div>
   );
 };

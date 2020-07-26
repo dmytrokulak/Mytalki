@@ -4,6 +4,7 @@
       "id": 1,
       "title": "Chinese for beginners",
       "description": "Suitable for those just starting learning the language. Develops initial competences.",
+      "active": true,
       "offers": [
         {
           "id": 1,
@@ -47,6 +48,7 @@
       "id": 2,
       "title": "Structured converstational course",
       "description": "For advance learns to improve fluency and start speaking like a native.",
+      "active": true,
       "offers": [
         {
           "id": 1,
@@ -90,6 +92,7 @@
       "id": 3,
       "title": "Business Chinese",
       "description": "Helps develop essential vocabulary for business people.",
+      "active": true,
       "offers": [
         {
           "id": 1,
