@@ -18,17 +18,18 @@ export const getCalendar = () => async (dispatch) => {
 };
 
 //Add vacant slot to calendar
-export const addVacantSlotToCalendar = (slot) => async (dispatch) => {
+export const addSlotToCalendar = (item) => async (dispatch) => {
   try {
     const res = await fetch('/calendar-slots', {
       method: 'POST',
-      body: JSON.stringify(slot),
+      body: JSON.stringify(item),
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
     const data = await res.json();
+
     dispatch({
       type: ADD_VACANT_SLOT,
       payload: data,
@@ -42,7 +43,7 @@ export const addVacantSlotToCalendar = (slot) => async (dispatch) => {
 };
 
 //Delete vacant slot from calendar
-export const delteVacantSlotFromCalendar = (id) => async (dispatch) => {
+export const deleteSlotFromCalendar = (id) => async (dispatch) => {
   try {
     await fetch(`/calendar-slots/${id}`, {
       method: 'DELETE',

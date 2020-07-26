@@ -2,38 +2,61 @@ import React, { useEffect } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCalendar } from '../../actions/calendarActions';
+import M from 'materialize-css/dist/js/materialize.min.js';
+import { getCalendar, addSlotToCalendar, deleteSlotFromCalendar } from '../../actions/calendarActions';
 
 const daysVisible = 7;
 
-const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
+const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalendar, deleteSlotFromCalendar }) => {
   useEffect(() => {
     getCalendar();
     //eslint-disable-next-line
   }, []);
+
+  const toggleSlotAvailability = (e) => {
+    if (e.target.dataset.available === 'true') {
+      if (e.target.dataset.booked === 'true') {
+        M.toast({ html: `Cannot remove a booked slot.` });
+      } else {
+        deleteSlotFromCalendar(+e.target.dataset.slotId);
+      }
+    } else {
+      addSlotToCalendar({
+        start: e.target.dataset.datetime,
+        booked: false,
+      });
+    }
+  };
+
   return (
     <div id='section-calendar' className='section'>
       <h4 className='center-align'>Calendar</h4>
       <table>
         <thead>
           <tr>
-            <th class='center-align'>Time</th>
+            <th className='center-align'>Time</th>
             {(() => {
               const slots = [];
               for (let i = 0; i < daysVisible; i++) {
                 slots.push(
-                  <th key={i} class='center-align'>
+                  <th key={i} className='center-align'>
                     {moment.utc().add(i, 'd').format('ddd, DD MMM')}
                   </th>
                 );
               }
               return slots;
             })()}
-            <th class='center-align'>
+            <th className='center-align'>
               <label>
-                <input type='checkbox' checked='checked' />
+                <input
+                  onChange={() => {
+                    console.log('checkbox clicked');
+                  }}
+                  type='checkbox'
+                  checked='checked'
+                />
                 <span>
-                  <small> Recurrent</small>
+                  <small>Recurrent</small>
                 </span>
               </label>
             </th>
@@ -47,12 +70,11 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
               let timeMoment = initMoment.clone();
               timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
               slotSprint.push(
-                <tr key={timeMoment.minute()}>
-                  <td class='center-align'>{timeMoment.format('HH:mm')}</td>
+                <tr key={timeMoment.unix()}>
+                  <td className='center-align'>{timeMoment.format('HH:mm')}</td>
                   {(() => {
                     const slots = [];
                     for (let j = 0; j < daysVisible; j++) {
-                      let className = '';
                       if (collection) {
                         const slotMoment = initMoment
                           .clone()
@@ -60,21 +82,37 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
                           .add(timeMoment.hours(), 'h')
                           .add(timeMoment.minutes(), 'm');
                         const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
-                        if (slot && slot.booked) {
-                          className = 'booked';
-                        } else if (slot && !slot.booked) {
-                          className = 'vacant';
+                        let className = '';
+                        let isAvailable = false;
+                        let isBooked = false;
+                        let slotId = 0;
+                        if (slot) {
+                          isAvailable = true;
+                          isBooked = slot.booked;
+                          className = slot.booked ? 'booked' : 'vacant';
+                          slotId = slot.id;
                         }
+                        //td slot
+                        slots.push(
+                          <td
+                            onClick={toggleSlotAvailability}
+                            className={className}
+                            key={slotMoment.unix()}
+                            data-datetime={slotMoment.toISOString()}
+                            data-available={isAvailable}
+                            data-booked={isBooked}
+                            data-slot-id={slotId}
+                          ></td>
+                        );
                       }
-                      slots.push(<td className={className} key={(i + 1) * j}></td>);
                     }
                     return slots;
                   })()}
-                  <td class='action-cell'>
-                    <span class='green-text'>
+                  <td className='action-cell'>
+                    <span className='green-text'>
                       <i className='small material-icons'>add</i>
                     </span>
-                    <span class='red-text'>
+                    <span className='red-text'>
                       <i className='small material-icons'>remove</i>
                     </span>
                   </td>
@@ -92,9 +130,11 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
 Calendar.propTypes = {
   calendarSlots: PropTypes.object.isRequired,
   getCalendar: PropTypes.func.isRequired,
+  addSlotToCalendar: PropTypes.func.isRequired,
+  deleteSlotFromCalendar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   calendarSlots: state.calendarSlots,
 });
-export default connect(mapStateToProps, { getCalendar })(Calendar);
+export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, deleteSlotFromCalendar })(Calendar);
