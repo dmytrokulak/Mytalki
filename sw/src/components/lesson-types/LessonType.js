@@ -13,7 +13,7 @@ const LessonType = ({ item, setCurrent }) => {
       <div className='collapsible-header'>
         <h5>
           <i className='material-icons'>details</i>
-          {item.name}
+          {item.title}
         </h5>
         <span>
           <span className='badge' data-badge-caption='Total'>

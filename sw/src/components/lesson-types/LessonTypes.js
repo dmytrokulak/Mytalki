@@ -28,7 +28,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
           <i className='large material-icons'>add</i>
         </a>
       </div>
-      {/* <LessonTypeModal /> */}
+      <LessonTypeModal />
     </div>
   );
 };

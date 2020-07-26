@@ -2,13 +2,13 @@
   "lesson-types": [
     {
       "id": 1,
-      "name": "Chinese for beginners",
-      "description": "Suitable for those just starting learning the language.",
+      "title": "Chinese for beginners",
+      "description": "Suitable for those just starting learning the language. Develops initial competences.",
       "offers": [
         {
           "id": 1,
           "time": 30,
-          "price": 5.0,
+          "price": 5,
           "currency": "USD",
           "onsale": true,
           "active": 0,
@@ -26,7 +26,7 @@
         {
           "id": 3,
           "time": 60,
-          "price": 10.0,
+          "price": 10,
           "currency": "USD",
           "onsale": true,
           "active": 0,
@@ -45,13 +45,13 @@
     },
     {
       "id": 2,
-      "name": "Structured converstational course",
+      "title": "Structured converstational course",
       "description": "For advance learns to improve fluency and start speaking like a native.",
       "offers": [
         {
           "id": 1,
           "time": 30,
-          "price": 5.0,
+          "price": 5,
           "currency": "USD",
           "onsale": true,
           "active": 1,
@@ -69,7 +69,7 @@
         {
           "id": 3,
           "time": 60,
-          "price": 10.0,
+          "price": 10,
           "currency": "USD",
           "onsale": true,
           "active": 1,
@@ -88,13 +88,13 @@
     },
     {
       "id": 3,
-      "name": "Business Chinese",
+      "title": "Business Chinese",
       "description": "Helps develop essential vocabulary for business people.",
       "offers": [
         {
           "id": 1,
           "time": 30,
-          "price": 5.0,
+          "price": 5,
           "currency": "USD",
           "onsale": true,
           "active": 1,
@@ -112,7 +112,7 @@
         {
           "id": 3,
           "time": 60,
-          "price": 10.0,
+          "price": 10,
           "currency": "USD",
           "onsale": true,
           "active": 0,

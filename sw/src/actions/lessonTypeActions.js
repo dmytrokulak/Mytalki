@@ -32,7 +32,7 @@ export const addLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch(`/lesson-type`, {
+    const res = await fetch(`/lesson-types`, {
       method: 'POST',
       body: JSON.stringify(item),
       headers: {
@@ -59,7 +59,7 @@ export const deleteLessonType = (id) => async (dispatch) => {
   try {
     setLoading();
 
-    await fetch(`/lesson-type/${id}`, {
+    await fetch(`/lesson-types/${id}`, {
       method: 'DELETE',
     });
 
@@ -80,7 +80,7 @@ export const updateLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch(`/lesson-type/${item.id}`, {
+    const res = await fetch(`/lesson-types/${item.id}`, {
       method: 'PUT',
       body: JSON.stringify(item),
       headers: {
