@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateLessonType } from '../../actions/lessonTypeActions';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [offers, setOffers] = useState([
+  const offersDefault = [
     {
       time: 30,
       price: 5.0,
@@ -31,7 +30,10 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
       currency: 'USD',
       onsale: true,
     },
-  ]);
+  ];
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [offers, setOffers] = useState(offersDefault);
 
   useEffect(() => {
     if (current != null) {
@@ -42,29 +44,44 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
   }, [current]);
 
   const onSubmit = () => {
-    console.log({
-      id: current.id,
-      title,
-      description,
-      offers,
-    });
-    updateLessonType({
-      id: current.id,
-      title,
-      description,
-      offers,
-    });
+    if (!title) {
+      M.toast({ html: 'Please enter title!' });
+    } else if (!description) {
+      M.toast({ html: 'Please enter description!' });
+    } else {
+      updateLessonType({
+        id: current.id,
+        title,
+        description,
+        offers,
+      });
+
+      M.Modal.getInstance(document.getElementById('lesson-type-modal')).close();
+      M.toast({ html: 'Lesson type updated.' });
+
+      setTitle('');
+      setDescription('');
+      setOffers(offersDefault);
+    }
   };
 
   return (
     <div onSubmit={onSubmit} id='lesson-type-modal' className='modal'>
       <div className='modal-content'>
-        <input name='title' type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          name='title'
+          type='text'
+          className='validate'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
         <textarea
           name='description'
-          className='materialize-textarea'
+          className='materialize-textarea validate'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
         />
         <div className='row'>
           {offers.map((offer, index) => {
@@ -75,7 +92,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
                   value={offer.price}
                   id={`${offer.time}_min`}
                   type='number'
-                  min='0'
+                  min='1'
                   step='0.1'
                   className='validate'
                   onChange={(e) => {
@@ -93,7 +110,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
                       checked={offer.onsale}
                       value={offer.onsale}
                       onChange={(e) => {
-                        offers[index].onsale = e.target.value;
+                        offers[index].onsale = !(e.target.value === 'true');
                         setOffers([...offers]);
                       }}
                     />
@@ -107,7 +124,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
       </div>
 
       <div className='modal-footer'>
-        <a href='#!' onClick={onSubmit} className='modal-close waves-effect waves-light teal btn'>
+        <a href='#!' onClick={onSubmit} className='waves-effect waves-light teal btn'>
           Save
         </a>
       </div>
