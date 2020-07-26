@@ -1,85 +1,31 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCalendar } from '../../actions/calendarActions';
 
-const getWeekday = (index) => {
-  switch (index) {
-    case 0:
-      return 'Mon';
-    case 1:
-      return 'Tue';
-    case 2:
-      return 'Wed';
-    case 3:
-      return 'Thu';
-    case 4:
-      return 'Fri';
-    case 5:
-      return 'Sat';
-    case 6:
-      return 'Sun';
-    default:
-      return 'n/a';
-  }
-};
-
-const getMonthName = (index) => {
-  switch (index) {
-    case 0:
-      return 'Jan';
-    case 1:
-      return 'Feb';
-    case 2:
-      return 'Mar';
-    case 3:
-      return 'Apr';
-    case 4:
-      return 'May';
-    case 5:
-      return 'Jun';
-    case 6:
-      return 'Jul';
-    case 7:
-      return 'Aug';
-    case 8:
-      return 'Sep';
-    case 9:
-      return 'Oct';
-    case 10:
-      return 'Nov';
-    case 11:
-      return 'Dec';
-    default:
-      return 'n/a';
-  }
-};
-const dayVisible = 7;
-const today = new Date();
-
-const formatDate = (date) => {
-  return `${getWeekday(date.getDay())}, ${getMonthName(date.getMonth())} ${date.getDate()}`;
-};
+const daysVisible = 7;
 
 const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
   useEffect(() => {
     getCalendar();
     //eslint-disable-next-line
   }, []);
-
   return (
     <div id='section-calendar' className='section'>
       <h4 className='center-align'>Calendar</h4>
       <table>
         <thead>
           <tr>
-            <th>Time</th>
+            <th class='center-align'>Time</th>
             {(() => {
               const slots = [];
-              let nextDay = new Date();
-              for (let i = 0; i < dayVisible; i++) {
-                nextDay.setDate(today.getDate() + i);
-                slots.push(<th key={i}>{`${formatDate(nextDay)}`}</th>);
+              for (let i = 0; i < daysVisible; i++) {
+                slots.push(
+                  <th key={i} class='center-align'>
+                    {moment.utc().add(i, 'd').format('ddd, DD MMM')}
+                  </th>
+                );
               }
               return slots;
             })()}
@@ -88,30 +34,24 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
         <tbody>
           {(() => {
             const slotSprint = [];
-            let hours = '00';
-            let minutes = '00';
-            for (let i = 0; i < 48; i++) {
-              hours = (i < 20 ? '0' : '') + Math.floor(i / 2);
-              minutes = i % 2 === 0 ? '00' : '30';
+            const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
+            for (let i = 0; i < 24 * 2; i++) {
+              let timeMoment = initMoment.clone();
+              timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
               slotSprint.push(
-                <tr key={hours + minutes}>
-                  <td>{`${hours}:${minutes}`}</td>
+                <tr key={timeMoment.minute()}>
+                  <td class='center-align'>{timeMoment.format('HH:mm')}</td>
                   {(() => {
                     const slots = [];
-                    for (let j = 0; j < dayVisible; j++) {
+                    for (let j = 0; j < daysVisible; j++) {
                       let className = '';
                       if (collection) {
-                        let date = new Date();
-                        date.setDate(today.getDate() + j);
-                        date.setHours(+hours, +minutes, 0);
-                        const slot = collection.find((item) => {
-                          let stored = new Date(item.start);
-                          return (
-                            stored.getDate() === date.getDate() &&
-                            stored.getHours() === date.getHours() &&
-                            stored.getMinutes() == date.getMinutes()
-                          );
-                        });
+                        const slotMoment = initMoment
+                          .clone()
+                          .add(j, 'd')
+                          .add(timeMoment.hours(), 'h')
+                          .add(timeMoment.minutes(), 'm');
+                        const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
                         if (slot && slot.booked) {
                           className = 'booked';
                         } else if (slot && !slot.booked) {
