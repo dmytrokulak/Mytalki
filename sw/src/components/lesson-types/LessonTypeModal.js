@@ -7,24 +7,28 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLessonType, clearCurrent }) => {
   const offersDefault = [
     {
+      id: 1,
       time: 30,
       price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
+      id: 2,
       time: 45,
       price: 1.0,
       currency: 'USD',
       onsale: false,
     },
     {
+      id: 3,
       time: 60,
       price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
+      id: 4,
       time: 90,
       price: 1.0,
       currency: 'USD',

@@ -6,20 +6,20 @@ import { deleteLessonType, clearCurrent } from '../../actions/lessonTypeActions'
 
 function LessonTypeDeleteModal({ lessonTypes: { current }, deleteLessonType, clearCurrent }) {
   return (
-    <div id='confirm-delete-modal' class='modal'>
-      <div class='modal-content'>
+    <div id='confirm-delete-modal' className='modal'>
+      <div className='modal-content'>
         <h6>
           Are you sure you want to delete <strong> {current && current.title}</strong>?
         </h6>
         <span>This action cannot be undone.</span>
       </div>
-      <div class='modal-footer'>
+      <div className='modal-footer'>
         <a
           href='#!'
           onClick={() => {
             clearCurrent();
           }}
-          class='modal-close waves-effect waves-green green white-text btn-flat'
+          className='modal-close waves-effect waves-green green white-text btn-flat'
         >
           Cancel
         </a>
@@ -27,9 +27,10 @@ function LessonTypeDeleteModal({ lessonTypes: { current }, deleteLessonType, cle
           href='#!'
           onClick={() => {
             deleteLessonType(current.id);
+            M.toast({ html: `Lesson type ${current.title} deleted.` });
             clearCurrent();
           }}
-          class='modal-close waves-effect waves-green red white-text btn-flat'
+          className='modal-close waves-effect waves-green red white-text btn-flat'
         >
           Confirm
         </a>

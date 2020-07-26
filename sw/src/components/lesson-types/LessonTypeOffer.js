@@ -23,18 +23,18 @@ const LessonTypeOffer = ({ offer }) => {
             <tr>
               <td>
                 {offer.active > 0 ? (
-                  <i className='teal-text material-icons'> priority_high </i>
+                  <i className='red-text material-icons'> priority_high </i>
                 ) : (
                   <i className='material-icons'> exposure_zero </i>
                 )}
               </td>
-              <td>{offer.active} Active</td>
+              <td>{offer.active ?? 'No'} Active</td>
             </tr>
             <tr>
               <td>
-                <i className='material-icons'>done_all</i>
+                <i className='material-icons'> {offer.done > 0 ? 'done_all' : 'exposure_zero'} </i>
               </td>
-              <td>{offer.done} Done</td>
+              <td>{offer.done ?? 'No'} Done</td>
             </tr>
             {offer.onsale ? (
               <tr>
