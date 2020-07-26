@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateLessonType } from '../../actions/lessonTypeActions';
+import { updateLessonType, clearCurrent } from '../../actions/lessonTypeActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
+const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType, clearCurrent }) => {
   const offersDefault = [
     {
       time: 30,
@@ -59,6 +59,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
       M.Modal.getInstance(document.getElementById('lesson-type-modal')).close();
       M.toast({ html: 'Lesson type updated.' });
 
+      clearCurrent();
       setTitle('');
       setDescription('');
       setOffers(offersDefault);
@@ -135,10 +136,11 @@ const LessonTypeModal = ({ lessonTypes: { current }, updateLessonType }) => {
 LessonTypeModal.propTypes = {
   lessonTypes: PropTypes.object.isRequired,
   updateLessonType: PropTypes.func.isRequired,
+  clearCurrent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   lessonTypes: state.lessonTypes,
 });
 
-export default connect(mapStateToProps, { updateLessonType })(LessonTypeModal);
+export default connect(mapStateToProps, { updateLessonType, clearCurrent })(LessonTypeModal);
