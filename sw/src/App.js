@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import AppNavbar from './components/layout/AppNavbar';
 import LessonTypes from './components/lesson-types/LessonTypes';
+import Calendar from './components/calendar/Calendar';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -22,9 +23,10 @@ const App = () => {
             <div className='container'>
               <Switch>
                 <Route exact path='/'>
-                  <Redirect to='/lesson-types' />
+                  <Redirect to='/calendar' />
                 </Route>
                 <Route exact path='/lesson-types' component={LessonTypes} />
+                <Route exact path='/calendar' component={Calendar} />
               </Switch>
             </div>
           </main>
