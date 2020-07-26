@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCalendar } from '../../actions/calendarActions';
 
 const getWeekday = (index) => {
   switch (index) {
@@ -51,12 +54,19 @@ const getMonthName = (index) => {
       return 'n/a';
   }
 };
+const dayVisible = 7;
+const today = new Date();
 
 const formatDate = (date) => {
   return `${getWeekday(date.getDay())}, ${getMonthName(date.getMonth())} ${date.getDate()}`;
 };
-const dayVisible = 7;
-const Calendar = () => {
+
+const Calendar = ({ calendarSlots: { collection }, getCalendar }) => {
+  useEffect(() => {
+    getCalendar();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <div id='section-calendar' className='section'>
       <h4 className='center-align'>Calendar</h4>
@@ -66,11 +76,10 @@ const Calendar = () => {
             <th>Time</th>
             {(() => {
               const slots = [];
-              const today = new Date();
               let nextDay = new Date();
               for (let i = 0; i < dayVisible; i++) {
                 nextDay.setDate(today.getDate() + i);
-                slots.push(<th>{`${formatDate(nextDay)}`}</th>);
+                slots.push(<th key={i}>{`${formatDate(nextDay)}`}</th>);
               }
               return slots;
             })()}
@@ -85,12 +94,31 @@ const Calendar = () => {
               hours = (i < 20 ? '0' : '') + Math.floor(i / 2);
               minutes = i % 2 === 0 ? '00' : '30';
               slotSprint.push(
-                <tr>
+                <tr key={hours + minutes}>
                   <td>{`${hours}:${minutes}`}</td>
                   {(() => {
                     const slots = [];
-                    for (let i = 0; i < dayVisible; i++) {
-                      slots.push(<td></td>);
+                    for (let j = 0; j < dayVisible; j++) {
+                      let className = '';
+                      if (collection) {
+                        let date = new Date();
+                        date.setDate(today.getDate() + j);
+                        date.setHours(+hours, +minutes, 0);
+                        const slot = collection.find((item) => {
+                          let stored = new Date(item.start);
+                          return (
+                            stored.getDate() === date.getDate() &&
+                            stored.getHours() === date.getHours() &&
+                            stored.getMinutes() == date.getMinutes()
+                          );
+                        });
+                        if (slot && slot.booked) {
+                          className = 'booked';
+                        } else if (slot && !slot.booked) {
+                          className = 'vacant';
+                        }
+                      }
+                      slots.push(<td className={className} key={(i + 1) * j}></td>);
                     }
                     return slots;
                   })()}
@@ -105,4 +133,12 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+Calendar.propTypes = {
+  calendarSlots: PropTypes.object.isRequired,
+  getCalendar: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  calendarSlots: state.calendarSlots,
+});
+export default connect(mapStateToProps, { getCalendar })(Calendar);
