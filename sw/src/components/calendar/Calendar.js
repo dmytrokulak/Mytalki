@@ -25,7 +25,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
         setTimeout(() => {
           addSlotToCalendar({
             start: slotMoment,
-            booked: false,
+            status: 'vacant',
           });
         }, 1500);
       }
@@ -57,7 +57,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
     } else {
       addSlotToCalendar({
         start: e.target.dataset.datetime,
-        booked: false,
+        status: 'vacant',
       });
     }
   };
@@ -115,14 +115,14 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
                           .add(timeMoment.hours(), 'h')
                           .add(timeMoment.minutes(), 'm');
                         const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
-                        let className = '';
+                        let className = 'blocked';
                         let isAvailable = false;
                         let isBooked = false;
                         let slotId = 0;
                         if (slot) {
                           isAvailable = true;
-                          isBooked = slot.booked;
-                          className = slot.booked ? 'booked' : 'vacant';
+                          isBooked = slot.status !== 'vacant';
+                          className = slot.status;
                           slotId = slot.id;
                         }
                         //td slot

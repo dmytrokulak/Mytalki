@@ -82,26 +82,33 @@ nav a {
 
 /* Calendar */
 
+#section-calendar td {
+  border: solid #adadad 1px;
+  padding: 0;
+}
+
+.blocked {
+  background: repeating-linear-gradient(45deg, transparent, transparent 1px, #000 1px, #fff 2px);
+}
 .vacant {
-  background: #afffaf;
+  background: #fafafa;
 }
 
 .booked {
-  background: #ffafaf;
+  background: #afffaf;
 }
-/* 
-.booked-first-half {
-  background: #ff6262;
-  background: linear-gradient(180deg, #ff6262 50%, #fff 50%);
-} */
 
-.requested {
+.book-request {
+  background-color: #ffff9a;
+}
+
+.cancel-request {
   background-color: #ffafaf;
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, #afffaf 0, #fff 3px);
 }
 
-#section-calendar td {
-  border: solid #adadad 1px;
+.reschedule-request {
+  /* background-color: #afffaf; */
+  background-image: repeating-linear-gradient(135deg, transparent, transparent 1px, transparent 0px, #ffff00 6px);
 }
 
 #section-calendar .action-cell {
