@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -88,6 +88,91 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
     }
   };
 
+  const drawCalendarHeader = () =>
+    daysOnDisplay.map((day, index) => (
+      <th key={index} className='center-align'>
+        {day.format('ddd, DD MMM')}
+      </th>
+    ));
+
+  const drawCalendarBody = () => {
+    const slotSprint = [];
+    for (let i = 0; i < 24 * 2; i++) {
+      let timeMoment = weekStartMoment.clone();
+      timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
+      slotSprint.push(
+        <tr key={timeMoment.unix()}>
+          <td className='center-align'>{timeMoment.format('HH:mm')}</td>
+          {(() => {
+            const slots = [];
+            for (let j = 0; j < daysVisible; j++) {
+              if (collection) {
+                const slotMoment = weekStartMoment
+                  .clone()
+                  .add(j, 'd')
+                  .add(timeMoment.hours(), 'h')
+                  .add(timeMoment.minutes(), 'm');
+                const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+                let className = 'blocked';
+                let isAvailable = false;
+                let isBooked = false;
+                let slotId = 0;
+                if (slot) {
+                  isAvailable = true;
+                  isBooked = slot.status !== 'vacant';
+                  className = slot.status;
+                  slotId = slot.id;
+                }
+                //td slot
+                slots.push(
+                  <td
+                    onClick={toggleSlotAvailability}
+                    className={className}
+                    key={slotMoment.unix()}
+                    data-datetime={slotMoment.toISOString()}
+                    data-available={isAvailable}
+                    data-booked={isBooked}
+                    data-slot-id={slotId}
+                  ></td>
+                );
+              }
+            }
+            return slots;
+          })()}
+          {drawSprintButtons(timeMoment)}
+        </tr>
+      );
+    }
+    return slotSprint;
+  };
+
+  const drawSprintButtons = (timeMoment) => (
+    <Fragment>
+      <td className='action-cell'>
+        <span className='green-text'>
+          <i
+            className='small material-icons'
+            data-hours={timeMoment.hours()}
+            data-minutes={timeMoment.minutes()}
+            onClick={selectSlotSprint}
+          >
+            add
+          </i>
+        </span>
+        <span className='red-text'>
+          <i
+            className='small material-icons'
+            data-hours={timeMoment.hours()}
+            data-minutes={timeMoment.minutes()}
+            onClick={deSelectSlotSprint}
+          >
+            remove
+          </i>
+        </span>
+      </td>
+    </Fragment>
+  );
+
   return (
     <div id='section-calendar' className='section'>
       <h4 className='center-align'>Calendar</h4>
@@ -101,89 +186,13 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
                 </i>
               )}
             </th>
-            {daysOnDisplay.map((day, index) => (
-              <th key={index} className='center-align'>
-                {day.format('ddd, DD MMM')}
-              </th>
-            ))}
+            {drawCalendarHeader()}
             <th onClick={nextPage} className='center-align btn-paging'>
               <i className='small material-icons'>arrow_forward</i>
             </th>
           </tr>
         </thead>
-        <tbody>
-          {(() => {
-            const slotSprint = [];
-            for (let i = 0; i < 24 * 2; i++) {
-              let timeMoment = weekStartMoment.clone();
-              timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
-              slotSprint.push(
-                <tr key={timeMoment.unix()}>
-                  <td className='center-align'>{timeMoment.format('HH:mm')}</td>
-                  {(() => {
-                    const slots = [];
-                    for (let j = 0; j < daysVisible; j++) {
-                      if (collection) {
-                        const slotMoment = weekStartMoment
-                          .clone()
-                          .add(j, 'd')
-                          .add(timeMoment.hours(), 'h')
-                          .add(timeMoment.minutes(), 'm');
-                        const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
-                        let className = 'blocked';
-                        let isAvailable = false;
-                        let isBooked = false;
-                        let slotId = 0;
-                        if (slot) {
-                          isAvailable = true;
-                          isBooked = slot.status !== 'vacant';
-                          className = slot.status;
-                          slotId = slot.id;
-                        }
-                        //td slot
-                        slots.push(
-                          <td
-                            onClick={toggleSlotAvailability}
-                            className={className}
-                            key={slotMoment.unix()}
-                            data-datetime={slotMoment.toISOString()}
-                            data-available={isAvailable}
-                            data-booked={isBooked}
-                            data-slot-id={slotId}
-                          ></td>
-                        );
-                      }
-                    }
-                    return slots;
-                  })()}
-                  <td className='action-cell'>
-                    <span className='green-text'>
-                      <i
-                        className='small material-icons'
-                        data-hours={timeMoment.hours()}
-                        data-minutes={timeMoment.minutes()}
-                        onClick={selectSlotSprint}
-                      >
-                        add
-                      </i>
-                    </span>
-                    <span className='red-text'>
-                      <i
-                        className='small material-icons'
-                        data-hours={timeMoment.hours()}
-                        data-minutes={timeMoment.minutes()}
-                        onClick={deSelectSlotSprint}
-                      >
-                        remove
-                      </i>
-                    </span>
-                  </td>
-                </tr>
-              );
-            }
-            return slotSprint;
-          })()}
-        </tbody>
+        <tbody>{drawCalendarBody()}</tbody>
       </table>
       <div className='fixed-action-btn'>
         <a
