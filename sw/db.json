@@ -188,6 +188,7 @@
   "saved-calendars": [
     {
       "id": 1,
+      "title": "My schedule",
       "days": [
         {
           "day": "mon",
