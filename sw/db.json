@@ -185,7 +185,7 @@
       "status": "reschedule-request"
     }
   ],
-  "saved-calendars": [
+  "schedules": [
     {
       "id": 1,
       "title": "My schedule",
