@@ -129,3 +129,7 @@ nav a {
   font-weight: bold;
   cursor: pointer;
 }
+
+#section-calendar .modal {
+  max-width: 30rem;
+}

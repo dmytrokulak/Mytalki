@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { getCalendar, addSlotToCalendar, deleteSlotFromCalendar } from '../../actions/calendarActions';
+import CalendarSaveModal from './CalendarSaveModal';
+import CalendarLoadModal from './CalendarLoadModal';
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
@@ -35,6 +37,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
   };
 
   useEffect(() => {
+    M.AutoInit();
     getCalendar();
     getDaysOnDisplay();
     //eslint-disable-next-line
@@ -196,7 +199,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
       </table>
       <div className='fixed-action-btn'>
         <a
-          href='#calendar-schedule-save'
+          href='#save-calendar-modal'
           className='btn-floating btn-large teal tooltipped modal-trigger'
           data-position='left'
           data-tooltip='Save current calendar schedule'
@@ -206,7 +209,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
         <ul>
           <li>
             <a
-              href='#calendar-schedule-load'
+              href='#load-calendar-modal'
               className='btn-floating green tooltipped modal-trigger'
               data-position='left'
               data-tooltip='Load a calendar schedule'
@@ -216,6 +219,8 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
           </li>
         </ul>
       </div>
+      <CalendarSaveModal />
+      <CalendarLoadModal />
     </div>
   );
 };
