@@ -87,6 +87,11 @@ nav a {
   padding: 0;
 }
 
+#section-calendar td:not(:first-child):not(:last-child):hover {
+  cursor: pointer;
+  border: solid #6262ff 3px;
+}
+
 .blocked {
   background: repeating-linear-gradient(45deg, transparent, transparent 1px, #000 1px, #fff 2px);
 }
@@ -117,5 +122,10 @@ nav a {
 }
 
 #section-calendar .action-cell i {
+  cursor: pointer;
+}
+
+#section-calendar .btn-paging i {
+  font-weight: bold;
   cursor: pointer;
 }

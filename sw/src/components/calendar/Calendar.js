@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,10 +7,36 @@ import { getCalendar, addSlotToCalendar, deleteSlotFromCalendar } from '../../ac
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
+let page = 0;
 
 const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalendar, deleteSlotFromCalendar }) => {
+  const [daysOnDisplay, setDaysOnDisplay] = useState([]);
+  const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
+
+  const nextPage = () => {
+    page += 1;
+    getDaysOnDisplay();
+  };
+
+  const previousPage = () => {
+    if (page > 0) {
+      page -= 1;
+    }
+    getDaysOnDisplay();
+  };
+
+  const getDaysOnDisplay = () => {
+    let days = [];
+    for (let i = 0; i < daysVisible; i++) {
+      days.push(initMoment.clone().add(i + daysVisible * page, 'd'));
+    }
+    setDaysOnDisplay(days);
+    setWeekStartMoment(initMoment.clone().add(daysVisible * page, 'd'));
+  };
+
   useEffect(() => {
     getCalendar();
+    getDaysOnDisplay();
     //eslint-disable-next-line
   }, []);
 
@@ -18,7 +44,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
     const hours = +e.target.dataset.hours;
     const minutes = +e.target.dataset.minutes;
     for (let i = 0; i < daysVisible; i++) {
-      let slotMoment = initMoment.clone();
+      let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
       const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
       if (!slot) {
@@ -36,7 +62,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
     const hours = +e.target.dataset.hours;
     const minutes = +e.target.dataset.minutes;
     for (let i = 0; i < daysVisible; i++) {
-      let slotMoment = initMoment.clone();
+      let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
       const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
       if (slot && !slot.booked) {
@@ -68,31 +94,20 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
       <table>
         <thead>
           <tr>
-            <th className='center-align'>Time</th>
-            {(() => {
-              const slots = [];
-              for (let i = 0; i < daysVisible; i++) {
-                slots.push(
-                  <th key={i} className='center-align'>
-                    {moment.utc().add(i, 'd').format('ddd, DD MMM')}
-                  </th>
-                );
-              }
-              return slots;
-            })()}
-            <th className='center-align'>
-              <label>
-                <input
-                  onChange={() => {
-                    console.log('checkbox clicked');
-                  }}
-                  type='checkbox'
-                  checked='checked'
-                />
-                <span>
-                  <small>Recurrent</small>
-                </span>
-              </label>
+            <th className='center-align btn-paging'>
+              {page > 0 && (
+                <i onClick={previousPage} className='small material-icons'>
+                  arrow_back
+                </i>
+              )}
+            </th>
+            {daysOnDisplay.map((day, index) => (
+              <th key={index} className='center-align'>
+                {day.format('ddd, DD MMM')}
+              </th>
+            ))}
+            <th onClick={nextPage} className='center-align btn-paging'>
+              <i className='small material-icons'>arrow_forward</i>
             </th>
           </tr>
         </thead>
@@ -100,7 +115,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
           {(() => {
             const slotSprint = [];
             for (let i = 0; i < 24 * 2; i++) {
-              let timeMoment = initMoment.clone();
+              let timeMoment = weekStartMoment.clone();
               timeMoment.add(Math.floor(i / 2), 'h').add((i % 2) * 30, 'm');
               slotSprint.push(
                 <tr key={timeMoment.unix()}>
@@ -109,7 +124,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
                     const slots = [];
                     for (let j = 0; j < daysVisible; j++) {
                       if (collection) {
-                        const slotMoment = initMoment
+                        const slotMoment = weekStartMoment
                           .clone()
                           .add(j, 'd')
                           .add(timeMoment.hours(), 'h')
@@ -170,6 +185,28 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
           })()}
         </tbody>
       </table>
+      <div className='fixed-action-btn'>
+        <a
+          href='#calendar-schedule-save'
+          className='btn-floating btn-large teal tooltipped modal-trigger'
+          data-position='left'
+          data-tooltip='Save current calendar schedule'
+        >
+          <i className='large material-icons'>save</i>
+        </a>
+        <ul>
+          <li>
+            <a
+              href='#calendar-schedule-load'
+              className='btn-floating green tooltipped modal-trigger'
+              data-position='left'
+              data-tooltip='Load a calendar schedule'
+            >
+              <i className='material-icons'>folder_open</i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
