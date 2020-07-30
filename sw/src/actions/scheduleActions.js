@@ -1,7 +1,7 @@
 import { GET_SCHEDULES, SCHEDULE_ERROR, ADD_SCHEDULE, DELETE_SCHEDULE } from './types';
 
 //Get schedules from server
-const getSavedSchedules = () => async (dispatch) => {
+export const getSavedSchedules = () => async (dispatch) => {
   try {
     const res = await fetch('/schedules');
     const data = await res.json();
@@ -18,7 +18,7 @@ const getSavedSchedules = () => async (dispatch) => {
 };
 
 //Save schedule to server
-const saveSchedule = (item) => async (dispatch) => {
+export const saveSchedule = (item) => async (dispatch) => {
   try {
     const res = await fetch('/schedules', {
       method: 'POST',
@@ -41,7 +41,7 @@ const saveSchedule = (item) => async (dispatch) => {
 };
 
 //Delete schedule from server
-const deleteSchedule = (id) => async (dispatch) => {
+export const deleteSchedule = (id) => async (dispatch) => {
   try {
     await fetch(`/schedules/${id}`, {
       method: 'DELETE',

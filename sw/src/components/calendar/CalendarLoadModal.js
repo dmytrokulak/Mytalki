@@ -1,36 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getSavedSchedules } from '../../actions/scheduleActions';
 
-const CalendarLoadModal = () => {
+const CalendarLoadModal = ({ savedSchedules: { collection }, getSavedSchedules }) => {
+  useEffect(() => {
+    getSavedSchedules();
+    //eslint-disable-next-line
+  }, []);
+
+  const getHoursPerDay = (day) => day.day[0].toUpperCase() + day.day.slice(1) + ' ' + day.times.length * 2 + 'h. ';
   return (
     <div id='load-calendar-modal' className='modal'>
       <div className='modal-content'>
         <h6>Apply a schedule from the list</h6>
-        <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>
-          Drop Me!
-        </a>
-
-        <ul id='dropdown1' className='dropdown-content'>
-          <li>
-            <a href='#!'>one</a>
-          </li>
-          <li>
-            <a href='#!'>two</a>
-          </li>
-          <li className='divider' tabindex='-1'></li>
-          <li>
-            <a href='#!'>three</a>
-          </li>
-          <li>
-            <a href='#!'>
-              <i className='material-icons'>view_module</i>four
-            </a>
-          </li>
-          <li>
-            <a href='#!'>
-              <i className='material-icons'>cloud</i>five
-            </a>
-          </li>
-        </ul>
+        <div className='collection'>
+          {collection &&
+            collection.map((item) => (
+              <a href='#!' className='collection-item'>
+                {item.title}
+                <br />
+                {item.days.map((d) => getHoursPerDay(d))}
+              </a>
+            ))}
+        </div>
       </div>
       <div className='modal-footer'>
         <a
@@ -57,4 +50,12 @@ const CalendarLoadModal = () => {
   );
 };
 
-export default CalendarLoadModal;
+CalendarLoadModal.propTypes = {
+  getSavedSchedules: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  savedSchedules: state.savedSchedules,
+});
+
+export default connect(mapStateToProps, { getSavedSchedules })(CalendarLoadModal);

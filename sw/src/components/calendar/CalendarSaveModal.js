@@ -5,9 +5,9 @@ const CalendarSaveModal = () => {
     <div id='save-calendar-modal' className='modal'>
       <div className='modal-content'>
         <h6>Save current schedule as</h6>
-        <div class='input-field'>
-          <input placeholder='Placeholder' id='schedule_name' type='text' class='validate' />
-          <label for='schedule_name'>Schedule name</label>
+        <div className='input-field'>
+          <input placeholder='Placeholder' id='schedule_name' type='text' className='validate' />
+          <label htmlFor='schedule_name'>Schedule name</label>
         </div>
       </div>
       <div className='modal-footer'>
