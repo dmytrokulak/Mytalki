@@ -521,6 +521,10 @@
   "account": {
     "email": "mail@dmytrokulak.net",
     "timeZone": "EEST",
-    "vactionMode": false
+    "vactionMode": false,
+    "communication": {
+      "skype": "dmitriykulak",
+      "facetime": null
+    }
   }
 }
