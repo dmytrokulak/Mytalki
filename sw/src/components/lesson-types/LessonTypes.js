@@ -6,6 +6,7 @@ import LessonTypeDeleteModal from './LessonTypeDeleteModal';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 import { getLessonTypes } from '../../actions/lessonTypeActions';
+import Preloader from '../layout/Preloader';
 
 const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) => {
   useEffect(() => {
@@ -16,9 +17,13 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
   return (
     <div id='section-lesson-types' className='section'>
       <h4 className='center-align'>Lesson Types</h4>
-      <ul className='collapsible popout'>
-        {!loading && collection && collection.map((item) => <LessonType item={item} key={item.id} />)}
-      </ul>
+      {loading || collection === null || collection.lenght === 0 ? (
+        <Preloader />
+      ) : (
+        <ul className='collapsible popout'>
+          {collection && collection.map((item) => <LessonType item={item} key={item.id} />)}
+        </ul>
+      )}
       <div className='fixed-action-btn'>
         <a
           href='#lesson-type-modal'

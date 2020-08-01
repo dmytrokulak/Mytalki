@@ -11,13 +11,14 @@ import {
 } from '../../actions/calendarActions';
 import CalendarSaveModal from './CalendarSaveModal';
 import CalendarLoadModal from './CalendarLoadModal';
+import Preloader from '../layout/Preloader';
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
 let page = 0;
 
 const Calendar = ({
-  calendarSlots: { collection, daysOnDisplay },
+  calendarSlots: { collection, daysOnDisplay, loading },
   getCalendar,
   addSlotToCalendar,
   deleteSlotFromCalendar,
@@ -190,24 +191,29 @@ const Calendar = ({
   return (
     <div id='section-calendar' className='section'>
       <h4 className='center-align'>Calendar</h4>
-      <table>
-        <thead>
-          <tr>
-            <th className='center-align btn-paging'>
-              {page > 0 && (
-                <i onClick={previousPage} className='small material-icons'>
-                  arrow_back
-                </i>
-              )}
-            </th>
-            {drawCalendarHeader()}
-            <th onClick={nextPage} className='center-align btn-paging'>
-              <i className='small material-icons'>arrow_forward</i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>{drawCalendarBody()}</tbody>
-      </table>
+      {loading || collection === null || collection.lenght === 0 ? (
+        <Preloader />
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th className='center-align btn-paging'>
+                {page > 0 && (
+                  <i onClick={previousPage} className='small material-icons'>
+                    arrow_back
+                  </i>
+                )}
+              </th>
+              {drawCalendarHeader()}
+              <th onClick={nextPage} className='center-align btn-paging'>
+                <i className='small material-icons'>arrow_forward</i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>{drawCalendarBody()}</tbody>
+        </table>
+      )}
+
       <div className='fixed-action-btn'>
         <a
           href='#save-calendar-modal'
