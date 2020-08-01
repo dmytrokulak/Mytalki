@@ -22,7 +22,8 @@ nav a {
   padding-bottom: 4rem;
 }
 
-/* Lesson Types */
+/*********************************** LESSON TYPES ***********************************/
+
 #section-lesson-types .collapsible-header {
   display: flex;
   justify-content: space-between;
@@ -80,7 +81,17 @@ nav a {
   margin: -0.5rem 0.5rem;
 }
 
-/* Calendar */
+/*********************************** CALENDAR ***********************************/
+
+#section-calendar table {
+  position: relative;
+}
+
+#section-calendar th {
+  position: sticky;
+  top: 4rem;
+  background: #fcfcfc;
+}
 
 #section-calendar td {
   border: solid #adadad 1px;
@@ -133,6 +144,8 @@ nav a {
 #section-calendar .modal {
   max-width: 35rem;
 }
+
+/*********************************** STUDENTS ***********************************/
 
 #section-students .collection-item {
   display: flex;
