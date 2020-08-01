@@ -7,7 +7,7 @@ import moment from 'moment';
 export const applySchedule = (schedule, daysOnDisplay) => async (dispatch) => {
   try {
     //ToDo:: this all should be on back end
-    daysOnDisplay.sort((a, b) => a.weekday() - b.weekday());
+    //daysOnDisplay.sort((a, b) => a.weekday() - b.weekday());
 
     for (let i = 0; i < 7; i++) {
       let slots = schedule.days[i].slots;
