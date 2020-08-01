@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import AppNavbar from './components/layout/AppNavbar';
 import LessonTypes from './components/lesson-types/LessonTypes';
 import Calendar from './components/calendar/Calendar';
+import Students from './components/students/Students';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -27,6 +28,7 @@ const App = () => {
                 </Route>
                 <Route exact path='/lesson-types' component={LessonTypes} />
                 <Route exact path='/calendar' component={Calendar} />
+                <Route exact path='/students' component={Students} />
               </Switch>
             </div>
           </main>

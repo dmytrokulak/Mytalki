@@ -133,3 +133,19 @@ nav a {
 #section-calendar .modal {
   max-width: 35rem;
 }
+
+#section-students .collection-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+#section-students .collection-item .bio-info {
+  display: flex;
+  align-items: center;
+}
+#section-students .collection-item .lessons-info *,
+#section-students .collection-item .bio-info * {
+  margin: 0 0.5rem;
+}
