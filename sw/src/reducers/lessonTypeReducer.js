@@ -1,6 +1,6 @@
 import {
-  SET_CURRENT,
-  CLEAR_CURRENT,
+  SET_CURRENT_LESSON_TYPE,
+  CLEAR_CURRENT_LESSON_TYPE,
   SET_LOADING,
   GET_LESSON_TYPES,
   ADD_LESSON_TYPE,
@@ -42,12 +42,12 @@ export default (state = initialState, action) => {
         collection: state.collection.filter((item) => item.id !== action.payload),
         loading: false,
       };
-    case SET_CURRENT:
+    case SET_CURRENT_LESSON_TYPE:
       return {
         ...state,
         current: action.payload,
       };
-    case CLEAR_CURRENT:
+    case CLEAR_CURRENT_LESSON_TYPE:
       return {
         ...state,
         current: null,

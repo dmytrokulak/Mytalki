@@ -1,6 +1,6 @@
 import {
-  SET_CURRENT,
-  CLEAR_CURRENT,
+  SET_CURRENT_LESSON_TYPE,
+  CLEAR_CURRENT_LESSON_TYPE,
   SET_LOADING,
   GET_LESSON_TYPES,
   ADD_LESSON_TYPE,
@@ -105,7 +105,7 @@ export const updateLessonType = (item) => async (dispatch) => {
 //Set current lesson type
 export const setCurrent = (item) => {
   return {
-    type: SET_CURRENT,
+    type: SET_CURRENT_LESSON_TYPE,
     payload: item,
   };
 };
@@ -113,7 +113,7 @@ export const setCurrent = (item) => {
 //Clear current lesson type
 export const clearCurrent = () => {
   return {
-    type: CLEAR_CURRENT,
+    type: CLEAR_CURRENT_LESSON_TYPE,
   };
 };
 

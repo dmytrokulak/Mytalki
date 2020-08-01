@@ -1,12 +1,4 @@
-import {
-  GET_CALENDAR,
-  ADD_VACANT_SLOT,
-  DELETE_VACANT_SLOT,
-  SET_CURRENT,
-  CLEAR_CURRENT,
-  SET_LOADING,
-  CALENDAR_ERROR,
-} from '../actions/types';
+import { GET_CALENDAR, ADD_VACANT_SLOT, DELETE_VACANT_SLOT, SET_LOADING, CALENDAR_ERROR } from '../actions/types';
 
 const initialState = {
   collection: null,
@@ -35,16 +27,6 @@ export default (state = initialState, action) => {
         ...state,
         collection: state.collection.filter((item) => item.id !== action.payload),
         loading: false,
-      };
-    case SET_CURRENT:
-      return {
-        ...state,
-        current: action.payload,
-      };
-    case CLEAR_CURRENT:
-      return {
-        ...state,
-        current: null,
       };
     case SET_LOADING:
       return {
