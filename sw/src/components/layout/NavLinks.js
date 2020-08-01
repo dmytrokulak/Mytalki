@@ -5,6 +5,11 @@ const NavLinks = () => {
   return (
     <Fragment>
       <li>
+        <Link className='teal-text' to='/lessons'>
+          Lessons
+        </Link>
+      </li>
+      <li>
         <Link className='teal-text' to='/calendar'>
           Calendar
         </Link>
@@ -17,6 +22,11 @@ const NavLinks = () => {
       <li>
         <Link className='teal-text' to='/students'>
           Students
+        </Link>
+      </li>
+      <li>
+        <Link className='teal-text' to='/account'>
+          Account
         </Link>
       </li>
     </Fragment>

@@ -487,5 +487,40 @@
       "timezone": "EEST",
       "lessons": []
     }
-  ]
+  ],
+  "lessons": [
+    {
+      "id": 1,
+      "lessonType": 1,
+      "dateTime": "2020-08-02T12:00:00.000Z",
+      "status": "completed",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "lessonType": 1,
+      "dateTime": "2020-08-02T12:00:00.000Z",
+      "status": "upcoming",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "lessonType": 1,
+      "dateTime": "2020-08-01T15:00:00.000Z",
+      "status": "canceled",
+      "userId": 2
+    },
+    {
+      "id": 4,
+      "lessonType": 2,
+      "dateTime": "2020-08-05T12:00:00.000Z",
+      "status": "requested",
+      "userId": 2
+    }
+  ],
+  "account": {
+    "email": "mail@dmytrokulak.net",
+    "timeZone": "EEST",
+    "vactionMode": false
+  }
 }
