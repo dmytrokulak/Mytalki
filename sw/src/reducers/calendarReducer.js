@@ -13,6 +13,7 @@ const initialState = {
   current: null,
   loading: false,
   error: null,
+  daysOnDisplay: null,
 };
 
 export default (state = initialState, action) => {

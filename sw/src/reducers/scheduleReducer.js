@@ -2,7 +2,6 @@ import { GET_SCHEDULES, SCHEDULE_ERROR, ADD_SCHEDULE, DELETE_SCHEDULE } from '..
 
 const initialState = {
   collection: null,
-  current: null,
   loading: false,
   error: null,
 };
