@@ -3,7 +3,12 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { getCalendar, addSlotToCalendar, deleteSlotFromCalendar } from '../../actions/calendarActions';
+import {
+  getCalendar,
+  addSlotToCalendar,
+  deleteSlotFromCalendar,
+  setDaysOnDisplay,
+} from '../../actions/calendarActions';
 import CalendarSaveModal from './CalendarSaveModal';
 import CalendarLoadModal from './CalendarLoadModal';
 
@@ -11,8 +16,13 @@ const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
 let page = 0;
 
-const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalendar, deleteSlotFromCalendar }) => {
-  const [daysOnDisplay, setDaysOnDisplay] = useState([]);
+const Calendar = ({
+  calendarSlots: { collection, daysOnDisplay },
+  getCalendar,
+  addSlotToCalendar,
+  deleteSlotFromCalendar,
+  setDaysOnDisplay,
+}) => {
   const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
 
   const nextPage = () => {
@@ -92,6 +102,7 @@ const Calendar = ({ calendarSlots: { collection }, getCalendar, addSlotToCalenda
   };
 
   const drawCalendarHeader = () =>
+    daysOnDisplay &&
     daysOnDisplay.map((day, index) => (
       <th key={index} className='center-align'>
         {day.format('ddd, DD MMM')}
@@ -235,4 +246,6 @@ Calendar.propTypes = {
 const mapStateToProps = (state) => ({
   calendarSlots: state.calendarSlots,
 });
-export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, deleteSlotFromCalendar })(Calendar);
+export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, deleteSlotFromCalendar, setDaysOnDisplay })(
+  Calendar
+);

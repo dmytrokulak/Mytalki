@@ -1,4 +1,11 @@
-import { GET_CALENDAR, ADD_VACANT_SLOT, DELETE_VACANT_SLOT, SET_LOADING, CALENDAR_ERROR } from '../actions/types';
+import {
+  GET_CALENDAR,
+  ADD_VACANT_SLOT,
+  DELETE_VACANT_SLOT,
+  SET_LOADING,
+  CALENDAR_ERROR,
+  SET_DAYS_ON_DISPLAY,
+} from '../actions/types';
 
 const initialState = {
   collection: null,
@@ -38,6 +45,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case SET_DAYS_ON_DISPLAY:
+      return {
+        ...state,
+        daysOnDisplay: action.payload,
       };
     default:
       return state;

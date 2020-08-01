@@ -1,4 +1,4 @@
-import { GET_CALENDAR, ADD_VACANT_SLOT, DELETE_VACANT_SLOT, CALENDAR_ERROR } from './types';
+import { GET_CALENDAR, ADD_VACANT_SLOT, DELETE_VACANT_SLOT, CALENDAR_ERROR, SET_DAYS_ON_DISPLAY } from './types';
 
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
@@ -59,4 +59,11 @@ export const deleteSlotFromCalendar = (id) => async (dispatch) => {
       payload: error.response.statusText,
     });
   }
+};
+
+export const setDaysOnDisplay = (days) => (dispatch) => {
+  dispatch({
+    type: SET_DAYS_ON_DISPLAY,
+    payload: days,
+  });
 };
