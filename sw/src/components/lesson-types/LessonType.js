@@ -25,7 +25,7 @@ const LessonType = ({ item, setCurrent, updateLessonType }) => {
     <li>
       <div className='collapsible-header'>
         <h5>
-          <i className='material-icons'>details</i>
+          <i className='material-icons'>expand_more</i>
           {item.title}
           {!item.active && (
             <span className='new badge red' data-badge-caption=''>
