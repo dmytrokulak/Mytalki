@@ -491,31 +491,43 @@
   "lessons": [
     {
       "id": 1,
-      "lessonType": 1,
+      "lessonTypeId": 1,
+      "offerId": 3,
       "dateTime": "2020-08-02T12:00:00.000Z",
       "status": "completed",
       "userId": 1
     },
     {
       "id": 2,
-      "lessonType": 1,
+      "lessonTypeId": 1,
+      "offerId": 3,
       "dateTime": "2020-08-02T12:00:00.000Z",
       "status": "upcoming",
       "userId": 1
     },
     {
       "id": 3,
-      "lessonType": 1,
+      "lessonTypeId": 1,
+      "offerId": 3,
       "dateTime": "2020-08-01T15:00:00.000Z",
       "status": "canceled",
       "userId": 2
     },
     {
       "id": 4,
-      "lessonType": 2,
+      "lessonTypeId": 2,
+      "offerId": 3,
       "dateTime": "2020-08-05T12:00:00.000Z",
       "status": "requested",
       "userId": 2
+    },
+    {
+      "id": 5,
+      "lessonTypeId": 3,
+      "offerId": 3,
+      "dateTime": "2020-08-01T12:00:00.000Z",
+      "status": "completed",
+      "userId": 1
     }
   ],
   "account": {

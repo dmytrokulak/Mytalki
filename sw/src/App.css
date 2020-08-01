@@ -162,3 +162,26 @@ nav a {
 #section-students .collection-item .bio-info * {
   margin: 0 0.5rem;
 }
+
+/*********************************** LESSONS ***********************************/
+
+#section-lessons .collection-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+#section-lessons .collection-item .lesson-info {
+  flex: 1;
+}
+
+#section-lessons .collection-item .user-info {
+  flex: 1;
+}
+
+#section-lessons .collection-item .action-buttons {
+  flex: 0.5;
+}
+
+#section-lessons .collection-item .action-buttons a {
+  margin: 0 0.3rem;
+}
