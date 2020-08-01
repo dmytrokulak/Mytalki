@@ -5,7 +5,12 @@ import moment from 'moment';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { getSavedSchedules, applySchedule } from '../../actions/scheduleActions';
 
-const CalendarLoadModal = ({ savedSchedules: { collection }, getSavedSchedules, applySchedule }) => {
+const CalendarLoadModal = ({
+  savedSchedules: { collection },
+  calendarSlots: { daysOnDisplay },
+  getSavedSchedules,
+  applySchedule,
+}) => {
   useEffect(() => {
     document.addEventListener('DOMContentLoaded', function () {
       var elem = document.getElementById('load-calendar-modal');
@@ -53,7 +58,7 @@ const CalendarLoadModal = ({ savedSchedules: { collection }, getSavedSchedules, 
         <a
           href='#!'
           onClick={() => {
-            applySchedule(current, new moment());
+            applySchedule(current, daysOnDisplay);
             M.toast({ html: `Schedule ${current.title} applied.` });
           }}
           className={`modal-close waves-effect waves-green green white-text btn-flat ${
@@ -75,6 +80,7 @@ CalendarLoadModal.propTypes = {
 
 const mapStateToProps = (state) => ({
   savedSchedules: state.savedSchedules,
+  calendarSlots: state.calendarSlots,
 });
 
 export default connect(mapStateToProps, { getSavedSchedules, applySchedule })(CalendarLoadModal);
