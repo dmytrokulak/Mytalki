@@ -1,12 +1,4 @@
-import {
-  GET_LESSONS,
-  ACCEPT_LESSON_REQUEST,
-  DECLINE_LESSON_REQUEST,
-  ACCEPT_LESSON_RESCHEDULE,
-  DECLINE_LESSON_RESCHEDULE,
-  LESSON_ERROR,
-  SET_LOADING,
-} from '../actions/types';
+import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, SET_LOADING } from '../actions/types';
 
 const initialState = {
   collection: null,
@@ -20,6 +12,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         collection: action.payload,
+        loading: false,
+      };
+    case UPDATE_LESSON:
+      return {
+        ...state,
+        collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
         loading: false,
       };
     case SET_LOADING:

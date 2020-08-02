@@ -1,15 +1,43 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLessons } from '../../actions/lessonActions';
+import { getLessons, updateLesson } from '../../actions/lessonActions';
 import Preloader from '../layout/Preloader';
-import moment from 'moment';
+import LessonItem from './LessonItem';
 
-const Lessons = ({ lessons: { collection, loading }, getLessons }) => {
+const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson }) => {
+  const [requested, setRequested] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [completed, setCompleted] = useState([]);
+
   useEffect(() => {
     getLessons();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    let req = [];
+    let upc = [];
+    let com = [];
+    for (let i = 0; collection && i < collection.length; i++) {
+      if (collection[i].status === 'requested') {
+        req.push(collection[i]);
+      } else if (collection[i].status === 'upcoming') {
+        upc.push(collection[i]);
+      } else if (collection[i].status === 'completed') {
+        com.push(collection[i]);
+      }
+    }
+    setRequested(req);
+    setUpcoming(upc);
+    setCompleted(com);
+  }, [collection]);
+
+  const updateLessonStatus = (id, status) => {
+    const item = collection[id];
+    item.status = status;
+    updateLesson(item);
+  };
 
   return (
     <div id='section-lessons' className='section'>
@@ -20,49 +48,41 @@ const Lessons = ({ lessons: { collection, loading }, getLessons }) => {
         <Fragment>
           <blockquote>Requested</blockquote>
           <ul className='collection'>
-            {collection
-              .filter((item) => item.status === 'requested')
-              .map((item) => (
-                <li className='collection-item'>
-                  <div class='lesson-info'>
-                    {new moment(item.dateTime).format('ddd MMMM DD, hh:mm')}-
-                    {new moment(item.dateTime).add(item.offer.time, 'm').format('hh:mm')}
-                    <br />
-                    {item.lessonType.title}
-                  </div>
-                  <div class='user-info'>
-                    <span>
-                      {item.user.firstName} {item.user.lastName}
-                    </span>
-                    <br />
-                    <span>skype number</span>
-                  </div>
-                  <div class='action-buttons'>
-                    <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
-                      Cancel
-                    </a>
-                    <a href='#!' className='waves-effect waves-light teal white-text btn-flat'>
-                      Accept
-                    </a>
-                  </div>
-                </li>
-              ))}
+            {requested.map((item) => (
+              <li key={item.id} className='collection-item'>
+                <LessonItem item={item} />
+                <div className='action-buttons'>
+                  <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
+                    Decline
+                  </a>
+                  <a
+                    href='#!'
+                    onClick={() => updateLessonStatus(item.id, 'upcoming')}
+                    className='waves-effect waves-light teal white-text btn-flat'
+                  >
+                    Accept
+                  </a>
+                </div>
+              </li>
+            ))}
           </ul>
           <blockquote>Upcoming</blockquote>
           <ul className='collection'>
-            {collection
-              .filter((item) => item.status === 'upcoming')
-              .map((item) => (
-                <li className='collection-item'>{item.id}</li>
-              ))}
+            {upcoming.map((item) => (
+              <li key={item.id} className='collection-item'>
+                <LessonItem item={item} />
+                <div className='action-buttons'></div>
+              </li>
+            ))}
           </ul>
           <blockquote>Completed</blockquote>
           <ul className='collection'>
-            {collection
-              .filter((item) => item.status === 'completed')
-              .map((item) => (
-                <li className='collection-item'>{item.id}</li>
-              ))}
+            {completed.map((item) => (
+              <li key={item.id} className='collection-item'>
+                <LessonItem item={item} />
+                <div className='action-buttons'></div>
+              </li>
+            ))}
           </ul>
         </Fragment>
       )}
@@ -70,7 +90,13 @@ const Lessons = ({ lessons: { collection, loading }, getLessons }) => {
   );
 };
 
+Lessons.propTypes = {
+  lessons: PropTypes.object.isRequired,
+  getLessons: PropTypes.func.isRequired,
+  updateLesson: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   lessons: state.lessons,
 });
-export default connect(mapStateToProps, { getLessons })(Lessons);
+export default connect(mapStateToProps, { getLessons, updateLesson })(Lessons);

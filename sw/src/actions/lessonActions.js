@@ -1,11 +1,4 @@
-import {
-  GET_LESSONS,
-  ACCEPT_LESSON_REQUEST,
-  DECLINE_LESSON_REQUEST,
-  ACCEPT_LESSON_RESCHEDULE,
-  DECLINE_LESSON_RESCHEDULE,
-  LESSON_ERROR,
-} from './types';
+import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR } from './types';
 
 //Get lessons from server
 export const getLessons = () => async (dispatch) => {
@@ -17,7 +10,6 @@ export const getLessons = () => async (dispatch) => {
       data[i].lessonType = await (await fetch('/lesson-types/' + data[i].lessonTypeId)).json();
       data[i].offer = data[i].lessonType.offers.filter((o) => o.id === data[i].offerId)[0];
     }
-    console.log(data);
     dispatch({
       type: GET_LESSONS,
       payload: data,
@@ -26,6 +18,31 @@ export const getLessons = () => async (dispatch) => {
     dispatch({
       type: LESSON_ERROR,
       payload: error,
+    });
+  }
+};
+
+//Update lesson on server
+export const updateLesson = (item) => async (dispatch) => {
+  try {
+    const res = await fetch(`/lessons/${item.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(item),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await res.json();
+
+    dispatch({
+      type: UPDATE_LESSON,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LESSON_ERROR,
+      payload: error.response.statusText,
     });
   }
 };

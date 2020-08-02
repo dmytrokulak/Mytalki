@@ -439,20 +439,13 @@
       "avatar": "https://images.generated.photos/Io7fvNF--btpeEDs-pc9wF3w2LEjhG0eWsGF9i1MAAk/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4MzI1OTguanBn.jpg",
       "registeredAt": "2020-08-01T12:00:00.000Z",
       "timezone": "EEST",
-      "lessons": [
+      "communication": [
         {
-          "id": 1,
-          "lessonType": 1,
-          "dateTime": "2020-08-02T12:00:00.000Z",
-          "status": "completed"
-        },
-        {
-          "id": 2,
-          "lessonType": 1,
-          "dateTime": "2020-08-02T12:00:00.000Z",
-          "status": "upcoming"
+          "tool": "skype",
+          "number": "johndoe"
         }
-      ]
+      ],
+      "lessons": []
     },
     {
       "id": 2,
@@ -462,20 +455,13 @@
       "avatar": "https://images.generated.photos/VaIjcbwRJKu-E9wzv1VO7-9UFukYyA4kU1qHnPFTLIs/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2Njk3NjcuanBn.jpg",
       "registeredAt": "2020-08-01T13:00:00.000Z",
       "timezone": "EEST",
-      "lessons": [
+      "communication": [
         {
-          "id": 3,
-          "lessonType": 1,
-          "dateTime": "2020-08-01T15:00:00.000Z",
-          "status": "canceled"
-        },
-        {
-          "id": 4,
-          "lessonType": 2,
-          "dateTime": "2020-08-05T12:00:00.000Z",
-          "status": "requested"
+          "tool": "skype",
+          "number": "harrysmith"
         }
-      ]
+      ],
+      "lessons": []
     },
     {
       "id": 3,
@@ -485,6 +471,12 @@
       "avatar": "https://images.generated.photos/FBES8vf6rGjFV-A7WY91pDUEO1rserJZ4ZYCLmDJ2as/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAxMDYzNDIuanBn.jpg",
       "registeredAt": "2020-08-01T13:00:00.000Z",
       "timezone": "EEST",
+      "communication": [
+        {
+          "tool": "skype",
+          "number": "martastuart"
+        }
+      ],
       "lessons": []
     }
   ],
@@ -495,7 +487,8 @@
       "offerId": 3,
       "dateTime": "2020-08-02T12:00:00.000Z",
       "status": "completed",
-      "userId": 1
+      "userId": 1,
+      "communication": "skype"
     },
     {
       "id": 2,
@@ -503,7 +496,8 @@
       "offerId": 3,
       "dateTime": "2020-08-02T12:00:00.000Z",
       "status": "upcoming",
-      "userId": 1
+      "userId": 1,
+      "communication": "skype"
     },
     {
       "id": 3,
@@ -511,7 +505,8 @@
       "offerId": 3,
       "dateTime": "2020-08-01T15:00:00.000Z",
       "status": "canceled",
-      "userId": 2
+      "userId": 2,
+      "communication": "skype"
     },
     {
       "id": 4,
@@ -519,7 +514,8 @@
       "offerId": 3,
       "dateTime": "2020-08-05T12:00:00.000Z",
       "status": "requested",
-      "userId": 2
+      "userId": 2,
+      "communication": "skype"
     },
     {
       "id": 5,
@@ -527,16 +523,19 @@
       "offerId": 3,
       "dateTime": "2020-08-01T12:00:00.000Z",
       "status": "completed",
-      "userId": 1
+      "userId": 1,
+      "communication": "skype"
     }
   ],
   "account": {
     "email": "mail@dmytrokulak.net",
     "timeZone": "EEST",
     "vactionMode": false,
-    "communication": {
-      "skype": "dmitriykulak",
-      "facetime": null
-    }
+    "communication": [
+      {
+        "tool": "skype",
+        "number": "dmitriykulak"
+      }
+    ]
   }
 }
