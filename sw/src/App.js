@@ -6,6 +6,9 @@ import LessonTypes from './components/lesson-types/LessonTypes';
 import Calendar from './components/calendar/Calendar';
 import Students from './components/students/Students';
 import Account from './components/account/Account';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import PrivateRoute from './components/routing/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -25,14 +28,13 @@ const App = () => {
           <main>
             <div className='container'>
               <Switch>
-                <Route exact path='/'>
-                  <Redirect to='/lessons' />
-                </Route>
                 <Route exact path='/lessons' component={Lessons} />
                 <Route exact path='/lesson-types' component={LessonTypes} />
                 <Route exact path='/calendar' component={Calendar} />
                 <Route exact path='/students' component={Students} />
                 <Route exact path='/account' component={Account} />
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/register' component={Register} />
               </Switch>
             </div>
           </main>
