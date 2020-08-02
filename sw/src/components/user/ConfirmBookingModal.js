@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { addRequestToCalendar } from '../../actions/calendarActions';
 
-const ConfirmBookingModal = ({ booking: { lessonType, offer, selectedSlots } }) => {
+const ConfirmBookingModal = ({
+  booking: { lessonType, offer, selectedSlots },
+  auth: { user },
+  addRequestToCalendar,
+}) => {
   const moments = selectedSlots.map((s) => new moment(s.start)).sort((a, b) => a.subtract(b));
   const start = moments[0];
   return (
@@ -28,8 +33,11 @@ const ConfirmBookingModal = ({ booking: { lessonType, offer, selectedSlots } }) 
         <a
           href='#!'
           onClick={() => {
-            // M.toast({ html: `Schedule saved.` });
-            // clearCurrent();
+            selectedSlots.forEach((slot) => {
+              slot.userId = user.id;
+              slot.status = 'requested';
+            });
+            addRequestToCalendar(selectedSlots);
           }}
           className='modal-close waves-effect waves-green green white-text btn-flat'
         >
@@ -42,6 +50,7 @@ const ConfirmBookingModal = ({ booking: { lessonType, offer, selectedSlots } }) 
 
 const mapStateToProps = (state) => ({
   booking: state.booking,
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(ConfirmBookingModal);
+export default connect(mapStateToProps, { addRequestToCalendar })(ConfirmBookingModal);

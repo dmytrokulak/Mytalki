@@ -5,6 +5,7 @@ import {
   SET_LOADING,
   CALENDAR_ERROR,
   SET_DAYS_ON_DISPLAY,
+  ADD_REQUEST_TO_CALENDAR,
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +51,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         daysOnDisplay: action.payload,
+      };
+    case ADD_REQUEST_TO_CALENDAR:
+      let newCollection = state.collection;
+      for (let i = 0; i < action.payload.length; i++) {
+        newCollection = newCollection.map((item) => (item.id === action.payload[i].id ? action.payload[i] : item));
+      }
+      return {
+        ...state,
+        collection: newCollection,
       };
     default:
       return state;

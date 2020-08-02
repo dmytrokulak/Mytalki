@@ -1,4 +1,11 @@
-import { GET_CALENDAR, ADD_VACANT_SLOT, DELETE_VACANT_SLOT, CALENDAR_ERROR, SET_DAYS_ON_DISPLAY } from './types';
+import {
+  GET_CALENDAR,
+  ADD_VACANT_SLOT,
+  DELETE_VACANT_SLOT,
+  CALENDAR_ERROR,
+  SET_DAYS_ON_DISPLAY,
+  ADD_REQUEST_TO_CALENDAR,
+} from './types';
 
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
@@ -66,4 +73,30 @@ export const setDaysOnDisplay = (days) => (dispatch) => {
     type: SET_DAYS_ON_DISPLAY,
     payload: days,
   });
+};
+
+export const addRequestToCalendar = (items) => async (dispatch) => {
+  try {
+    const data = [];
+    for (let i = 0; i < items.length; i++) {
+      const res = await fetch(`/calendar-slots/${items[i].id}`, {
+        method: 'PUT',
+        body: JSON.stringify(items[i]),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      data.push(await res.json());
+      dispatch({
+        type: ADD_REQUEST_TO_CALENDAR,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: CALENDAR_ERROR,
+      payload: error,
+    });
+  }
 };
