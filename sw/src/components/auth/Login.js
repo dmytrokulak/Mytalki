@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Login = ({ auth: { error, isAuthenticated }, history, login }) => {
+const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login }) => {
   useEffect(() => {
     M.AutoInit();
     if (isAuthenticated) {
-      history.push('/');
+      if (isAdmin) {
+        history.push('/admin/lessons');
+      } else {
+        history.push('/lessons');
+      }
     }
     if (error) {
       console.log(error);
