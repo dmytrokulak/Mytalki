@@ -5,7 +5,13 @@ import { getLessonTypes } from '../../actions/lessonTypeActions';
 import { setCurrentBooking } from '../../actions/bookingAction';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Booking = ({ lessonTypes: { collection }, getLessonTypes, setCurrentBooking, history }) => {
+const Booking = ({
+  lessonTypes: { collection },
+  auth: { isAuthenticated },
+  getLessonTypes,
+  setCurrentBooking,
+  history,
+}) => {
   useEffect(() => {
     getLessonTypes();
     //eslint-disable-next-line
@@ -16,7 +22,12 @@ const Booking = ({ lessonTypes: { collection }, getLessonTypes, setCurrentBookin
     let offer = lessonType.offers.filter((o) => o.id === +e.target.dataset.offerId)[0];
     setCurrentBooking({ lessonType, offer });
     M.toast({ html: `${lessonType.title} ${offer.time} min selected` });
-    history.push('/calendar');
+    if (isAuthenticated) {
+      history.push('/calendar');
+    } else {
+      M.toast({ html: 'Please login to proceed' });
+      history.push('/login');
+    }
   };
 
   return (
@@ -62,6 +73,7 @@ Booking.propTypes = {
 
 const mapStateToProps = (state) => ({
   lessonTypes: state.lessonTypes,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getLessonTypes, setCurrentBooking })(Booking);

@@ -13,6 +13,7 @@ let page = 0;
 const UserCalendar = ({
   calendarSlots: { collection, daysOnDisplay, loading },
   booking: { offer },
+  auth: { isAuthenticated },
   getCalendar,
   addSlotToCalendar,
   setDaysOnDisplay,
@@ -48,7 +49,7 @@ const UserCalendar = ({
   }, []);
 
   const onHoverSelect = (e) => {
-    if (offer) {
+    if (offer && isAuthenticated) {
       const mins = offer.time;
       const thisCell = e.target;
       let rowId = +thisCell.dataset.rowId;
@@ -196,5 +197,6 @@ UserCalendar.propTypes = {
 const mapStateToProps = (state) => ({
   calendarSlots: state.calendarSlots,
   booking: state.booking,
+  auth: state.auth,
 });
 export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, setDaysOnDisplay })(UserCalendar);
