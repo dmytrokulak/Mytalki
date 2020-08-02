@@ -15,7 +15,6 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login }) =>
       }
     }
     if (error) {
-      console.log(error);
       M.toast({ html: error });
     }
     // eslint-disable-next-line

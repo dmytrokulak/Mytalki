@@ -5,6 +5,7 @@ import scheduleReducer from './scheduleReducer';
 import studentRecuder from './studentReducer';
 import lessonReducer from './lessonReducer';
 import authReducer from './authReducer';
+import bookingReducer from './bookingReducer';
 
 export default combineReducers({
   lessonTypes: lessonTypeReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   students: studentRecuder,
   lessons: lessonReducer,
   auth: authReducer,
+  booking: bookingReducer,
 });

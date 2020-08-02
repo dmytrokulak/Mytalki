@@ -185,3 +185,9 @@ nav a {
 #section-lessons .collection-item .action-buttons a {
   margin: 0 0.3rem;
 }
+
+/*********************************** BOOKING ***********************************/
+
+#section-booking .collection-item a {
+  margin: 0.3rem;
+}
