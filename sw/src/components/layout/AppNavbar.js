@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import NavLinks from './NavLinks';
+import { connect } from 'react-redux';
+import AdminLinks from './nav-links/AdminLinks';
+import GuestLinks from './nav-links/GuestLinks';
+import UserLinks from './nav-links/UserLinks';
 
-const AppNavbar = () => {
+const AppNavbar = ({ auth: { isAuthenticated, user } }) => {
   return (
     <Fragment>
       <div className='navbar-fixed'>
@@ -16,17 +19,20 @@ const AppNavbar = () => {
                 <i className='material-icons'>menu</i>
               </Link>
               <ul className='right hide-on-med-and-down'>
-                <NavLinks />
+                {isAuthenticated ? user.isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
               </ul>
             </div>
           </div>
         </nav>
       </div>
       <ul id='mobile-nav' className='sidenav'>
-        <NavLinks />
+        {isAuthenticated ? user.isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
       </ul>
     </Fragment>
   );
 };
 
-export default AppNavbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {})(AppNavbar);
