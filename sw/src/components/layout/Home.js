@@ -1,22 +1,22 @@
 import React from 'react';
+import homeImg from '../../img/home-img.jpg';
 
 function Home() {
   return (
-    <div class='col s12 m8 offset-m2 l6 offset-l3'>
-      <div class='card-panel grey lighten-5 z-depth-1'>
+    <div className='col s12 m8 offset-m2 l6 offset-l3'>
+      <div className='card-panel grey lighten-5 z-depth-1'>
         <h4 className='center-align'>Welcome to MyTalki!</h4>
-        <div class='row valign-wrapper'>
-          <div class='col s10'>
+        <div className='row valign-wrapper'>
+          <div className='col s8'>
             <span className='flow-text'>
               Any landing text you want adipisicing elit. Quod neque facilis adipisci cumque molestiae vero corrupti
               aliquid eum inventore et cupiditate nesciunt minima, saepe vel necessitatibus, sed aperiam quasi
-              recusandae ad est eius placeat. Nulla quidem culpa sit nemo, pariatur fugit praesentium fuga porro
-              adipisci, totam perspiciatis architecto saepe quo! Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Voluptatem enim assumenda veritatis facere numquam reiciendis qui culpa nemo, laboriosam debitis.
+              recusandae ad est eius placeat. Nulla quidem culpa sit nemo, pariatur fugit praesentium fuga porro elit.
+              Voluptatem enim assumenda veritatis, laboriosam debitis.
             </span>
           </div>
-          <div class='col s2'>
-            <img src='https://source.unsplash.com/random?reading' alt='' class='responsive-img' />
+          <div className='col s4'>
+            <img src={homeImg} alt='' className='responsive-img' />
           </div>
         </div>
         <p className='flow-text'>

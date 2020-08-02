@@ -18,7 +18,7 @@ const Students = ({ students: { collection, loading }, getStudents, setCurrent }
         <ul className='collection'>
           {collection &&
             collection.map((item) => (
-              <a className='collection-item'>
+              <a href='#!' className='collection-item'>
                 <div className='bio-info'>
                   <img width='50' src={item.avatar} alt='' />
                   <span>

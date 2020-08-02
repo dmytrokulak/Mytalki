@@ -1,13 +1,4 @@
-import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  CLEAR_ERRORS,
-} from './types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -79,4 +70,4 @@ export const login = (formData) => async (dispatch) => {
 };
 
 // Logout
-const logout = () => (dispatch) => dispatch({ type: LOGOUT });
+export const logout = () => (dispatch) => dispatch({ type: LOGOUT });
