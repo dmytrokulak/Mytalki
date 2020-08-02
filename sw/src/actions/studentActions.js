@@ -3,8 +3,13 @@ import { GET_STUDENTS, SET_CURRENT_STUDENT, CLEAR_CURRENT_STUDENT, STUDENT_ERROR
 //Get students from server
 export const getStudents = () => async (dispatch) => {
   try {
-    const res = await fetch('/students');
+    const res = await fetch('/users');
     const data = await res.json();
+    //ToDo:: remove for real back-end
+    const lessons = await (await fetch('/lessons')).json();
+    data.forEach((student) => {
+      student.lessons = lessons.filter((lesson) => lesson.userId === student.id);
+    });
     dispatch({
       type: GET_STUDENTS,
       payload: data,

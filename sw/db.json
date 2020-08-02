@@ -430,7 +430,7 @@
       ]
     }
   ],
-  "students": [
+  "users": [
     {
       "id": 1,
       "firstName": "John",
@@ -530,7 +530,6 @@
   "account": {
     "email": "mail@dmytrokulak.net",
     "timeZone": "EEST",
-    "vactionMode": false,
     "communication": [
       {
         "tool": "skype",
