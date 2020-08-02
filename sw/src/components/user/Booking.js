@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLessonTypes } from '../../actions/lessonTypeActions';
@@ -8,6 +8,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 const Booking = ({ lessonTypes: { collection }, getLessonTypes, setCurrentBooking, history }) => {
   useEffect(() => {
     getLessonTypes();
+    //eslint-disable-next-line
   }, []);
 
   const onButtonClick = (e) => {
@@ -15,18 +16,16 @@ const Booking = ({ lessonTypes: { collection }, getLessonTypes, setCurrentBookin
     let offer = lessonType.offers.filter((o) => o.id === +e.target.dataset.offerId)[0];
     setCurrentBooking({ lessonType, offer });
     M.toast({ html: `${lessonType.title} ${offer.time} min selected` });
-    setTimeout(() => {
-      history.push('/calendar');
-    }, 500);
+    history.push('/calendar');
   };
 
   return (
-    <div id='section-booking' clasName='section'>
+    <div id='section-booking' className='section'>
       <h4 className='center-align'>Book a lesson</h4>
       <ul className='collection'>
         {collection &&
           collection.map((item) => (
-            <li className='collection-item'>
+            <li key={`${item.id}`} className='collection-item'>
               <div className='row'>
                 <div className='col s7'>
                   <h5>{item.title}</h5>
@@ -35,6 +34,7 @@ const Booking = ({ lessonTypes: { collection }, getLessonTypes, setCurrentBookin
                 <div className='col s5'>
                   {item.offers.map((offer) => (
                     <a
+                      key={`${item.id}-${offer.id}`}
                       href='#!'
                       className='teal lighten-1 btn'
                       data-lesson-type-id={item.id}
