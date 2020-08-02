@@ -5,7 +5,7 @@ import AdminLinks from './nav-links/AdminLinks';
 import GuestLinks from './nav-links/GuestLinks';
 import UserLinks from './nav-links/UserLinks';
 
-const AppNavbar = ({ auth: { isAuthenticated, user } }) => {
+const AppNavbar = ({ auth: { isAuthenticated, isAdmin } }) => {
   return (
     <Fragment>
       <div className='navbar-fixed'>
@@ -19,14 +19,14 @@ const AppNavbar = ({ auth: { isAuthenticated, user } }) => {
                 <i className='material-icons'>menu</i>
               </Link>
               <ul className='right hide-on-med-and-down'>
-                {isAuthenticated ? user.isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
+                {isAuthenticated ? isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
               </ul>
             </div>
           </div>
         </nav>
       </div>
       <ul id='mobile-nav' className='sidenav'>
-        {isAuthenticated ? user.isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
+        {isAuthenticated ? isAdmin ? <AdminLinks /> : <UserLinks /> : <GuestLinks />}
       </ul>
     </Fragment>
   );

@@ -46,25 +46,42 @@ export const register = (formData) => async (dispatch) => {
 // Login User
 export const login = (formData) => async (dispatch) => {
   try {
-    const res = await fetch(`/auth`, {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await res.json();
+    const admin = await (await fetch('/account')).json();
+    if (admin.email === formData.email) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { isAdmin: true },
+      });
+    } else {
+      const user = await (await fetch('/users?email=' + formData.email)).json();
+      if (user && user[0].email === formData.email) {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: { isAdmin: false, user: user },
+        });
+      } else {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: 'No user with given email found.',
+        });
+      }
+    }
 
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data,
-    });
+    //ToDo:: with real back end
+    // const res = await fetch(`/auth`, {
+    //   method: 'POST',
+    //   body: JSON.stringify(formData),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    // const data = await res.json();
 
-    loadUser();
+    // loadUser();
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: error.response.data.msg,
+      payload: error.message,
     });
   }
 };

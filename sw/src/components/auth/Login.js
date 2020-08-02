@@ -2,11 +2,17 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const Login = ({ auth: { error, isAuthenticated }, history, login }) => {
   useEffect(() => {
+    M.AutoInit();
     if (isAuthenticated) {
       history.push('/');
+    }
+    if (error) {
+      console.log(error);
+      M.toast({ html: error });
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, history]);
@@ -23,7 +29,7 @@ const Login = ({ auth: { error, isAuthenticated }, history, login }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (email === '' || password === '') {
-      // setAlert('Please fill in all fields', 'danger');
+      M.toast({ html: 'Please fill in all the fields.' });
     } else {
       login({
         email,

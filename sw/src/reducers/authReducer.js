@@ -12,6 +12,7 @@ import {
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
+  isAdmin: false,
   loading: true,
   user: null,
   error: null,
@@ -44,6 +45,7 @@ export default (state = initialState, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
+        isAdmin: false,
         loading: false,
         user: null,
         error: action.payload,
@@ -53,7 +55,6 @@ export default (state = initialState, action) => {
         ...state,
         error: null,
       };
-
     default:
       return state;
   }

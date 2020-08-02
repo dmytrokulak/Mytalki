@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../../../actions/authActions';
 
-const UserLinks = () => {
+const UserLinks = ({ logout }) => {
   return (
     <Fragment>
       <li>
@@ -24,8 +26,13 @@ const UserLinks = () => {
           Account
         </Link>
       </li>
+      <li>
+        <a href='#!' className='teal-text' onClick={logout}>
+          Logout
+        </a>
+      </li>
     </Fragment>
   );
 };
 
-export default UserLinks;
+export default connect(null, { logout })(UserLinks);
