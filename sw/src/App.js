@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './components/layout/Home';
 import PrivateRoute from './components/routing/PrivateRoute';
+import AdminRoute from './components/routing/AdminRoute';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -30,13 +31,13 @@ const App = () => {
             <div className='container'>
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route exact path='/lessons' component={Lessons} />
-                <Route exact path='/lesson-types' component={LessonTypes} />
-                <Route exact path='/calendar' component={Calendar} />
-                <Route exact path='/students' component={Students} />
-                <Route exact path='/account' component={Account} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
+                <PrivateRoute exact path='/account' component={Account} />
+                <PrivateRoute exact path='/lessons' component={Lessons} />
+                <AdminRoute exact path='/lesson-types' component={LessonTypes} />
+                <AdminRoute exact path='/calendar' component={Calendar} />
+                <AdminRoute exact path='/students' component={Students} />
               </Switch>
             </div>
           </main>
