@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppNavbar from './components/layout/AppNavbar';
 import Home from './components/layout/Home';
+import NotFound from './components/layout/NotFound';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Account from './components/auth/Account';
@@ -44,6 +45,7 @@ const App = () => {
                 <AdminRoute exact path='/admin/lesson-types' component={LessonTypes} />
                 <AdminRoute exact path='/admin/calendar' component={Calendar} />
                 <AdminRoute exact path='/admin/students' component={Students} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </main>
