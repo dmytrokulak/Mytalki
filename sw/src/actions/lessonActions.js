@@ -6,7 +6,7 @@ export const getLessons = () => async (dispatch) => {
     const res = await fetch('/lessons');
     const data = await res.json();
     for (let i = 0; i < data.length; i++) {
-      data[i].user = await (await fetch('/students/' + data[i].userId)).json();
+      data[i].user = await (await fetch('/users/' + data[i].userId)).json();
       data[i].lessonType = await (await fetch('/lesson-types/' + data[i].lessonTypeId)).json();
       data[i].offer = data[i].lessonType.offers.filter((o) => o.id === data[i].offerId)[0];
     }
