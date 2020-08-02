@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getStudents, setCurrent } from '../../actions/studentActions';
-import Preloader from '../layout/Preloader';
+import { getStudents, setCurrent } from '../../../actions/studentActions';
+import Preloader from '../../layout/Preloader';
 
 const Students = ({ students: { collection, loading }, getStudents, setCurrent }) => {
   useEffect(() => {

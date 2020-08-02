@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLessons, updateLesson } from '../../actions/lessonActions';
-import Preloader from '../layout/Preloader';
+import { getLessons, updateLesson } from '../../../actions/lessonActions';
+import Preloader from '../../layout/Preloader';
 import LessonItem from './LessonItem';
 
 const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson }) => {

@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import AppNavbar from './components/layout/AppNavbar';
-import Lessons from './components/lessons/Lessons';
-import LessonTypes from './components/lesson-types/LessonTypes';
-import Calendar from './components/calendar/Calendar';
-import Students from './components/students/Students';
-import Account from './components/account/Account';
+import Home from './components/layout/Home';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Home from './components/layout/Home';
+import Account from './components/auth/Account';
+import Lessons from './components/admin/lessons/Lessons';
+import LessonTypes from './components/admin/lesson-types/LessonTypes';
+import Calendar from './components/admin/calendar/Calendar';
+import Students from './components/admin/students/Students';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 import { Provider } from 'react-redux';
@@ -34,10 +34,10 @@ const App = () => {
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
                 <PrivateRoute exact path='/account' component={Account} />
-                <PrivateRoute exact path='/lessons' component={Lessons} />
-                <AdminRoute exact path='/lesson-types' component={LessonTypes} />
-                <AdminRoute exact path='/calendar' component={Calendar} />
-                <AdminRoute exact path='/students' component={Students} />
+                <AdminRoute exact path='/admin/lessons' component={Lessons} />
+                <AdminRoute exact path='/admin/lesson-types' component={LessonTypes} />
+                <AdminRoute exact path='/admin/calendar' component={Calendar} />
+                <AdminRoute exact path='/admin/students' component={Students} />
               </Switch>
             </div>
           </main>

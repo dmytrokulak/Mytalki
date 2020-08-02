@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LessonTypeOffer from './LessonTypeOffer';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { setCurrent, updateLessonType } from '../../actions/lessonTypeActions';
+import { setCurrent, updateLessonType } from '../../../actions/lessonTypeActions';
 
 const LessonType = ({ item, setCurrent, updateLessonType }) => {
   let active = item.offers.map((o) => o.active).reduce((a, b) => a + b);

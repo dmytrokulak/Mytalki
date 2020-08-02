@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addLessonType, updateLessonType, clearCurrent } from '../../actions/lessonTypeActions';
+import { addLessonType, updateLessonType, clearCurrent } from '../../../actions/lessonTypeActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLessonType, clearCurrent }) => {

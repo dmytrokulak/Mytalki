@@ -7,22 +7,22 @@ const AdminLinks = ({ logout }) => {
   return (
     <Fragment>
       <li>
-        <Link className='teal-text' to='/lessons'>
+        <Link className='teal-text' to='/admin/lessons'>
           Lessons
         </Link>
       </li>
       <li>
-        <Link className='teal-text' to='/calendar'>
+        <Link className='teal-text' to='/admin/calendar'>
           Calendar
         </Link>
       </li>
       <li>
-        <Link className='teal-text' to='/lesson-types'>
+        <Link className='teal-text' to='/admin/lesson-types'>
           Lesson types
         </Link>
       </li>
       <li>
-        <Link className='teal-text' to='/students'>
+        <Link className='teal-text' to='/admin/students'>
           Students
         </Link>
       </li>

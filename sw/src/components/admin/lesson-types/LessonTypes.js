@@ -5,8 +5,8 @@ import LessonTypeModal from './LessonTypeModal';
 import LessonTypeDeleteModal from './LessonTypeDeleteModal';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import { getLessonTypes } from '../../actions/lessonTypeActions';
-import Preloader from '../layout/Preloader';
+import { getLessonTypes } from '../../../actions/lessonTypeActions';
+import Preloader from '../../layout/Preloader';
 
 const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) => {
   useEffect(() => {

@@ -8,10 +8,10 @@ import {
   addSlotToCalendar,
   deleteSlotFromCalendar,
   setDaysOnDisplay,
-} from '../../actions/calendarActions';
+} from '../../../actions/calendarActions';
 import CalendarSaveModal from './CalendarSaveModal';
 import CalendarLoadModal from './CalendarLoadModal';
-import Preloader from '../layout/Preloader';
+import Preloader from '../../layout/Preloader';
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);

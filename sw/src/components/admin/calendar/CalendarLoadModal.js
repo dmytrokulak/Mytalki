@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { getSavedSchedules, applySchedule } from '../../actions/scheduleActions';
+import { getSavedSchedules, applySchedule } from '../../../actions/scheduleActions';
 
 const CalendarLoadModal = ({
   savedSchedules: { collection },

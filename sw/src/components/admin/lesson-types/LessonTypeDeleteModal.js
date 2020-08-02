@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { deleteLessonType, clearCurrent } from '../../actions/lessonTypeActions';
+import { deleteLessonType, clearCurrent } from '../../../actions/lessonTypeActions';
 
 function LessonTypeDeleteModal({ lessonTypes: { current }, deleteLessonType, clearCurrent }) {
   return (
