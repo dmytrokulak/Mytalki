@@ -36,9 +36,9 @@ const App = () => {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
+                <Route exact path='/calendar' component={UserCalendar} />
+                <Route exact path='/booking' component={Booking} />
                 <PrivateRoute exact path='/lessons' component={UserLessons} />
-                <PrivateRoute exact path='/calendar' component={UserCalendar} />
-                <PrivateRoute exact path='/booking' component={Booking} />
                 <PrivateRoute exact path='/account' component={Account} />
                 <AdminRoute exact path='/admin/lessons' component={Lessons} />
                 <AdminRoute exact path='/admin/lesson-types' component={LessonTypes} />
