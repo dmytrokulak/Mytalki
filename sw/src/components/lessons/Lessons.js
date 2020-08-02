@@ -46,44 +46,56 @@ const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson })
         <Preloader />
       ) : (
         <Fragment>
-          <blockquote>Requested</blockquote>
-          <ul className='collection'>
-            {requested.map((item) => (
-              <li key={item.id} className='collection-item'>
-                <LessonItem item={item} />
-                <div className='action-buttons'>
-                  <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
-                    Decline
-                  </a>
-                  <a
-                    href='#!'
-                    onClick={() => updateLessonStatus(item.id, 'upcoming')}
-                    className='waves-effect waves-light teal white-text btn-flat'
-                  >
-                    Accept
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <blockquote>Upcoming</blockquote>
-          <ul className='collection'>
-            {upcoming.map((item) => (
-              <li key={item.id} className='collection-item'>
-                <LessonItem item={item} />
-                <div className='action-buttons'></div>
-              </li>
-            ))}
-          </ul>
-          <blockquote>Completed</blockquote>
-          <ul className='collection'>
-            {completed.map((item) => (
-              <li key={item.id} className='collection-item'>
-                <LessonItem item={item} />
-                <div className='action-buttons'></div>
-              </li>
-            ))}
-          </ul>
+          {requested.length > 0 && (
+            <Fragment>
+              <blockquote>Requested</blockquote>
+              <ul className='collection'>
+                {requested.map((item) => (
+                  <li key={item.id} className='collection-item'>
+                    <LessonItem item={item} />
+                    <div className='action-buttons'>
+                      <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
+                        Decline
+                      </a>
+                      <a
+                        href='#!'
+                        onClick={() => updateLessonStatus(item.id - 1, 'upcoming')}
+                        className='waves-effect waves-light teal white-text btn-flat'
+                      >
+                        Accept
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          )}
+          {upcoming.length > 0 && (
+            <Fragment>
+              <blockquote>Upcoming</blockquote>
+              <ul className='collection'>
+                {upcoming.map((item) => (
+                  <li key={item.id} className='collection-item'>
+                    <LessonItem item={item} />
+                    <div className='action-buttons'></div>
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          )}
+          {completed.length > 0 && (
+            <Fragment>
+              <blockquote>Completed</blockquote>
+              <ul className='collection'>
+                {completed.map((item) => (
+                  <li key={item.id} className='collection-item'>
+                    <LessonItem item={item} />
+                    <div className='action-buttons'></div>
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          )}
         </Fragment>
       )}
     </div>
