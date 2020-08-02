@@ -5,14 +5,24 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login }) => {
+const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, location }) => {
   useEffect(() => {
     M.AutoInit();
     if (isAuthenticated) {
-      if (isAdmin) {
-        history.push('/admin/lessons');
+      //ToDo:: use qs npm pack?
+      let arr = location.search.split('nextUrl=');
+      let nextUrl = null;
+      if (arr.length === 2) {
+        nextUrl = arr[1];
+      }
+      if (nextUrl) {
+        history.push(nextUrl);
       } else {
-        history.push('/lessons');
+        if (isAdmin) {
+          history.push('/admin/lessons');
+        } else {
+          history.push('/lessons');
+        }
       }
     }
     if (error) {
@@ -48,7 +58,7 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login }) =>
         <h4>Login</h4>
         <span>
           Don't have an account yet?{' '}
-          <Link class='teal-text' to='/register'>
+          <Link className='teal-text' to='/register'>
             Register.
           </Link>
         </span>

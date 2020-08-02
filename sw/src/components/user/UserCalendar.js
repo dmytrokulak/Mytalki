@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { getCalendar, addSlotToCalendar, setDaysOnDisplay } from '../../actions/calendarActions';
+import { setSelectedSlots } from '../../actions/bookingAction';
 import Preloader from '../layout/Preloader';
+import ConfirmBookingModal from './ConfirmBookingModal';
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);
@@ -12,14 +14,14 @@ let page = 0;
 
 const UserCalendar = ({
   calendarSlots: { collection, daysOnDisplay, loading },
-  booking: { offer },
+  booking: { offer, selectedSlots },
   auth: { isAuthenticated },
   getCalendar,
   addSlotToCalendar,
   setDaysOnDisplay,
+  setSelectedSlots,
 }) => {
   const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
-  const [selectedSlots, setSelectedSlots] = useState([]);
 
   const nextPage = () => {
     page += 1;
@@ -59,26 +61,26 @@ const UserCalendar = ({
       const nextNextCell = mins > 60 ? document.getElementById(`cell-${rowId + 2}-${colId}`) : null;
 
       document.querySelectorAll('.cell-selected').forEach((cell) => cell.classList.remove('cell-selected'));
-      let selectedSlotsInternal = [];
+      let selectedSlotIds = [];
 
       if (thisCell.dataset.available === 'true' && thisCell.dataset.booked === 'false') {
         thisCell.classList.add('cell-selected');
-        selectedSlotsInternal.push(+thisCell.dataset.slotId);
+        selectedSlotIds.push(+thisCell.dataset.slotId);
         if (nextCell) {
           if (nextCell.dataset.available === 'true' && nextCell.dataset.booked === 'false') {
             nextCell.classList.add('cell-selected');
-            selectedSlotsInternal.push(+nextCell.dataset.slotId);
+            selectedSlotIds.push(+nextCell.dataset.slotId);
 
             if (nextNextCell) {
               if (nextNextCell.dataset.available === 'true' && nextNextCell.dataset.booked === 'false') {
                 nextNextCell.classList.add('cell-selected');
-                selectedSlotsInternal.push(+nextNextCell.dataset.slotId);
+                selectedSlotIds.push(+nextNextCell.dataset.slotId);
               }
             }
           }
         }
       }
-      setSelectedSlots(selectedSlotsInternal);
+      setSelectedSlots(collection.filter((item) => selectedSlotIds.includes(item.id)));
     }
   };
   const onHoverSelect = (e) => {
@@ -226,10 +228,11 @@ const UserCalendar = ({
             data-position='left'
             data-tooltip='Confirm booking'
           >
-            <i className='large material-icons'>arrow_forward</i>
+            <i className='large material-icons'>check_circle</i>
           </a>
         </div>
       )}
+      <ConfirmBookingModal />
     </div>
   );
 };
@@ -238,6 +241,7 @@ UserCalendar.propTypes = {
   calendarSlots: PropTypes.object.isRequired,
   getCalendar: PropTypes.func.isRequired,
   addSlotToCalendar: PropTypes.func.isRequired,
+  setSelectedSlots: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -245,4 +249,6 @@ const mapStateToProps = (state) => ({
   booking: state.booking,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, setDaysOnDisplay })(UserCalendar);
+export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, setDaysOnDisplay, setSelectedSlots })(
+  UserCalendar
+);

@@ -26,7 +26,7 @@ const Booking = ({
       history.push('/calendar');
     } else {
       M.toast({ html: 'Please login to proceed' });
-      history.push('/login');
+      history.push('/login?nextUrl=calendar');
     }
   };
 
