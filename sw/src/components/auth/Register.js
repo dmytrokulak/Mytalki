@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/authActions';
@@ -44,7 +45,15 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
 
   return (
     <div className='form-container'>
-      <h4 className='center-align'>Register</h4>
+      <div className='center-align'>
+        <h4>Register</h4>
+        <span>
+          Or{' '}
+          <Link class='teal-text' to='/login'>
+            Login.
+          </Link>
+        </span>
+      </div>
       <form onSubmit={onSubmit}>
         <div className='row'>
           <div className='input-field col s6 offset-s3'>

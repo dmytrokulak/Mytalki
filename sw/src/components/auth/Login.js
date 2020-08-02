@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
@@ -43,7 +44,15 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login }) =>
 
   return (
     <Fragment>
-      <h4 className='center-align'>Login</h4>
+      <div className='center-align'>
+        <h4>Login</h4>
+        <span>
+          Don't have an account yet?{' '}
+          <Link class='teal-text' to='/register'>
+            Register.
+          </Link>
+        </span>
+      </div>
       <form onSubmit={onSubmit}>
         <div className='row'>
           <div className='input-field col s6 offset-s3'>
