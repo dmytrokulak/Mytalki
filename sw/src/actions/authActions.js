@@ -57,7 +57,7 @@ export const login = (formData) => async (dispatch) => {
       if (user && user[0].email === formData.email) {
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: { isAdmin: false, user: user },
+          payload: { isAdmin: false, user: user[0] },
         });
       } else {
         dispatch({

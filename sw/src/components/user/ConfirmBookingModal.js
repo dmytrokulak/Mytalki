@@ -35,7 +35,7 @@ const ConfirmBookingModal = ({
           onClick={() => {
             selectedSlots.forEach((slot) => {
               slot.userId = user.id;
-              slot.status = 'requested';
+              slot.status = 'book-request';
             });
             addRequestToCalendar(selectedSlots);
           }}
