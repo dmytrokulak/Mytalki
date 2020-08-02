@@ -19,6 +19,7 @@ const UserCalendar = ({
   setDaysOnDisplay,
 }) => {
   const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
+  const [selectedSlots, setSelectedSlots] = useState([]);
 
   const nextPage = () => {
     page += 1;
@@ -48,6 +49,38 @@ const UserCalendar = ({
     //eslint-disable-next-line
   }, []);
 
+  const onSlotSelected = (e) => {
+    if (offer && isAuthenticated) {
+      const mins = offer.time;
+      const thisCell = e.target;
+      let rowId = +thisCell.dataset.rowId;
+      let colId = +thisCell.dataset.colId;
+      const nextCell = mins > 30 ? document.getElementById(`cell-${rowId + 1}-${colId}`) : null;
+      const nextNextCell = mins > 60 ? document.getElementById(`cell-${rowId + 2}-${colId}`) : null;
+
+      document.querySelectorAll('.cell-selected').forEach((cell) => cell.classList.remove('cell-selected'));
+      let selectedSlotsInternal = [];
+
+      if (thisCell.dataset.available === 'true' && thisCell.dataset.booked === 'false') {
+        thisCell.classList.add('cell-selected');
+        selectedSlotsInternal.push(+thisCell.dataset.slotId);
+        if (nextCell) {
+          if (nextCell.dataset.available === 'true' && nextCell.dataset.booked === 'false') {
+            nextCell.classList.add('cell-selected');
+            selectedSlotsInternal.push(+nextCell.dataset.slotId);
+
+            if (nextNextCell) {
+              if (nextNextCell.dataset.available === 'true' && nextNextCell.dataset.booked === 'false') {
+                nextNextCell.classList.add('cell-selected');
+                selectedSlotsInternal.push(+nextNextCell.dataset.slotId);
+              }
+            }
+          }
+        }
+      }
+      setSelectedSlots(selectedSlotsInternal);
+    }
+  };
   const onHoverSelect = (e) => {
     if (offer && isAuthenticated) {
       const mins = offer.time;
@@ -138,6 +171,7 @@ const UserCalendar = ({
                     id={`cell-${i}-${j}`}
                     onMouseEnter={onHoverSelect}
                     onMouseLeave={onHoverDeSelect}
+                    onClick={onSlotSelected}
                     className={className}
                     key={slotMoment.unix()}
                     data-datetime={slotMoment.toISOString()}
@@ -183,6 +217,18 @@ const UserCalendar = ({
           </thead>
           <tbody>{drawCalendarBody()}</tbody>
         </table>
+      )}
+      {selectedSlots.length > 0 && (
+        <div className='fixed-action-btn'>
+          <a
+            href='#confirm-booking-modal'
+            className='btn-floating btn-large teal tooltipped modal-trigger pulse'
+            data-position='left'
+            data-tooltip='Confirm booking'
+          >
+            <i className='large material-icons'>arrow_forward</i>
+          </a>
+        </div>
       )}
     </div>
   );
