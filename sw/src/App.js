@@ -5,6 +5,9 @@ import Home from './components/layout/Home';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Account from './components/auth/Account';
+import UserCalendar from './components/user/UserCalendar';
+import Booking from './components/user/Booking';
+import UserLessons from './components/user/UserLessons';
 import Lessons from './components/admin/lessons/Lessons';
 import LessonTypes from './components/admin/lesson-types/LessonTypes';
 import Calendar from './components/admin/calendar/Calendar';
@@ -33,6 +36,9 @@ const App = () => {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
+                <PrivateRoute exact path='/lessons' component={UserLessons} />
+                <PrivateRoute exact path='/calendar' component={UserCalendar} />
+                <PrivateRoute exact path='/booking' component={Booking} />
                 <PrivateRoute exact path='/account' component={Account} />
                 <AdminRoute exact path='/admin/lessons' component={Lessons} />
                 <AdminRoute exact path='/admin/lesson-types' component={LessonTypes} />
