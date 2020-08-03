@@ -9,7 +9,6 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, load
   useEffect(() => {
     M.AutoInit();
     if (isAuthenticated) {
-      loadUser();
       //ToDo:: use qs npm pack?
       let arr = location.search.split('nextUrl=');
       let nextUrl = null;

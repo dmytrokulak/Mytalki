@@ -532,6 +532,8 @@
     }
   ],
   "account": {
+    "firstName": "Dmytro",
+    "lastName": "Kulak",
     "email": "mail@dmytrokulak.net",
     "timeZone": "EEST",
     "communication": [

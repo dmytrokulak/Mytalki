@@ -2,10 +2,18 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLessonsByUser, updateLesson } from '../../actions/lessonActions';
+import { getTeacherInfo } from '../../actions/teacherActions';
 import Preloader from '../layout/Preloader';
-import LessonItem from '../admin/lessons/LessonItem';
+import UserLessonItem from './UserLessonItem';
 
-const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLessonsByUser, updateLesson }) => {
+const UserLessons = ({
+  lessons: { collection, loading },
+  auth: { user },
+  getLessonsByUser,
+  updateLesson,
+  getTeacherInfo,
+  teacher,
+}) => {
   const [requested, setRequested] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [completed, setCompleted] = useState([]);
@@ -13,6 +21,7 @@ const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLess
   useEffect(() => {
     if (user) {
       getLessonsByUser(user.id);
+      getTeacherInfo();
     }
     //eslint-disable-next-line
   }, [user]);
@@ -44,7 +53,7 @@ const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLess
   return (
     <div id='section-lessons' className='section'>
       <h4 className='center-align'>Lessons</h4>
-      {loading || collection == null ? (
+      {loading || !collection || !teacher ? (
         <Preloader />
       ) : (
         <Fragment>
@@ -54,19 +63,8 @@ const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLess
               <ul className='collection'>
                 {requested.map((item) => (
                   <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
-                    <div className='action-buttons'>
-                      {/* <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
-                        Decline
-                      </a>
-                      <a
-                        href='#!'
-                        onClick={() => updateLessonStatus(item.id - 1, 'upcoming')}
-                        className='waves-effect waves-light teal white-text btn-flat'
-                      >
-                        Accept
-                      </a> */}
-                    </div>
+                    <UserLessonItem item={item} teacher={teacher} />
+                    <div className='action-buttons'></div>
                   </li>
                 ))}
               </ul>
@@ -78,7 +76,7 @@ const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLess
               <ul className='collection'>
                 {upcoming.map((item) => (
                   <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
+                    <UserLessonItem item={item} teacher={teacher} />
                     <div className='action-buttons'></div>
                   </li>
                 ))}
@@ -91,7 +89,7 @@ const UserLessons = ({ lessons: { collection, loading }, auth: { user }, getLess
               <ul className='collection'>
                 {completed.map((item) => (
                   <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
+                    <UserLessonItem item={item} teacher={teacher} />
                     <div className='action-buttons'></div>
                   </li>
                 ))}
@@ -108,10 +106,11 @@ UserLessons.propTypes = {
   lessons: PropTypes.object.isRequired,
   getLessonsByUser: PropTypes.func.isRequired,
   updateLesson: PropTypes.func.isRequired,
+  getTeacherInfo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   lessons: state.lessons,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { getLessonsByUser, updateLesson })(UserLessons);
+export default connect(mapStateToProps, { getLessonsByUser, updateLesson, getTeacherInfo })(UserLessons);
