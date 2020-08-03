@@ -3,8 +3,10 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS
 // Load User
 export const loadUser = () => async (dispatch) => {
   // setAuthToken(localStorage.token);
+  const id = localStorage.getItem('token');
+  console.log(id);
   try {
-    const res = await fetch('/auth');
+    const res = await fetch('/users/' + id);
     const data = await res.json();
 
     dispatch({
@@ -53,11 +55,11 @@ export const login = (formData) => async (dispatch) => {
         payload: { isAdmin: true },
       });
     } else {
-      const user = await (await fetch('/users?email=' + formData.email)).json();
-      if (user && user[0].email === formData.email) {
+      const users = await (await fetch('/users?email=' + formData.email)).json();
+      if (users && users[0].email === formData.email) {
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: { isAdmin: false, user: user[0] },
+          payload: { isAdmin: false, user: users[0] },
         });
       } else {
         dispatch({

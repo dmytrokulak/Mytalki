@@ -2,13 +2,14 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/authActions';
+import { login, loadUser } from '../../actions/authActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, location }) => {
+const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, loadUser, location }) => {
   useEffect(() => {
     M.AutoInit();
     if (isAuthenticated) {
+      loadUser();
       //ToDo:: use qs npm pack?
       let arr = location.search.split('nextUrl=');
       let nextUrl = null;
@@ -100,9 +101,10 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, loca
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, loadUser })(Login);
