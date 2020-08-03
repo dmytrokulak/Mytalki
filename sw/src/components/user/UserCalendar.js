@@ -15,7 +15,7 @@ let page = 0;
 const UserCalendar = ({
   calendarSlots: { collection, daysOnDisplay, loading },
   booking: { offer, selectedSlots },
-  auth: { isAuthenticated },
+  auth: { isAuthenticated, user },
   getCalendar,
   addSlotToCalendar,
   setDaysOnDisplay,
@@ -167,8 +167,14 @@ const UserCalendar = ({
                 if (slot) {
                   isAvailable = true;
                   isBooked = slot.status !== 'vacant';
-                  className = slot.status;
                   slotId = slot.id;
+                  if (slot.userId) {
+                    if (user && slot.userId == user.id) {
+                      className = slot.status;
+                    }
+                  } else {
+                    className = slot.status; //always vacant
+                  }
                 }
                 //td slot
                 slots.push(

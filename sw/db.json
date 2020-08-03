@@ -186,13 +186,13 @@
       "id": 9,
       "start": "2020-08-06T03:30:00.000Z",
       "status": "reschedule-request",
-      "userId": 1
+      "userId": 2
     },
     {
       "id": 10,
       "start": "2020-08-06T04:30:00.000Z",
       "status": "reschedule-request",
-      "userId": 1
+      "userId": 2
     }
   ],
   "schedules": [
