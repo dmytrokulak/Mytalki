@@ -87,26 +87,6 @@ nav a {
 
 /*********************************** CALENDAR ***********************************/
 
-#section-calendar table {
-  position: relative;
-}
-
-#section-calendar th {
-  position: sticky;
-  top: 4rem;
-  background: #fcfcfc;
-}
-
-#section-calendar td {
-  border: solid #adadad 1px;
-  padding: 0;
-}
-
-#section-calendar td:not(:first-child):not(:last-child):hover {
-  cursor: pointer;
-  border: solid #6262ff 3px;
-}
-
 .blocked {
   background: repeating-linear-gradient(45deg, transparent, transparent 1px, #808080 1px, #fff 2px);
 }
@@ -131,6 +111,38 @@ nav a {
   background-image: repeating-linear-gradient(135deg, transparent, transparent 1px, transparent 0px, #ffff00 6px);
 }
 
+.hovered {
+  cursor: pointer;
+  border: solid #6262ff 3px !important;
+}
+
+.cell-selected {
+  background: #8080fd !important;
+}
+
+#section-calendar table,
+#section-user-calendar table {
+  position: relative;
+}
+
+#section-calendar th,
+#section-user-calendar th {
+  position: sticky;
+  top: 4rem;
+  background: #fcfcfc;
+}
+
+#section-calendar td,
+#section-user-calendar td {
+  border: solid #adadad 1px;
+  padding: 0;
+}
+
+#section-calendar td:not(:first-child):not(:last-child):hover {
+  cursor: pointer;
+  border: solid #6262ff 3px;
+}
+
 #section-calendar .action-cell {
   display: flex;
   justify-content: space-evenly;
@@ -140,12 +152,14 @@ nav a {
   cursor: pointer;
 }
 
-#section-calendar .btn-paging i {
+#section-calendar .btn-paging i,
+#section-user-calendar .btn-paging i {
   font-weight: bold;
   cursor: pointer;
 }
 
-#section-calendar .modal {
+#section-calendar .modal,
+#confirm-booking-modal {
   max-width: 35rem;
 }
 
@@ -194,72 +208,4 @@ nav a {
 
 #section-booking .collection-item a {
   margin: 0.3rem;
-}
-
-/*********************************** USER CALENDAR ***********************************/
-
-#section-user-calendar table {
-  position: relative;
-}
-
-#section-user-calendar th {
-  position: sticky;
-  top: 4rem;
-  background: #fcfcfc;
-}
-
-#section-user-calendar td {
-  border: solid #adadad 1px;
-  padding: 0;
-}
-
-.hovered {
-  cursor: pointer;
-  border: solid #6262ff 3px !important;
-}
-
-.cell-selected {
-  background: #8080fd !important;
-}
-
-.blocked {
-  background: repeating-linear-gradient(45deg, transparent, transparent 1px, #808080 1px, #fff 2px);
-}
-.vacant {
-  background: #fafafa;
-}
-
-.booked {
-  background: #afffaf;
-}
-
-.book-request {
-  background-color: #ffff9a;
-}
-
-.cancel-request {
-  background-color: #ffafaf;
-}
-
-.reschedule-request {
-  /* background-color: #afffaf; */
-  background-image: repeating-linear-gradient(135deg, transparent, transparent 1px, transparent 0px, #ffff00 6px);
-}
-
-#section-user-calendar .action-cell {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#section-user-calendar .action-cell i {
-  cursor: pointer;
-}
-
-#section-user-calendar .btn-paging i {
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#confirm-booking-modal {
-  max-width: 30rem;
 }
