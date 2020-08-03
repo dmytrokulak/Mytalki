@@ -1,4 +1,4 @@
-import { SET_CURRENT_BOOKING, SET_SELECTED_SLOTS } from '../actions/types';
+import { SET_CURRENT_BOOKING, CLEAR_CURRENT_BOOKING, SET_SELECTED_SLOTS } from '../actions/types';
 
 const initialState = {
   lessonType: null,
@@ -13,6 +13,13 @@ export default (state = initialState, action) => {
         ...state,
         lessonType: action.payload.lessonType,
         offer: action.payload.offer,
+      };
+    case CLEAR_CURRENT_BOOKING:
+      return {
+        ...state,
+        lessonType: null,
+        offer: null,
+        selectedSlots: [],
       };
     case SET_SELECTED_SLOTS:
       return {

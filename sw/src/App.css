@@ -21,6 +21,10 @@ nav a {
   font-size: x-large;
   padding-bottom: 4rem;
 }
+/*********************************** UTIL CLASSES ***********************************/
+.invisible {
+  visibility: hidden;
+}
 
 /*********************************** LESSON TYPES ***********************************/
 

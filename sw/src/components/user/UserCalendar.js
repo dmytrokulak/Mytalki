@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { getCalendar, addSlotToCalendar, setDaysOnDisplay } from '../../actions/calendarActions';
-import { setSelectedSlots } from '../../actions/bookingAction';
+import { setSelectedSlots, clearBooking } from '../../actions/bookingAction';
 import Preloader from '../layout/Preloader';
 import ConfirmBookingModal from './ConfirmBookingModal';
 
@@ -20,8 +20,16 @@ const UserCalendar = ({
   addSlotToCalendar,
   setDaysOnDisplay,
   setSelectedSlots,
+  clearBooking,
 }) => {
   const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
+
+  useEffect(() => {
+    M.AutoInit();
+    getCalendar();
+    getDaysOnDisplay();
+    //eslint-disable-next-line
+  }, []);
 
   const nextPage = () => {
     page += 1;
@@ -44,13 +52,9 @@ const UserCalendar = ({
     setWeekStartMoment(initMoment.clone().add(daysVisible * page, 'd'));
   };
 
-  useEffect(() => {
-    M.AutoInit();
-    getCalendar();
-    getDaysOnDisplay();
-    //eslint-disable-next-line
-  }, []);
-
+  const clearSelectedSlots = () => {
+    document.querySelectorAll('.cell-selected').forEach((cell) => cell.classList.remove('cell-selected'));
+  };
   const onSlotSelected = (e) => {
     if (offer && isAuthenticated) {
       const mins = offer.time;
@@ -60,7 +64,7 @@ const UserCalendar = ({
       const nextCell = mins > 30 ? document.getElementById(`cell-${rowId + 1}-${colId}`) : null;
       const nextNextCell = mins > 60 ? document.getElementById(`cell-${rowId + 2}-${colId}`) : null;
 
-      document.querySelectorAll('.cell-selected').forEach((cell) => cell.classList.remove('cell-selected'));
+      clearSelectedSlots();
       let selectedSlotIds = [];
 
       if (thisCell.dataset.available === 'true' && thisCell.dataset.booked === 'false') {
@@ -220,18 +224,33 @@ const UserCalendar = ({
           <tbody>{drawCalendarBody()}</tbody>
         </table>
       )}
-      {selectedSlots.length > 0 && (
-        <div className='fixed-action-btn'>
-          <a
-            href='#confirm-booking-modal'
-            className='btn-floating btn-large teal tooltipped modal-trigger pulse'
-            data-position='left'
-            data-tooltip='Confirm booking'
-          >
-            <i className='large material-icons'>check_circle</i>
-          </a>
-        </div>
-      )}
+      <div className={`fixed-action-btn ${selectedSlots.length > 0 ? '' : 'invisible'}`}>
+        <a
+          href='#confirm-booking-modal'
+          className='btn-floating btn-large teal tooltipped modal-trigger pulse'
+          data-position='left'
+          data-tooltip='Confirm booking'
+        >
+          <i className='large material-icons'>check_circle</i>
+        </a>
+        <ul>
+          <li>
+            <a
+              href='#!'
+              className='btn-floating red tooltipped modal-trigger'
+              data-position='left'
+              data-tooltip='Clear booking'
+              onClick={() => {
+                clearSelectedSlots();
+                clearBooking();
+                M.toast({ html: 'Booking cleared.' });
+              }}
+            >
+              <i className='material-icons'>clear</i>
+            </a>
+          </li>
+        </ul>
+      </div>
       <ConfirmBookingModal />
     </div>
   );
@@ -242,6 +261,7 @@ UserCalendar.propTypes = {
   getCalendar: PropTypes.func.isRequired,
   addSlotToCalendar: PropTypes.func.isRequired,
   setSelectedSlots: PropTypes.func.isRequired,
+  clearBooking: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -249,6 +269,10 @@ const mapStateToProps = (state) => ({
   booking: state.booking,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, setDaysOnDisplay, setSelectedSlots })(
-  UserCalendar
-);
+export default connect(mapStateToProps, {
+  getCalendar,
+  addSlotToCalendar,
+  setDaysOnDisplay,
+  setSelectedSlots,
+  clearBooking,
+})(UserCalendar);
