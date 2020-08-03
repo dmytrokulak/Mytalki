@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { loadUser } from '../../actions/authActions';
 
-const AdminRoute = ({ auth: { isAuthenticated, isAdmin, loading }, component: Component, ...rest }) => {
+const AdminRoute = ({ auth: { isAuthenticated, isAdmin, loading, user }, loadUser, component: Component, ...rest }) => {
+  useEffect(() => {
+    if (isAuthenticated && !user) {
+      loadUser();
+    }
+    //eslint-disable-next-line
+  }, []);
   return (
     <Route
       {...rest}
@@ -21,4 +28,4 @@ const AdminRoute = ({ auth: { isAuthenticated, isAdmin, loading }, component: Co
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {})(AdminRoute);
+export default connect(mapStateToProps, { loadUser })(AdminRoute);

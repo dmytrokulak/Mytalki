@@ -112,5 +112,6 @@ UserLessons.propTypes = {
 const mapStateToProps = (state) => ({
   lessons: state.lessons,
   auth: state.auth,
+  teacher: state.teacher,
 });
 export default connect(mapStateToProps, { getLessonsByUser, updateLesson, getTeacherInfo })(UserLessons);

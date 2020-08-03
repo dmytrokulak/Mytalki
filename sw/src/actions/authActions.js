@@ -4,7 +4,6 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS
 export const loadUser = () => async (dispatch) => {
   // setAuthToken(localStorage.token);
   const id = localStorage.getItem('token');
-  console.log(id);
   try {
     const res = await fetch('/users/' + id);
     const data = await res.json();
