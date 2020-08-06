@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyTalki.Dal\MyTalki.Dal.csproj" />
     <ProjectReference Include="..\..\MyTalki.Domain\MyTalki.Domain.csproj" />
+    <ProjectReference Include="..\..\MyTalki.Domain\MyTalki.Persistence.csproj" />
   </ItemGroup>
 
 
