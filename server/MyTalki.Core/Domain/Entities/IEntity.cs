@@ -16,6 +16,6 @@ namespace MyTalki.Core.Domain.Entities
         /// <summary>
         /// Entity name.
         /// </summary>
-        string Name { get; set; }
+        //string Name { get; set; }
     }
 }

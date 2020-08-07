@@ -2,21 +2,20 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTalki.Domain.Entities;
 
-namespace Epok.Persistence.EF.Configurations 
+namespace MyTalki.Persistence.Configurations 
 {
-    public class UserConfiguration : IEntityTypeConfiguration<Schedule>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Schedule> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-         //   builder.HasKey(e => e.Id);
-            //builder.Property(e => e.Name).HasMaxLength(200).IsRequired();
-            //builder.Property(e => e.AddressLine1).HasMaxLength(100).IsRequired();
-            //builder.Property(e => e.AddressLine2).HasMaxLength(100);
-            //builder.Property(e => e.City).HasMaxLength(100).IsRequired();
-            //builder.Property(e => e.Province).HasMaxLength(100);
-            //builder.Property(e => e.Country).HasMaxLength(100);
-            //builder.Property(e => e.PostalCode).HasMaxLength(50);
-            //builder.Property(e => e.CompanyId);
+           builder.HasKey(e => e.Id);
+            builder.Property(e => e.FirstName).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.LastName).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.Avatar).HasMaxLength(200).IsRequired();
+            builder.Property(e => e.Email).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.TimeZone).HasMaxLength(10).IsRequired();
+            builder.Property(e => e.RegisteredAt).HasMaxLength(10).IsRequired();
+            builder.HasMany(e => e.Lessons);
         }
     }
 }

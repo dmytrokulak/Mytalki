@@ -1,8 +1,7 @@
 ﻿using System;
 using MyTalki.Core.Persistence;
-using MyTalki.Persistence;
 
-namespace Epok.Persistence.EF
+namespace MyTalki.Persistence
 {
     public class UnitOfWorkFactory<T> : ITransactionFactory<ITransaction> where T : ITransaction
     {

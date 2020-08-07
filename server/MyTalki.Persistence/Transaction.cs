@@ -1,7 +1,6 @@
 ﻿using MyTalki.Core.Persistence;
-using MyTalki.Persistence;
 
-namespace Epok.Persistence.EF
+namespace MyTalki.Persistence
 {
     public class Transaction : ITransaction
     {

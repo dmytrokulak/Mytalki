@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +6,11 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MyTalki.Core.Domain.Entities;
 using MyTalki.Core.Persistence;
-using MyTalki.Persistence;
 
-namespace Epok.Persistence.EF.Repositories
+namespace MyTalki.Persistence.Repositories
 {
     public class EntityRepository : IEntityRepository
     {
@@ -80,7 +79,7 @@ namespace Epok.Persistence.EF.Repositories
             if(orderBy != null)
                 set = set.OrderBy($"{orderBy} {NormalizeOrderMode(orderMode)}");
             else
-                set = set.OrderBy(s => s.Name);
+                set = set.OrderBy(s => s.Id);
 
             if (skip != null)
                 set = set.Skip(skip.Value);

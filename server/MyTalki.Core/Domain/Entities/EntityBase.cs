@@ -17,7 +17,7 @@ namespace MyTalki.Core.Domain.Entities
         protected EntityBase(int id, string name)
         {
             Id = id;
-            Name = name;
+            //Name = name;
         }
 
         private int _id;
@@ -32,17 +32,17 @@ namespace MyTalki.Core.Domain.Entities
             }
         }
 
-        private string _name;
+        //private string _name;
 
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                Guard.Against.NullOrWhitespace(value, "name");
-                _name = value;
-            }
-        }
+        //public string Name
+        //{
+        //    get => _name;
+        //    set
+        //    {
+        //        Guard.Against.NullOrWhitespace(value, "name");
+        //        _name = value;
+        //    }
+        //}
 
         public override bool Equals(object obj)
             => Id == ((EntityBase) obj)?.Id;
@@ -51,7 +51,7 @@ namespace MyTalki.Core.Domain.Entities
             => Id.GetHashCode();
 
         public override string ToString()
-            => $"{GetType().Name} {Id} '{Name}'";
+            => $"{GetType().Name} {Id}";
 
         public static bool operator ==(EntityBase a, EntityBase b)
         {

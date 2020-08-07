@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyTalki.Core.Domain.Entities;
 
 namespace MyTalki.Domain.Entities
 {
-    public class Schedule
+    public class Schedule : EntityBase
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public ICollection<ScheduleDay> Days { get; set; }
     }
 
-    public class ScheduleDay
+    public class ScheduleDay : EntityBase
     {
         public DayOfWeek DayOfWeek { get; set; }
         public ICollection<DateTime> Slots { get; set; }

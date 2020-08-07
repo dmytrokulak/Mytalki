@@ -2,21 +2,16 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTalki.Domain.Entities;
 
-namespace Epok.Persistence.EF.Configurations 
+namespace MyTalki.Persistence.Configurations 
 {
     public class OfferConfiguration : IEntityTypeConfiguration<Offer>
     {
         public void Configure(EntityTypeBuilder<Offer> builder)
         {
-         //   builder.HasKey(e => e.Id);
-            //builder.Property(e => e.Name).HasMaxLength(200).IsRequired();
-            //builder.Property(e => e.AddressLine1).HasMaxLength(100).IsRequired();
-            //builder.Property(e => e.AddressLine2).HasMaxLength(100);
-            //builder.Property(e => e.City).HasMaxLength(100).IsRequired();
-            //builder.Property(e => e.Province).HasMaxLength(100);
-            //builder.Property(e => e.Country).HasMaxLength(100);
-            //builder.Property(e => e.PostalCode).HasMaxLength(50);
-            //builder.Property(e => e.CompanyId);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Currency).HasMaxLength(5).IsRequired();
+            builder.Property(e => e.Minutes).IsRequired();
+            builder.Property(e => e.Price).IsRequired();
         }
     }
 }
