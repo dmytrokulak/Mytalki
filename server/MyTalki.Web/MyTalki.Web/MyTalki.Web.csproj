@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\MyTalki.Domain\MyTalki.Domain.csproj" />
-    <ProjectReference Include="..\..\MyTalki.Domain\MyTalki.Persistence.csproj" />
+    <ProjectReference Include="..\..\MyTalki.Persistence\MyTalki.Persistence.csproj" />
   </ItemGroup>
 
 
