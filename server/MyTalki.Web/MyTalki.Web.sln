@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTalki.Domain", "..\MyTalk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTalki.Tests", "..\MyTalki.Tests\MyTalki.Tests.csproj", "{4CEE4BFE-AC33-4531-A158-4AB26EF93B85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kulak.Kernel", "..\Kulak.Kernel\Kulak.Kernel.csproj", "{5C652B68-F4C1-4963-981F-0941D9506EB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTalki.Persistence", "..\MyTalki.Persistence\MyTalki.Persistence.csproj", "{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTalki.Persistence", "..\MyTalki.Persistence\MyTalki.Persistence.csproj", "{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTalki.Core", "..\MyTalki.Core\MyTalki.Core.csproj", "{618298D9-CCA5-4FBB-A5C4-A722AAB48850}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{4CEE4BFE-AC33-4531-A158-4AB26EF93B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEE4BFE-AC33-4531-A158-4AB26EF93B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEE4BFE-AC33-4531-A158-4AB26EF93B85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C652B68-F4C1-4963-981F-0941D9506EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C652B68-F4C1-4963-981F-0941D9506EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C652B68-F4C1-4963-981F-0941D9506EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C652B68-F4C1-4963-981F-0941D9506EB0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD3C3EB3-87DC-4ADE-86AE-36AA37BA49AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618298D9-CCA5-4FBB-A5C4-A722AAB48850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618298D9-CCA5-4FBB-A5C4-A722AAB48850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618298D9-CCA5-4FBB-A5C4-A722AAB48850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618298D9-CCA5-4FBB-A5C4-A722AAB48850}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
