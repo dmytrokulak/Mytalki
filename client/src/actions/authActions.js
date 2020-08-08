@@ -51,7 +51,7 @@ export const login = (formData) => async (dispatch) => {
     if (admin.email === formData.email) {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { isAdmin: true },
+        payload: { isAdmin: true, user: admin },
       });
     } else {
       const users = await (await fetch('/users?email=' + formData.email)).json();
