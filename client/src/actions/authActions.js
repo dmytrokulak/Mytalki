@@ -1,13 +1,14 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
 
 // Load User
-export const loadUser = () => async (dispatch) => {
-  // setAuthToken(localStorage.token);
-  const id = localStorage.getItem('token');
+export const loadUser = (token) => async (dispatch) => {
   try {
-    const res = await fetch('/users/' + id);
+    const res = await fetch('/user', {
+      headers: {
+        Authorization: token,
+      },
+    });
     const data = await res.json();
-
     dispatch({
       type: USER_LOADED,
       payload: data,
@@ -20,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
-    const res = await fetch(`/users`, {
+    const res = await fetch(`/register`, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {
@@ -35,7 +36,7 @@ export const register = (formData) => async (dispatch) => {
       payload: data,
     });
 
-    loadUser();
+    loadUser(data);
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
@@ -47,38 +48,20 @@ export const register = (formData) => async (dispatch) => {
 // Login User
 export const login = (formData) => async (dispatch) => {
   try {
-    const admin = await (await fetch('/account')).json();
-    if (admin.email === formData.email) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { isAdmin: true, user: admin },
-      });
-    } else {
-      const users = await (await fetch('/users?email=' + formData.email)).json();
-      if (users && users[0].email === formData.email) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: { isAdmin: false, user: users[0] },
-        });
-      } else {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: 'No user with given email found.',
-        });
-      }
-    }
-
-    //ToDo:: with real back end
-    // const res = await fetch(`/auth`, {
-    //   method: 'POST',
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-    // const data = await res.json();
-
-    // loadUser();
+    const body = JSON.stringify(formData);
+    const res = await fetch(`/login`, {
+      method: 'POST',
+      body: body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const token = res.headers.get('Authorization');
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: token,
+    });
+    loadUser(token);
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,

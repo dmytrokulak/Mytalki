@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem('token'),
-  isAuthenticated: typeof localStorage.getItem('token') !== 'undefined',
+  isAuthenticated: false,
   isAdmin: false,
   loading: true,
   user: null,
@@ -29,12 +29,10 @@ export default (state = initialState, action) => {
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.user.id);
+      localStorage.setItem('token', action.payload);
       return {
         ...state,
-        token: action.payload.user.id,
-        user: action.payload.user,
-        isAdmin: action.payload.isAdmin,
+        token: action.payload,
         isAuthenticated: true,
         loading: false,
       };

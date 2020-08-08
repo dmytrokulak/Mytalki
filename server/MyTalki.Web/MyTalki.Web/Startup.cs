@@ -78,7 +78,7 @@ namespace MyTalki.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().WithExposedHeaders("Authorization"));
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

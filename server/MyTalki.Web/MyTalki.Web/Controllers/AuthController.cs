@@ -47,7 +47,7 @@ namespace MyTalki.Web.Controllers
             if (token != null)
             {
                 Response.Headers.Add("Authorization", "Bearer " + token);
-                return Ok();
+                return Ok(token);
             }
 
             return BadRequest();

@@ -18,25 +18,27 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
   }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = user;
+  const { firstName, lastName, email, password, password2 } = user;
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
+    if (firstName === '' || email === '' || password === '') {
       // setAlert('Please enter all fields', 'danger');
     } else if (password !== password2) {
       // setAlert('Passwords do not match', 'danger');
     } else {
       register({
-        name,
+        firstName,
+        lastName,
         email,
         password,
       });
@@ -56,9 +58,29 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
       </div>
       <form onSubmit={onSubmit}>
         <div className='row'>
-          <div className='input-field col s6 offset-s3'>
-            <label htmlFor='name'>Name</label>
-            <input id='name' type='text' name='name' value={name} className='validate' onChange={onChange} required />
+          <div className='input-field col s3 offset-s3'>
+            <label htmlFor='firstName'>First Name</label>
+            <input
+              id='firstName'
+              type='text'
+              firstName='firstName'
+              value={firstName}
+              className='validate'
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div className='input-field col s3'>
+            <label htmlFor='lastName'>Last Name</label>
+            <input
+              id='lastName'
+              type='text'
+              lastName='lastName'
+              value={lastName}
+              className='validate'
+              onChange={onChange}
+              required
+            />
           </div>
           <div className='input-field col s6 offset-s3'>
             <label htmlFor='email'>Email Address</label>
