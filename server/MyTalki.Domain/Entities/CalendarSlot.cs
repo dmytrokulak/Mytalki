@@ -5,8 +5,8 @@ namespace MyTalki.Domain.Entities
 {
     public class CalendarSlot : EntityBase
     {
-        public DateTimeOffset StartAt { get; set; }
-        public SlotStatus Status { get; set; }
+        public virtual DateTimeOffset StartAt { get; set; }
+        public virtual SlotStatus Status { get; set; }
     }
 
     public enum SlotStatus

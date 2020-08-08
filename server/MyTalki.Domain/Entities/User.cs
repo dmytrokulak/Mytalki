@@ -6,13 +6,12 @@ namespace MyTalki.Domain.Entities
 {
     public class User : EntityBase
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public Uri Avatar { get; set; }
-        public DateTimeOffset RegisteredAt { get; set; }
-        public string TimeZone { get; set; }
-
-        public ICollection<Lesson> Lessons { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string Email { get; set; }
+        public virtual Uri Avatar { get; set; }
+        public virtual DateTimeOffset RegisteredAt { get; set; }
+        public virtual string TimeZone { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

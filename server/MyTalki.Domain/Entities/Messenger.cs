@@ -5,8 +5,8 @@ namespace MyTalki.Domain.Entities
     //aka communication
     public class Messenger : EntityBase
     {
-        public string Tool { get; set; }
-        //aka number
-        public string Address { get; set; }
+        public virtual string Tool { get; set; }
+        //aka number   
+        public virtual string Address { get; set; }
     }
 }

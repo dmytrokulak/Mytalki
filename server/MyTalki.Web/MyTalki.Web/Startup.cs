@@ -11,7 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MyTalki.Core.Persistence;
+using MyTalki.Domain.Services;
+using MyTalki.Domain.Services.Impl;
 using MyTalki.Persistence;
+using MyTalki.Persistence.Repositories;
 
 namespace MyTalki.Web
 {
@@ -30,9 +34,9 @@ namespace MyTalki.Web
             services.AddControllers();
             services.AddDbContext<DomainContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("AppDb")));
+            services.AddScoped<IEntityRepository, EntityRepository>();
+            services.AddScoped<ILessonTypeService, LessonTypeService>();
 
-            var context = services.OfType<DomainContext>().Single();
-            context.Database.EnsureCreated();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,11 @@ namespace MyTalki.Web
             {
                 endpoints.MapControllers();
             });
+
+            //Init db
+            using var scope = app.ApplicationServices.CreateScope();
+            using var context = scope.ServiceProvider.GetService<DomainContext>();
+            context.Database.EnsureCreated();
         }
     }
 }

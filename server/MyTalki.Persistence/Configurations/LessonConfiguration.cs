@@ -9,7 +9,7 @@ namespace MyTalki.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Lesson> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.LessonType).IsRequired();
+            builder.Property(e => e.Status).IsRequired();
             builder.HasOne(e => e.LessonType);
             builder.HasMany(e => e.Slots);
         }
