@@ -20,7 +20,7 @@ namespace MyTalki.Web.Controllers
         private readonly ILessonTypeService _service;
 
         /// <summary>
-        /// Controller to manage customer entities.
+        /// Controller to manage lesson type entities.
         /// </summary>
         /// <param name="mapper"></param>
         public LessonTypesController(IMapper mapper, ILessonTypeService service)
@@ -30,7 +30,7 @@ namespace MyTalki.Web.Controllers
         }
 
         /// <summary>
-        /// Returns a collection of customers: all or filtered with the parameters in query string. 
+        /// Returns a collection of lesson types: all or filtered with the parameters in query string. 
         /// </summary>
         /// <param name="titleLike">Filter by partial equality.</param>
         /// <param name="active">Filter by strict equality.</param>
@@ -57,9 +57,9 @@ namespace MyTalki.Web.Controllers
         }
 
         /// <summary>
-        /// Returns a single customer by id.
+        /// Returns a single lesson type by id.
         /// </summary>
-        /// <param name="id">Customer id.</param>
+        /// <param name="id">Lesson type id.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<LessonTypeModel> GetAsync(int id)
@@ -70,7 +70,7 @@ namespace MyTalki.Web.Controllers
 
 
         /// <summary>
-        /// Creates a new customer in the system.
+        /// Creates a new lesson type in the system.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
