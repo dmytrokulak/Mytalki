@@ -454,3 +454,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /server/MyTalki.Web/MyTalki.Web/mytalki.db
+/server/MyTalki.Web/MyTalki.Web/mytalki.db-wal
+/server/MyTalki.Web/MyTalki.Web/mytalki.db-shm
