@@ -39,27 +39,29 @@ namespace MyTalki.Domain.Services.Impl
                 query.OrderBy, query.OrderMode);
         }
 
-        public async Task<int> CreateLessonTypeAsync(LessonType entity)
+        public async Task<LessonType> CreateLessonTypeAsync(LessonType entity)
         {
             using (var transaction = _transactionFactory.Execute())
             {
                 await _repository.AddAsync(entity);
                 transaction.Save();
             }
-            return entity.Id;
+            return entity;
         }
 
-        public async Task ModifyLessonTypeAsync(LessonType entity)
+        public async Task ModifyLessonTypeAsync(int id, LessonType entity)
         {
             using (var transaction = _transactionFactory.Execute())
             {
-                var tracked = await _repository.LoadAsync<LessonType>(entity.Id);
+                var tracked = await _repository.LoadAsync<LessonType>(id);
                 tracked.Title = entity.Title;
                 tracked.Description = entity.Description;
+                tracked.Active = entity.Active;
                 tracked.Offers = entity.Offers;
                 transaction.Save();
             }
         }
+
 
         public async Task SuspendLessonTypeAsync(int id)
         {

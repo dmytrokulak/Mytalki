@@ -10,8 +10,8 @@ namespace MyTalki.Domain.Services
         Task<ICollection<LessonType>> GetLessonTypesAsync();
         Task<LessonType> GetLessonTypeAsync(int id);
         Task<ICollection<LessonType>> GetLessonTypesAsync(LessonTypeQuery query);
-        Task<int> CreateLessonTypeAsync(LessonType entity);
-        Task ModifyLessonTypeAsync(LessonType entity);
+        Task<LessonType> CreateLessonTypeAsync(LessonType entity);
+        Task ModifyLessonTypeAsync(int id, LessonType entity);
         Task SuspendLessonTypeAsync(int id);
         Task RestoreLessonTypeAsync(int id);
         Task DeleteLessonTypeAsync(int id);

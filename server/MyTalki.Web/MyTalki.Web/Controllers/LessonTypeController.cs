@@ -10,11 +10,11 @@ using MyTalki.Web.Models;
 namespace MyTalki.Web.Controllers
 {
     /// <summary>
-    /// Controller to manage customer entities.
+    /// Controller to manage lesson type entities.
     /// </summary>
     [Route("api/lesson-types")]
     [ApiController]
-    public class LessonTypesController : ControllerBase
+    public class LessonTypeController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ILessonTypeService _service;
@@ -23,11 +23,12 @@ namespace MyTalki.Web.Controllers
         /// Controller to manage lesson type entities.
         /// </summary>
         /// <param name="mapper"></param>
-        public LessonTypesController(IMapper mapper, ILessonTypeService service)
+        public LessonTypeController(IMapper mapper, ILessonTypeService service)
         {
             _mapper = mapper;
             _service = service;
         }
+
 
         /// <summary>
         /// Returns a collection of lesson types: all or filtered with the parameters in query string. 
@@ -56,6 +57,7 @@ namespace MyTalki.Web.Controllers
             return _mapper.Map<IEnumerable<LessonTypeModel>>(entities);
         }
 
+
         /// <summary>
         /// Returns a single lesson type by id.
         /// </summary>
@@ -75,49 +77,61 @@ namespace MyTalki.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<int> PostAsync([FromBody] LessonTypeModel model)
+        public async Task<LessonTypeModel> PostAsync([FromBody] LessonTypeModel model)
         {
             var entity = _mapper.Map<LessonType>(model);
             await _service.CreateLessonTypeAsync(entity);
-            return entity.Id;
+            return _mapper.Map<LessonTypeModel>(entity);
         }
 
-        ///// <summary>
-        ///// Modifies customer by customer id.
-        ///// </summary>
-        ///// <param name="id">Customer id.</param>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[HttpPut("{id}/type")]
-        //public async Task PutCustomerTypeAsync(Guid id, [FromBody] ChangeCustomerTypeModel model)
-        //{
-        //    var command = _mapper.Map<ChangeCustomerType>(model);
-        //    command.Id = id;
-        //    //ToDo:3  command.InitiatorId = User.Identity.Id;
-        //    command.InitiatorId = Guid.NewGuid();
-        //    await _commandInvoker.Execute(command);
-        //}
 
-        //[HttpPut("{id}/contact/{subId}/primary")]
-        //public async Task PutCustomerContactAsPrimaryAsync(Guid id, Guid subId)
-        //{
-        //    var command = new SetCustomerPrimaryContact
-        //    {
-        //        NewPrimaryContactId = subId, CustomerId = id, InitiatorId = Guid.NewGuid()
-        //    };
-        //    //ToDo:3  command.InitiatorId = User.Identity.Id;
-        //    await _commandInvoker.Execute(command);
-        //}
+        /// <summary>
+        /// Modifies lesson type according to the model in the request.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task PutAsync(int id, [FromBody] LessonType model)
+        {
+            var entity = _mapper.Map<LessonType>(model);
+            await _service.ModifyLessonTypeAsync(id, entity);
+        }
 
-        ///// <summary>
-        ///// Removes customer from the system.
-        ///// </summary>
-        ///// <param name="id">Customer id.</param>
-        ///// <returns></returns>
-        //[HttpDelete("{id}")]
-        //public async Task DeleteAsync(Guid id)
-        //{
-        //    await _commandInvoker.Execute(new ArchiveCustomer {Id = id, InitiatorId = Guid.NewGuid()});
-        //}
+
+        /// <summary>
+        /// Marks lesson type as not active (suspends it).
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}/suspend")]
+        public async Task PatchSuspendAsync(int id)
+        {
+            await _service.SuspendLessonTypeAsync(id);
+        }
+
+
+        /// <summary>
+        /// Marks lesson type as active (restores it).
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}/restore")]
+        public async Task PatchRestoreAsync(int id)
+        {
+            await _service.RestoreLessonTypeAsync(id);
+        }
+
+
+        /// <summary>
+        /// Removes lesson type from the system.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(int id)
+        {
+            await _service.DeleteLessonTypeAsync(id);
+        }
     }
 }
