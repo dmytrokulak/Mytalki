@@ -12,7 +12,7 @@ namespace MyTalki.Persistence
             _context = context;
         }
 
-        public ITransaction Execute() 
+        public ITransaction Begin() 
             => (T) Activator.CreateInstance(typeof(T), _context);
 
     }

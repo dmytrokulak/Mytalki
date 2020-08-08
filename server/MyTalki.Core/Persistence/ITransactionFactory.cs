@@ -2,6 +2,6 @@
 {
     public interface ITransactionFactory<T> where T : ITransaction
     {
-        T Execute();
+        T Begin();
     }
 }

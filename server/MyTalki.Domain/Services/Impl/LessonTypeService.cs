@@ -42,7 +42,7 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task<LessonType> CreateLessonTypeAsync(LessonType entity)
         {
-            using (var transaction = _transactionFactory.Execute())
+            using (var transaction = _transactionFactory.Begin())
             {
                 await _repository.AddAsync(entity);
                 transaction.Save();
@@ -52,7 +52,7 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task ModifyLessonTypeAsync(int id, LessonType entity)
         {
-            using (var transaction = _transactionFactory.Execute())
+            using (var transaction = _transactionFactory.Begin())
             {
                 var tracked = await _repository.LoadAsync<LessonType>(id);
                 
@@ -87,7 +87,7 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task SuspendLessonTypeAsync(int id)
         {
-            using (var transaction = _transactionFactory.Execute())
+            using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
                 entity.Active = false;
@@ -97,7 +97,7 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task RestoreLessonTypeAsync(int id)
         {
-            using (var transaction = _transactionFactory.Execute())
+            using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
                 entity.Active = false;
@@ -107,7 +107,7 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task DeleteLessonTypeAsync(int id)
         {
-            using (var transaction = _transactionFactory.Execute())
+            using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
                 await _repository.RemoveAsync(entity);

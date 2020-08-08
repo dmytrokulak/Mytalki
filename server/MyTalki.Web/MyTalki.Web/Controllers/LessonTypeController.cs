@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTalki.Domain.Entities;
 using MyTalki.Domain.Queries;
@@ -13,6 +14,7 @@ namespace MyTalki.Web.Controllers
     /// Controller to manage lesson type entities.
     /// </summary>
     [Route("api/lesson-types")]
+    [Authorize("Admin")]
     [ApiController]
     public class LessonTypeController : ControllerBase
     {
@@ -42,7 +44,7 @@ namespace MyTalki.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<LessonTypeModel>> GetAsync([FromQuery] string titleLike,
-               [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode) 
+                   [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
         {
             var query = new LessonTypeQuery
             {
