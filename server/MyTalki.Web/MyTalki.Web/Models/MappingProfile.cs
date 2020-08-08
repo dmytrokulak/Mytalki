@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MyTalki.Domain.Entities;
 
 namespace MyTalki.Web.Models
@@ -13,6 +9,7 @@ namespace MyTalki.Web.Models
         {
             CreateMap<LessonType, LessonTypeModel>().ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
             CreateMap<Offer, OfferModel>().ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
+            CreateMap<User, UserModel>();
         }
     }
 }

@@ -58,11 +58,31 @@ namespace MyTalki.Domain.Services.Impl
             return GenerateToken(user, secret);
         }
 
+        public async Task<User> GetCurrentUserAsync(string token)
+        {
+            var id = GetIdFromToken(token);
+            return await _repository.GetAsync<User>(id);
+        }
+
+
+        private int GetIdFromToken(string input)
+        {
+            Claim id = null;
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(input);
+            var claims = token.Claims;
+            id = claims.Single(c => c.Type == "nameid");
+            return int.Parse(id.Value);
+        }
+
         private string GenerateToken(User user, string secret)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var now = DateTime.UtcNow;
             var identity = new ClaimsIdentity();
+            
+            identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
+            
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             if (user.IsAdmin)

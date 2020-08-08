@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyTalki.Domain.Services;
 using Microsoft.Extensions.Configuration;
@@ -8,17 +8,19 @@ using MyTalki.Web.Models;
 
 namespace MyTalki.Web.Controllers
 {
-    [Route("api/auth")]
+    [Route("api")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _service;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthService service, IConfiguration configuration)
+        public AuthController(IAuthService service, IConfiguration configuration, IMapper mapper)
         {
             _service = service;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
 
@@ -49,6 +51,14 @@ namespace MyTalki.Web.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpGet("user")]
+        public async Task<UserModel> GetCurrentUser()
+        {
+            Request.Headers.TryGetValue("Authorization", out var value);
+            var entity = await _service.GetCurrentUserAsync(value[0].Split(' ')[1]);
+            return _mapper.Map<UserModel>(entity);
         }
     }
 }
