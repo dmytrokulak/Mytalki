@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyTalki.Core.Persistence;
@@ -54,10 +55,31 @@ namespace MyTalki.Domain.Services.Impl
             using (var transaction = _transactionFactory.Execute())
             {
                 var tracked = await _repository.LoadAsync<LessonType>(id);
+                
                 tracked.Title = entity.Title;
                 tracked.Description = entity.Description;
                 tracked.Active = entity.Active;
-                tracked.Offers = entity.Offers;
+                
+                var offersToRemove = new List<Offer>();
+                foreach (var trackedOffer in tracked.Offers)
+                {
+                    var offer = entity.Offers.SingleOrDefault(o => o.Id == trackedOffer.Id);
+                    if (offer != null)
+                    {
+                        trackedOffer.Minutes = offer.Minutes;
+                        trackedOffer.Currency = offer.Currency;
+                        trackedOffer.Price = offer.Price;
+                    }
+                    else
+                    {
+                        offersToRemove.Add(trackedOffer);
+                    }
+                }
+                foreach (var offer in offersToRemove) 
+                    tracked.Offers.Remove(offer);
+                foreach (var offer in entity.Offers.Where(o => o.Id == default)) 
+                    tracked.Offers.Add(offer);
+
                 transaction.Save();
             }
         }
