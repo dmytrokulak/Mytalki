@@ -9,8 +9,7 @@ namespace MyTalki.Core.Domain.Queries
         public int? Skip { get; set; }
         public string OrderBy { get; set; }
         public string OrderMode { get; set; }
-        public ICollection<Guid> FilterIds { get; set; }
-        public string FilterNameLike { get; set; }
+        public ICollection<int> FilterIds { get; set; }
         public bool Lazy { get; set; }
 
         public void AsLazy() => Lazy = true;

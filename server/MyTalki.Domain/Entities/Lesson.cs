@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyTalki.Core.Domain.Entities;
 
 namespace MyTalki.Domain.Entities
 {
-    public class Lesson
+    public class Lesson : EntityBase
     {
-        public int Id { get; set; }
         public LessonType LessonType { get; set; }
         public LessonStatus Status { get; set; }
         public ICollection<CalendarSlot> Slots { get; set; }

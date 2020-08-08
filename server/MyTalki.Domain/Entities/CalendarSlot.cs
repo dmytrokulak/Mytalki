@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using MyTalki.Core.Domain.Entities;
 
 namespace MyTalki.Domain.Entities
 {
-    public class CalendarSlot
+    public class CalendarSlot : EntityBase
     {
-        public int Id { get; set; }
         public DateTimeOffset StartAt { get; set; }
         public SlotStatus Status { get; set; }
     }

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using MyTalki.Core.Domain.Entities;
 
-namespace MyTalki.Domain.Entities
+namespace MyTalki.Web.Models
 {
-    public class LessonType : EntityBase
+    public class LessonTypeModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
-        public ICollection<Offer> Offers { get; set; }
+        public ICollection<OfferModel> Offers { get; set; }
     }
 }

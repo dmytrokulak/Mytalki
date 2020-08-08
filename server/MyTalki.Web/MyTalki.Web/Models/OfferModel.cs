@@ -1,9 +1,8 @@
-﻿using MyTalki.Core.Domain.Entities;
-
-namespace MyTalki.Domain.Entities
+﻿namespace MyTalki.Web.Models
 {
-    public class Offer : EntityBase
+    public class OfferModel
     {
+        public int Id { get; set; }
         public int Minutes { get; set; }
         public decimal Price { get; set; }
         public string Currency { get; set; }
