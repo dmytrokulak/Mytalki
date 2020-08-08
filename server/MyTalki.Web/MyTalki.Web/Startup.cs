@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +19,7 @@ using MyTalki.Domain.Services;
 using MyTalki.Domain.Services.Impl;
 using MyTalki.Persistence;
 using MyTalki.Persistence.Repositories;
+using MyTalki.Web.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace MyTalki.Web
@@ -34,11 +36,19 @@ namespace MyTalki.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddSingleton(new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            }).CreateMapper());
+
+            services.AddScoped<ITransaction, Transaction>();
+            services.AddScoped<ITransactionFactory<ITransaction>, TransactionFactory<Transaction>>();
             services.AddDbContext<DomainContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("AppDb")));
             services.AddScoped<IEntityRepository, EntityRepository>();
             services.AddScoped<ILessonTypeService, LessonTypeService>();
+
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {

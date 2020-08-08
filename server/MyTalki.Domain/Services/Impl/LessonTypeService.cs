@@ -11,10 +11,12 @@ namespace MyTalki.Domain.Services.Impl
     public class LessonTypeService : ILessonTypeService
     {
         private IEntityRepository _repository;
+        private ITransactionFactory<ITransaction> _transactionFactory;
 
-        public LessonTypeService(IEntityRepository repository)
+        public LessonTypeService(IEntityRepository repository, ITransactionFactory<ITransaction> transactionFactory)
         {
             _repository = repository;
+            _transactionFactory = transactionFactory;
         }
 
         public async Task<ICollection<LessonType>> GetLessonTypesAsync()
@@ -39,34 +41,54 @@ namespace MyTalki.Domain.Services.Impl
 
         public async Task<int> CreateLessonTypeAsync(LessonType entity)
         {
-            await _repository.AddAsync(entity);
+            using (var transaction = _transactionFactory.Execute())
+            {
+                await _repository.AddAsync(entity);
+                transaction.Save();
+            }
             return entity.Id;
         }
 
         public async Task ModifyLessonTypeAsync(LessonType entity)
         {
-            var tracked = await _repository.LoadAsync<LessonType>(entity.Id);
-            tracked.Title = entity.Title;
-            tracked.Description = entity.Description;
-            tracked.Offers = entity.Offers;
+            using (var transaction = _transactionFactory.Execute())
+            {
+                var tracked = await _repository.LoadAsync<LessonType>(entity.Id);
+                tracked.Title = entity.Title;
+                tracked.Description = entity.Description;
+                tracked.Offers = entity.Offers;
+                transaction.Save();
+            }
         }
 
         public async Task SuspendLessonTypeAsync(int id)
         {
-            var entity = await _repository.LoadAsync<LessonType>(id);
-            entity.Active = false;
+            using (var transaction = _transactionFactory.Execute())
+            {
+                var entity = await _repository.LoadAsync<LessonType>(id);
+                entity.Active = false;
+                transaction.Save();
+            }
         }
 
         public async Task RestoreLessonTypeAsync(int id)
         {
-            var entity = await _repository.LoadAsync<LessonType>(id);
-            entity.Active = false;
+            using (var transaction = _transactionFactory.Execute())
+            {
+                var entity = await _repository.LoadAsync<LessonType>(id);
+                entity.Active = false;
+                transaction.Save();
+            }
         }
 
         public async Task DeleteLessonTypeAsync(int id)
         {
-            var entity = await _repository.LoadAsync<LessonType>(id);
-            await _repository.RemoveAsync(entity);
+            using (var transaction = _transactionFactory.Execute())
+            {
+                var entity = await _repository.LoadAsync<LessonType>(id);
+                await _repository.RemoveAsync(entity);
+                transaction.Save();
+            }
         }
     }
 }

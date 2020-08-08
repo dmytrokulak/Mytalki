@@ -3,11 +3,11 @@ using MyTalki.Core.Persistence;
 
 namespace MyTalki.Persistence
 {
-    public class UnitOfWorkFactory<T> : ITransactionFactory<ITransaction> where T : ITransaction
+    public class TransactionFactory<T> : ITransactionFactory<ITransaction> where T : ITransaction
     {
         private readonly DomainContext _context;
 
-        public UnitOfWorkFactory(DomainContext context)
+        public TransactionFactory(DomainContext context)
         {
             _context = context;
         }

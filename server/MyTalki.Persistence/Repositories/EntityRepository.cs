@@ -25,7 +25,7 @@ namespace MyTalki.Persistence.Repositories
 
         private static void PopulateIncludes()
         {
-            _includes ??= Assembly.Load("Epok.Domain").GetTypes().Where(IsEntity)
+            _includes ??= Assembly.Load("MyTalki.Domain").GetTypes().Where(IsEntity)
                 .ToDictionary(t => t, t => t.GetProperties()
                     .Where(p => p.CanWrite && (IsEntity(p.PropertyType) || IsEntities(p.PropertyType)))
                     .Select(p => p.Name).ToList());

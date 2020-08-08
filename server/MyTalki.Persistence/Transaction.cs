@@ -23,5 +23,10 @@ namespace MyTalki.Persistence
         {
             _context.SaveChanges();
         }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace MyTalki.Core.Persistence
     /// </summary>
     public interface ITransaction : IDisposable
     {
+        void Save();
     }
 }
