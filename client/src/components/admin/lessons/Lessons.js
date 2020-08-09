@@ -42,8 +42,10 @@ const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson })
   return (
     <div id='section-lessons' className='section'>
       <h4 className='center-align'>Lessons</h4>
-      {loading || collection == null ? (
+      {loading ? (
         <Preloader />
+      ) : !collection || !collection.length ? (
+        <h6 className='center-align'>Nothing to display</h6>
       ) : (
         <Fragment>
           {requested.length > 0 && (
