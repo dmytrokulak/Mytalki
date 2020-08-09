@@ -10,7 +10,7 @@ const LessonTypeOffer = ({ offer }) => {
               <td>
                 <i className='material-icons'>access_time</i>
               </td>
-              <td>{offer.time} mins</td>
+              <td>{offer.minutes} mins</td>
             </tr>
             <tr>
               <td>

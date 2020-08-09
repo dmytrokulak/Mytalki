@@ -10,10 +10,15 @@ import Preloader from '../../layout/Preloader';
 
 const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) => {
   useEffect(() => {
-    M.AutoInit();
     getLessonTypes();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    M.AutoInit();
+    //eslint-disable-next-line
+  }, [collection]);
+
   return (
     <div id='section-lesson-types' className='section'>
       <h4 className='center-align'>Lesson Types</h4>

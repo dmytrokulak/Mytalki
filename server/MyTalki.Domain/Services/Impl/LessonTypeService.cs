@@ -44,6 +44,7 @@ namespace MyTalki.Domain.Services.Impl
         {
             using (var transaction = _transactionFactory.Begin())
             {
+                entity.OnSale = entity.Offers.Any(o => o.OnSale);
                 await _repository.AddAsync(entity);
                 transaction.Save();
             }

@@ -8,28 +8,28 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
   const offersDefault = [
     {
       id: 1,
-      time: 30,
+      minutes: 30,
       price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
       id: 2,
-      time: 45,
+      minutes: 45,
       price: 1.0,
       currency: 'USD',
       onsale: false,
     },
     {
       id: 3,
-      time: 60,
+      minutes: 60,
       price: 1.0,
       currency: 'USD',
       onsale: true,
     },
     {
       id: 4,
-      time: 90,
+      minutes: 90,
       price: 1.0,
       currency: 'USD',
       onsale: false,
@@ -58,7 +58,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
           id: current.id,
           title,
           description,
-          active: current.active,
+          onSale: current.onSale,
           offers,
         });
         M.toast({ html: `Lesson type ${title} updated.` });
@@ -66,7 +66,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
         addLessonType({
           title,
           description,
-          active: true,
+          onSale: true,
           offers,
         });
         M.toast({ html: `Lesson type ${title} added.` });
@@ -109,11 +109,11 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
         <div className='row'>
           {offers.map((offer, index) => {
             return (
-              <div className='input-field col s3' key={`${offer.time}_min`}>
+              <div className='input-field col s3' key={`${offer.minutes}_min`}>
                 <i className='material-icons prefix'>attach_money</i>
                 <input
                   value={offer.price}
-                  id={`${offer.time}_min`}
+                  id={`${offer.minutes}_min`}
                   type='number'
                   min='1'
                   step='0.1'
@@ -123,8 +123,8 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
                     setOffers([...offers]);
                   }}
                 />
-                <label className='active' htmlFor={`${offer.time}_min`}>
-                  {offer.time} min price {offer.currency}
+                <label className='active' htmlFor={`${offer.minutes}_min`}>
+                  {offer.minutes} min price {offer.currency}
                 </label>
                 <div>
                   <label>
