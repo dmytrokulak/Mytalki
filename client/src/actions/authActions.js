@@ -1,5 +1,24 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
 
+export const preLoadUser = async (store) => {
+  if (localStorage.getItem('token')) {
+    try {
+      const res = await fetch('/user', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      const data = await res.json();
+      store.dispatch({
+        type: USER_LOADED,
+        payload: data,
+      });
+    } catch (error) {
+      store.dispatch({ type: AUTH_ERROR });
+    }
+  }
+};
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   try {

@@ -16,6 +16,7 @@ import Students from './components/admin/students/Students';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 import { Provider } from 'react-redux';
+import { preLoadUser } from './actions/authActions';
 import store from './store';
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -23,9 +24,11 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import './App.css';
 
 const App = () => {
-  useEffect(() => {
+  useEffect(async () => {
     M.AutoInit();
-  });
+    await preLoadUser(store);
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
