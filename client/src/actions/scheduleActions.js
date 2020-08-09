@@ -32,7 +32,11 @@ export const applySchedule = (schedule, daysOnDisplay) => async (dispatch) => {
 //Get schedules from server
 export const getSavedSchedules = () => async (dispatch) => {
   try {
-    const res = await fetch('/schedules');
+    const res = await fetch('/schedules', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
     const data = await res.json();
     dispatch({
       type: GET_SCHEDULES,
@@ -54,6 +58,7 @@ export const saveSchedule = (item) => async (dispatch) => {
       body: JSON.stringify(item),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
     });
     const data = await res.json();
@@ -74,6 +79,7 @@ export const deleteSchedule = (id) => async (dispatch) => {
   try {
     await fetch(`/schedules/${id}`, {
       method: 'DELETE',
+      Authorization: localStorage.getItem('token'),
     });
 
     dispatch({

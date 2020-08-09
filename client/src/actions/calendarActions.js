@@ -10,7 +10,11 @@ import {
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
   try {
-    const res = await fetch('/calendar-slots');
+    const res = await fetch('/calendar-slots', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
     const data = await res.json();
     dispatch({
       type: GET_CALENDAR,
@@ -32,6 +36,7 @@ export const addSlotToCalendar = (item) => async (dispatch) => {
       body: JSON.stringify(item),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
     });
 
@@ -54,6 +59,9 @@ export const deleteSlotFromCalendar = (id) => async (dispatch) => {
   try {
     await fetch(`/calendar-slots/${id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
     });
 
     dispatch({
@@ -84,6 +92,7 @@ export const addRequestToCalendar = (items) => async (dispatch) => {
         body: JSON.stringify(items[i]),
         headers: {
           'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
         },
       });
 
