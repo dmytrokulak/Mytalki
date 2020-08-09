@@ -166,7 +166,7 @@ const Calendar = ({
       <td className='action-cell'>
         <span className='green-text'>
           <i
-            className='small material-icons'
+            className='material-icons'
             data-hours={timeMoment.hours()}
             data-minutes={timeMoment.minutes()}
             onClick={selectSlotSprint}
@@ -176,7 +176,7 @@ const Calendar = ({
         </span>
         <span className='red-text'>
           <i
-            className='small material-icons'
+            className='material-icons'
             data-hours={timeMoment.hours()}
             data-minutes={timeMoment.minutes()}
             onClick={deSelectSlotSprint}
