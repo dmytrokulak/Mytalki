@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import {
   getCalendar,
-  addSlotToCalendar,
+  addSlotsToCalendar,
   deleteSlotFromCalendar,
   setDaysOnDisplay,
 } from '../../../actions/calendarActions';
@@ -20,7 +20,7 @@ let page = 0;
 const Calendar = ({
   calendarSlots: { collection, daysOnDisplay, loading },
   getCalendar,
-  addSlotToCalendar,
+  addSlotsToCalendar,
   deleteSlotFromCalendar,
   setDaysOnDisplay,
 }) => {
@@ -60,11 +60,11 @@ const Calendar = ({
     for (let i = 0; i < daysVisible; i++) {
       let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
-      const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+      const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
       if (!slot) {
         setTimeout(() => {
-          addSlotToCalendar({
-            start: slotMoment,
+          addSlotsToCalendar({
+            startAt: slotMoment,
             status: 'vacant',
           });
         }, 1500);
@@ -78,7 +78,7 @@ const Calendar = ({
     for (let i = 0; i < daysVisible; i++) {
       let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
-      const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+      const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
       if (slot && !slot.booked) {
         setTimeout(() => {
           deleteSlotFromCalendar(slot.id);
@@ -95,10 +95,12 @@ const Calendar = ({
         deleteSlotFromCalendar(+e.target.dataset.slotId);
       }
     } else {
-      addSlotToCalendar({
-        start: e.target.dataset.datetime,
-        status: 'vacant',
-      });
+      addSlotsToCalendar([
+        {
+          startAt: e.target.dataset.datetime,
+          status: 'vacant',
+        },
+      ]);
     }
   };
 
@@ -127,7 +129,7 @@ const Calendar = ({
                   .add(j, 'd')
                   .add(timeMoment.hours(), 'h')
                   .add(timeMoment.minutes(), 'm');
-                const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+                const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
                 let className = 'blocked';
                 let isAvailable = false;
                 let isBooked = false;
@@ -245,13 +247,13 @@ const Calendar = ({
 Calendar.propTypes = {
   calendarSlots: PropTypes.object.isRequired,
   getCalendar: PropTypes.func.isRequired,
-  addSlotToCalendar: PropTypes.func.isRequired,
+  addSlotsToCalendar: PropTypes.func.isRequired,
   deleteSlotFromCalendar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   calendarSlots: state.calendarSlots,
 });
-export default connect(mapStateToProps, { getCalendar, addSlotToCalendar, deleteSlotFromCalendar, setDaysOnDisplay })(
+export default connect(mapStateToProps, { getCalendar, addSlotsToCalendar, deleteSlotFromCalendar, setDaysOnDisplay })(
   Calendar
 );

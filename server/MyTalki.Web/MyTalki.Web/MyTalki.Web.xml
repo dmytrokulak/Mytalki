@@ -9,7 +9,7 @@
             Controller to manage lesson type entities.
             </summary>
         </member>
-        <member name="M:MyTalki.Web.Controllers.CalendarController.#ctor(AutoMapper.IMapper,MyTalki.Domain.Services.ILessonTypeService)">
+        <member name="M:MyTalki.Web.Controllers.CalendarController.#ctor(AutoMapper.IMapper,MyTalki.Domain.Services.ICalendarService)">
             <summary>
             Controller to manage lesson type entities.
             </summary>
@@ -25,6 +25,13 @@
             <param name="skip">Number of entities to skip when returning in response.</param>
             <param name="orderBy">Property name. Sorted by "name" by default</param>
             <param name="orderMode">Either "asc" or "desc", "asc" by default.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyTalki.Web.Controllers.CalendarController.PostAsync(System.Collections.Generic.IEnumerable{MyTalki.Web.Models.CalendarSlotModel})">
+            <summary>
+            Creates new vacant calendar slots.
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="T:MyTalki.Web.Controllers.LessonController">

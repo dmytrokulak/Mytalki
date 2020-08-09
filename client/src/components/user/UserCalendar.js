@@ -3,7 +3,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { getCalendar, addSlotToCalendar, setDaysOnDisplay } from '../../actions/calendarActions';
+import { getCalendar, addSlotsToCalendar, setDaysOnDisplay } from '../../actions/calendarActions';
 import { setSelectedSlots, clearBooking } from '../../actions/bookingActions';
 import Preloader from '../layout/Preloader';
 import ConfirmBookingModal from './ConfirmBookingModal';
@@ -17,7 +17,7 @@ const UserCalendar = ({
   booking: { offer, selectedSlots },
   auth: { isAuthenticated, user },
   getCalendar,
-  addSlotToCalendar,
+  addSlotsToCalendar,
   setDaysOnDisplay,
   setSelectedSlots,
   clearBooking,
@@ -265,7 +265,7 @@ const UserCalendar = ({
 UserCalendar.propTypes = {
   calendarSlots: PropTypes.object.isRequired,
   getCalendar: PropTypes.func.isRequired,
-  addSlotToCalendar: PropTypes.func.isRequired,
+  addSlotsToCalendar: PropTypes.func.isRequired,
   setSelectedSlots: PropTypes.func.isRequired,
   clearBooking: PropTypes.func.isRequired,
 };
@@ -277,7 +277,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getCalendar,
-  addSlotToCalendar,
+  addSlotsToCalendar,
   setDaysOnDisplay,
   setSelectedSlots,
   clearBooking,

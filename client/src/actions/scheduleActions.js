@@ -1,6 +1,6 @@
 import { GET_SCHEDULES, SCHEDULE_ERROR, ADD_SCHEDULE, DELETE_SCHEDULE } from './types';
 //ToDo:: next line should be removed
-import { addSlotToCalendar } from './calendarActions';
+import { addSlotsToCalendar } from './calendarActions';
 import moment from 'moment';
 
 //Apply current schedule to the range on display
@@ -17,7 +17,7 @@ export const applySchedule = (schedule, daysOnDisplay) => async (dispatch) => {
           let newSlot = daysOnDisplay[i].clone();
           newSlot.hours(savedSlot.hours()).valueOf();
           newSlot.minutes(savedSlot.minutes()).valueOf();
-          addSlotToCalendar(newSlot);
+          addSlotsToCalendar(newSlot);
         }, 1000);
       });
     }

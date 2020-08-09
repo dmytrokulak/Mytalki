@@ -1,6 +1,6 @@
 import {
   GET_CALENDAR,
-  ADD_VACANT_SLOT,
+  ADD_VACANT_SLOTS,
   DELETE_VACANT_SLOT,
   SET_LOADING,
   CALENDAR_ERROR,
@@ -24,10 +24,10 @@ export default (state = initialState, action) => {
         collection: action.payload,
         loading: false,
       };
-    case ADD_VACANT_SLOT:
+    case ADD_VACANT_SLOTS:
       return {
         ...state,
-        collection: [...state.collection, action.payload],
+        collection: [...state.collection, ...action.payload],
         loading: false,
       };
     case DELETE_VACANT_SLOT:

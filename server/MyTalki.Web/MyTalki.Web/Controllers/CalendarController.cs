@@ -20,13 +20,13 @@ namespace MyTalki.Web.Controllers
     public class CalendarController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ILessonTypeService _service;
+        private readonly ICalendarService _service;
 
         /// <summary>
         /// Controller to manage lesson type entities.
         /// </summary>
         /// <param name="mapper"></param>
-        public CalendarController(IMapper mapper, ILessonTypeService service)
+        public CalendarController(IMapper mapper, ICalendarService service)
         {
             _mapper = mapper;
             _service = service;
@@ -47,8 +47,26 @@ namespace MyTalki.Web.Controllers
         public async Task<IEnumerable<CalendarSlotModel>> GetAsync([FromQuery] string titleLike,
                    [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
         {
-            return Enumerable.Empty<CalendarSlotModel>();
+            var entities = await _service.GetCalendarSlotsAsync();
+            var calendarSlotModels = _mapper.Map<IEnumerable<CalendarSlotModel>>(entities);
+            return calendarSlotModels;
         }
+
+
+
+        /// <summary>
+        /// Creates new vacant calendar slots.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IEnumerable<CalendarSlotModel>> PostAsync([FromBody] IEnumerable<CalendarSlotModel> model)
+        {
+            var entities = _mapper.Map<IEnumerable<CalendarSlot>>(model);
+            await _service.CreateVacantSlotsAsync(entities);
+            return _mapper.Map<IEnumerable<CalendarSlotModel>>(entities);
+        }
+
 
 
         ///// <summary>
@@ -60,20 +78,6 @@ namespace MyTalki.Web.Controllers
         //public async Task<LessonTypeModel> GetAsync(int id)
         //{
         //    var entity = await _service.GetLessonTypeAsync(id);
-        //    return _mapper.Map<LessonTypeModel>(entity);
-        //}
-
-
-        ///// <summary>
-        ///// Creates a new lesson type in the system.
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public async Task<LessonTypeModel> PostAsync([FromBody] LessonTypeModel model)
-        //{
-        //    var entity = _mapper.Map<LessonType>(model);
-        //    await _service.CreateLessonTypeAsync(entity);
         //    return _mapper.Map<LessonTypeModel>(entity);
         //}
 

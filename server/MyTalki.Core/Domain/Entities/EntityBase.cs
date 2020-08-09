@@ -27,7 +27,6 @@ namespace MyTalki.Core.Domain.Entities
             get => _id;
             set
             {
-                Guard.Against.Zero(value, "id");
                 _id = value;
             }
         }
