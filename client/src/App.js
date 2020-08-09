@@ -24,9 +24,9 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import './App.css';
 
 const App = () => {
-  useEffect(async () => {
+  useEffect(() => {
     M.AutoInit();
-    await preLoadUser(store);
+    (async () => await preLoadUser(store))();
   }, []);
 
   return (
