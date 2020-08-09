@@ -57,19 +57,19 @@ const Calendar = ({
   const selectSlotSprint = (e) => {
     const hours = +e.target.dataset.hours;
     const minutes = +e.target.dataset.minutes;
+    const newSlots = [];
     for (let i = 0; i < daysVisible; i++) {
       let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
       const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
       if (!slot) {
-        setTimeout(() => {
-          addSlotsToCalendar({
-            startAt: slotMoment,
-            status: 'vacant',
-          });
-        }, 1500);
+        newSlots.push({
+          startAt: slotMoment,
+          status: 'vacant',
+        });
       }
     }
+    addSlotsToCalendar(newSlots);
   };
 
   const deSelectSlotSprint = (e) => {
