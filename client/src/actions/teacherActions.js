@@ -12,7 +12,7 @@ export const getTeacherInfo = () => async (dispatch) => {
   } catch (error) {
     //   dispatch({
     //     type: LESSON_TYPE_ERROR,
-    //     payload: error.response.statusText,
+    //     payload: error,
     //   });
   }
 };

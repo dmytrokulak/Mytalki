@@ -19,7 +19,7 @@ export const getCalendar = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error.response.statusText,
+      payload: error,
     });
   }
 };
@@ -44,7 +44,7 @@ export const addSlotToCalendar = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error.response.statusText,
+      payload: error,
     });
   }
 };
@@ -63,7 +63,7 @@ export const deleteSlotFromCalendar = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error.response.statusText,
+      payload: error,
     });
   }
 };

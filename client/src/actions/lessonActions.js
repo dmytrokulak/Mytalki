@@ -64,7 +64,7 @@ export const updateLesson = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_ERROR,
-      payload: error.response.statusText,
+      payload: error,
     });
   }
 };
