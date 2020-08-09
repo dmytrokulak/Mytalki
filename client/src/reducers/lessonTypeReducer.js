@@ -21,19 +21,21 @@ export default (state = initialState, action) => {
     case GET_LESSON_TYPES:
       return {
         ...state,
-        collection: action.payload,
+        collection: action.payload.sort((a, b) => b.onSale - a.onSale),
         loading: false,
       };
     case ADD_LESSON_TYPE:
       return {
         ...state,
-        collection: [...state.collection, action.payload],
+        collection: [...state.collection, action.payload].sort((a, b) => b.onSale - a.onSale),
         loading: false,
       };
     case UPDATE_LESSON_TYPE:
       return {
         ...state,
-        collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
+        collection: state.collection
+          .map((item) => (item.id === action.payload.id ? action.payload : item))
+          .sort((a, b) => b.onSale - a.onSale),
         loading: false,
       };
     case DELETE_LESSON_TYPE:
