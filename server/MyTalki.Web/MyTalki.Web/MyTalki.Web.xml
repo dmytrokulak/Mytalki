@@ -87,7 +87,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:MyTalki.Web.Controllers.LessonTypeController.PutAsync(System.Int32,MyTalki.Domain.Entities.LessonType)">
+        <member name="M:MyTalki.Web.Controllers.LessonTypeController.PutAsync(System.Int32,MyTalki.Web.Models.LessonTypeModel)">
             <summary>
             Modifies lesson type according to the model in the request.
             </summary>

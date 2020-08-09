@@ -94,7 +94,7 @@ namespace MyTalki.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task PutAsync(int id, [FromBody] LessonType model)
+        public async Task PutAsync(int id, [FromBody] LessonTypeModel model)
         {
             var entity = _mapper.Map<LessonType>(model);
             await _service.ModifyLessonTypeAsync(id, entity);

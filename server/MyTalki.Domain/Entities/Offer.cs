@@ -8,5 +8,6 @@ namespace MyTalki.Domain.Entities
         public virtual decimal Price { get; set; }
         public virtual string Currency { get; set; }
         public virtual bool OnSale { get; set; }
+        public virtual LessonType LessonType { get; set; }
     }
 }

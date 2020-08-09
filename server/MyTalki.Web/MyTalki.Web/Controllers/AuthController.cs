@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTalki.Domain.Services;
 using Microsoft.Extensions.Configuration;
@@ -53,6 +54,7 @@ namespace MyTalki.Web.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpGet("user")]
         public async Task<UserModel> GetCurrentUser()
         {

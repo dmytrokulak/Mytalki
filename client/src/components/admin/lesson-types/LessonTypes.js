@@ -26,7 +26,7 @@ const LessonTypes = ({ lessonTypes: { collection, loading }, getLessonTypes }) =
         <Preloader />
       ) : (
         <ul className='collapsible popout'>
-          {collection && collection.map((item) => <LessonType item={item} key={item.id} />)}
+          {collection && collection.map((item) => <LessonType id={item.id} key={item.id} />)}
         </ul>
       )}
       <div className='fixed-action-btn'>

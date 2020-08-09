@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTalki.Domain.Entities;
 
@@ -13,7 +12,7 @@ namespace MyTalki.Persistence.Configurations
             builder.Property(e => e.Title).HasMaxLength(50).IsRequired();
             builder.Property(e => e.Description).HasMaxLength(1000).IsRequired();
             builder.Property(e => e.OnSale).IsRequired();
-            builder.HasMany(e => e.Offers);
+            builder.HasMany(e => e.Offers).WithOne(e => e.LessonType).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

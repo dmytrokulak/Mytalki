@@ -33,9 +33,7 @@ export default (state = initialState, action) => {
     case UPDATE_LESSON_TYPE:
       return {
         ...state,
-        collection: state.collection
-          .map((item) => (item.id === action.payload.id ? action.payload : item))
-          .sort((a, b) => b.onSale - a.onSale),
+        collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
         loading: false,
       };
     case DELETE_LESSON_TYPE:
