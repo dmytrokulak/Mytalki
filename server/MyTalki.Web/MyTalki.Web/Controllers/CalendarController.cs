@@ -15,7 +15,6 @@ namespace MyTalki.Web.Controllers
     /// Controller to manage lesson type entities.
     /// </summary>
     [Route("api/calendar-slots")]
-    [Authorize("Admin")]
     [ApiController]
     public class CalendarController : ControllerBase
     {
@@ -45,7 +44,7 @@ namespace MyTalki.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<CalendarSlotModel>> GetAsync([FromQuery] string titleLike,
-                   [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
+                       [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
         {
             var entities = await _service.GetCalendarSlotsAsync();
             var calendarSlotModels = _mapper.Map<IEnumerable<CalendarSlotModel>>(entities);
@@ -59,6 +58,7 @@ namespace MyTalki.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [Authorize("Admin")]
         [HttpPost]
         public async Task<IEnumerable<CalendarSlotModel>> PostAsync([FromBody] IEnumerable<CalendarSlotModel> model)
         {
@@ -73,6 +73,7 @@ namespace MyTalki.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize("Admin")]
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {

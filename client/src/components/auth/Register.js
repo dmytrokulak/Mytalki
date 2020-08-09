@@ -51,7 +51,7 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
         <h4>Register</h4>
         <span>
           Or{' '}
-          <Link class='teal-text' to='/login'>
+          <Link className='teal-text' to='/login'>
             Login.
           </Link>
         </span>
@@ -63,7 +63,7 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
             <input
               id='firstName'
               type='text'
-              firstName='firstName'
+              name='firstName'
               value={firstName}
               className='validate'
               onChange={onChange}
@@ -75,7 +75,7 @@ const Register = ({ auth: { error, isAuthenticated }, history, register }) => {
             <input
               id='lastName'
               type='text'
-              lastName='lastName'
+              name='lastName'
               value={lastName}
               className='validate'
               onChange={onChange}

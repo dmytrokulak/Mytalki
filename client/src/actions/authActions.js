@@ -58,7 +58,7 @@ export const register = (formData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: error.response.data.msg,
+      payload: error,
     });
   }
 };
