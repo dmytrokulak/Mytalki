@@ -54,6 +54,7 @@ export const register = (formData) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: data,
     });
+    await loadUser()(dispatch);
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
@@ -78,6 +79,7 @@ export const login = (formData) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: token,
     });
+    await loadUser()(dispatch);
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
