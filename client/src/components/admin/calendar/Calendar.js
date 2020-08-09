@@ -80,9 +80,7 @@ const Calendar = ({
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
       const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
       if (slot && !slot.booked) {
-        setTimeout(() => {
-          deleteSlotFromCalendar(slot.id);
-        }, 1500);
+        deleteSlotFromCalendar(slot.id);
       }
     }
   };

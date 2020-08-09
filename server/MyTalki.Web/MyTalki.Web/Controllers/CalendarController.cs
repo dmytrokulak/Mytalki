@@ -68,6 +68,16 @@ namespace MyTalki.Web.Controllers
         }
 
 
+        /// <summary>
+        /// Removes calendar slots from vacant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(int id)
+        {
+            await _service.RemoveVacantSlotAsync(id);
+        }
 
         ///// <summary>
         ///// Returns a single lesson type by id.
@@ -119,16 +129,5 @@ namespace MyTalki.Web.Controllers
         //    await _service.RestoreLessonTypeAsync(id);
         //}
 
-
-        ///// <summary>
-        ///// Removes lesson type from the system.
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //[HttpDelete("{id}")]
-        //public async Task DeleteAsync(int id)
-        //{
-        //    await _service.DeleteLessonTypeAsync(id);
-        //}
     }
 }

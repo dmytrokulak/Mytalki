@@ -30,12 +30,22 @@ namespace MyTalki.Domain.Services.Impl
         {
             using (var transaction = _transactionFactory.Begin())
             {
-                foreach (var entity in entities) 
+                foreach (var entity in entities)
                     await _repository.AddAsync(entity);
                 transaction.Save();
             }
 
             return entities;
+        }
+
+        public async Task RemoveVacantSlotAsync(int id)
+        {
+            using (var transaction = _transactionFactory.Begin())
+            {
+                var entity = await _repository.GetAsync<CalendarSlot>(id);
+                await _repository.RemoveAsync(entity);
+                transaction.Save();
+            }
         }
     }
 }
