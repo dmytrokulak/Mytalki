@@ -10,13 +10,13 @@ const LessonType = ({ item, setCurrent, updateLessonType }) => {
   let total = item.offers.map((o) => o.done).reduce((a, b) => a + b) + active;
 
   const suspendLessonType = () => {
-    item.active = false;
+    item.onSale = false;
     M.toast({ html: `Lesson type ${item.title} suspended.` });
     updateLessonType(item);
   };
 
   const restoreLessonType = () => {
-    item.active = true;
+    item.onSale = true;
     M.toast({ html: `Lesson type ${item.title} restored.` });
     updateLessonType(item);
   };
@@ -27,7 +27,7 @@ const LessonType = ({ item, setCurrent, updateLessonType }) => {
         <h5>
           <i className='material-icons'>expand_more</i>
           {item.title}
-          {!item.active && (
+          {!item.onSale && (
             <span className='new badge red' data-badge-caption=''>
               suspended
             </span>
@@ -56,7 +56,7 @@ const LessonType = ({ item, setCurrent, updateLessonType }) => {
           ))}
         </div>
         <div className='lesson-type-actions'>
-          {item.active ? (
+          {item.onSale ? (
             <a href='#!' onClick={suspendLessonType} className='waves-effect waves-light red btn right'>
               Suspend
             </a>

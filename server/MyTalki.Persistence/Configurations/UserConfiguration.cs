@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTalki.Domain.Entities;
 
@@ -18,6 +19,19 @@ namespace MyTalki.Persistence.Configurations
             builder.Property(e => e.TimeZone).HasMaxLength(10).IsRequired();
             builder.Property(e => e.RegisteredAt).HasMaxLength(10).IsRequired();
             builder.HasMany(e => e.Lessons);
+
+            //ToDo:: remove seed data
+            builder.HasData(new User
+            {
+                Id = 1,
+                FirstName = "Super",
+                LastName = "Teacher",
+                Email = "mail@bogus.nouse",
+                Password = "91fe2c86987e41bd3b2acf74a8f1eb438cfa284aa90814e83e38963e22425dbe",
+                IsAdmin = true,
+                RegisteredAt = DateTimeOffset.Now,
+                TimeZone = "GMT"
+            });
         }
     }
 }

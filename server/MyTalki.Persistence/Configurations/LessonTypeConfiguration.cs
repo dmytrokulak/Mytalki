@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTalki.Domain.Entities;
 
-namespace MyTalki.Persistence.Configurations 
+namespace MyTalki.Persistence.Configurations
 {
     public class LessonTypeConfiguration : IEntityTypeConfiguration<LessonType>
     {
@@ -11,7 +12,7 @@ namespace MyTalki.Persistence.Configurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Title).HasMaxLength(50).IsRequired();
             builder.Property(e => e.Description).HasMaxLength(1000).IsRequired();
-            builder.Property(e => e.Active).IsRequired();
+            builder.Property(e => e.OnSale).IsRequired();
             builder.HasMany(e => e.Offers);
         }
     }

@@ -34,7 +34,7 @@ namespace MyTalki.Domain.Services.Impl
         {
             Expression<Func<LessonType, bool>> predicate = entity =>
                 (query.FilterTitleLike == null || entity.Title.Contains(query.FilterTitleLike)) &&
-                (query.FilterActive == null || entity.Active == query.FilterActive.Value);
+                (query.FilterActive == null || entity.OnSale == query.FilterActive.Value);
 
             return await _repository.GetSomeAsync(query.FilterIds, predicate, query.Skip, query.Take,
                 query.OrderBy, query.OrderMode);
@@ -58,7 +58,7 @@ namespace MyTalki.Domain.Services.Impl
                 
                 tracked.Title = entity.Title;
                 tracked.Description = entity.Description;
-                tracked.Active = entity.Active;
+                tracked.OnSale = entity.OnSale;
                 
                 var offersToRemove = new List<Offer>();
                 foreach (var trackedOffer in tracked.Offers)
@@ -90,7 +90,7 @@ namespace MyTalki.Domain.Services.Impl
             using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
-                entity.Active = false;
+                entity.OnSale = false;
                 transaction.Save();
             }
         }
@@ -100,7 +100,7 @@ namespace MyTalki.Domain.Services.Impl
             using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
-                entity.Active = false;
+                entity.OnSale = false;
                 transaction.Save();
             }
         }

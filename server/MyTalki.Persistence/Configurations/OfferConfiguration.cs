@@ -12,6 +12,7 @@ namespace MyTalki.Persistence.Configurations
             builder.Property(e => e.Currency).HasMaxLength(5).IsRequired();
             builder.Property(e => e.Minutes).IsRequired();
             builder.Property(e => e.Price).IsRequired();
+            builder.Property(e => e.OnSale).IsRequired();
         }
     }
 }
