@@ -13,7 +13,11 @@ import {
 export const getLessonTypes = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch('/lesson-types');
+    const res = await fetch('/lesson-types', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
     const data = await res.json();
     dispatch({
       type: GET_LESSON_TYPES,
@@ -37,6 +41,7 @@ export const addLessonType = (item) => async (dispatch) => {
       body: JSON.stringify(item),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
     });
 
@@ -61,6 +66,9 @@ export const deleteLessonType = (id) => async (dispatch) => {
 
     await fetch(`/lesson-types/${id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
     });
 
     dispatch({
@@ -85,6 +93,7 @@ export const updateLessonType = (item) => async (dispatch) => {
       body: JSON.stringify(item),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
     });
 

@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        isAdmin: action.payload.isAdmin,
         loading: false,
         user: action.payload,
       };

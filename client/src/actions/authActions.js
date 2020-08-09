@@ -1,11 +1,11 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
 
 // Load User
-export const loadUser = (token) => async (dispatch) => {
+export const loadUser = () => async (dispatch) => {
   try {
     const res = await fetch('/user', {
       headers: {
-        Authorization: token,
+        Authorization: localStorage.getItem('token'),
       },
     });
     const data = await res.json();
@@ -35,8 +35,6 @@ export const register = (formData) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: data,
     });
-
-    loadUser(data);
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
@@ -61,7 +59,6 @@ export const login = (formData) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: token,
     });
-    loadUser(token);
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
