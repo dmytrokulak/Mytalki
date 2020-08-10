@@ -84,25 +84,20 @@ export const setDaysOnDisplay = (days) => (dispatch) => {
   });
 };
 
-export const addRequestToCalendar = (items) => async (dispatch) => {
+export const addRequestToCalendar = (ids) => async (dispatch) => {
   try {
-    const data = [];
-    for (let i = 0; i < items.length; i++) {
-      const res = await fetch(`/calendar-slots/${items[i].id}`, {
-        method: 'PUT',
-        body: JSON.stringify(items[i]),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      });
-
-      data.push(await res.json());
-      dispatch({
-        type: ADD_REQUEST_TO_CALENDAR,
-        payload: data,
-      });
-    }
+    await fetch(`/calendar-slots/request/book`, {
+      method: 'PATCH',
+      body: JSON.stringify(ids),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    dispatch({
+      type: ADD_REQUEST_TO_CALENDAR,
+      payload: ids,
+    });
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,

@@ -42,6 +42,7 @@ namespace MyTalki.Web.Controllers
         /// <param name="orderBy">Property name. Sorted by "name" by default</param>
         /// <param name="orderMode">Either "asc" or "desc", "asc" by default.</param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<LessonTypeModel>> GetAsync([FromQuery] string titleLike,
                    [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)

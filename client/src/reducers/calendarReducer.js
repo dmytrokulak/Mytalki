@@ -53,13 +53,13 @@ export default (state = initialState, action) => {
         daysOnDisplay: action.payload,
       };
     case ADD_REQUEST_TO_CALENDAR:
-      let newCollection = state.collection;
       for (let i = 0; i < action.payload.length; i++) {
-        newCollection = newCollection.map((item) => (item.id === action.payload[i].id ? action.payload[i] : item));
+        let requested = state.collection.filter((item) => item.id === action.payload[i]);
+        requested.status = 'book-request';
       }
       return {
         ...state,
-        collection: newCollection,
+        collection: state.collection,
       };
     default:
       return state;

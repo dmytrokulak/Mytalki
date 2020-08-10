@@ -80,6 +80,17 @@ namespace MyTalki.Web.Controllers
             await _service.RemoveVacantSlotAsync(ids);
         }
 
+
+        /// <summary>
+        /// Modifies lesson type according to the model in the request.
+        /// </summary>
+        [HttpPatch("request/book")]
+        public async Task PutAsync([FromBody] IEnumerable<int> ids)
+        {
+            await _service.RequestBookingAsync(ids);
+        }
+
+
         ///// <summary>
         ///// Returns a single lesson type by id.
         ///// </summary>
@@ -90,20 +101,6 @@ namespace MyTalki.Web.Controllers
         //{
         //    var entity = await _service.GetLessonTypeAsync(id);
         //    return _mapper.Map<LessonTypeModel>(entity);
-        //}
-
-
-        ///// <summary>
-        ///// Modifies lesson type according to the model in the request.
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[HttpPut("{id}")]
-        //public async Task PutAsync(int id, [FromBody] LessonType model)
-        //{
-        //    var entity = _mapper.Map<LessonType>(model);
-        //    await _service.ModifyLessonTypeAsync(id, entity);
         //}
 
 

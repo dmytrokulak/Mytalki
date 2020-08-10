@@ -38,6 +38,19 @@ namespace MyTalki.Domain.Services.Impl
             return entities;
         }
 
+        public async Task RequestBookingAsync(IEnumerable<int> ids)
+        {
+            using (var transaction = _transactionFactory.Begin())
+            {
+                foreach (var id in ids)
+                {
+                    var entity = await _repository.GetAsync<CalendarSlot>(id);
+                    entity.Status = SlotStatus.BookRequest;
+                }
+                transaction.Save();
+            }
+        }
+
         public async Task RemoveVacantSlotAsync(IEnumerable<int> ids)
         {
             using (var transaction = _transactionFactory.Begin())

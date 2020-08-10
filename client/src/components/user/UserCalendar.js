@@ -159,7 +159,7 @@ const UserCalendar = ({
                   .add(j, 'd')
                   .add(timeMoment.hours(), 'h')
                   .add(timeMoment.minutes(), 'm');
-                const slot = collection.find((item) => slotMoment.isSame(moment(item.start), 'm'));
+                const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
                 let className = 'blocked';
                 let isAvailable = false;
                 let isBooked = false;

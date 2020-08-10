@@ -41,6 +41,11 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:MyTalki.Web.Controllers.CalendarController.PutAsync(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Modifies lesson type according to the model in the request.
+            </summary>
+        </member>
         <member name="T:MyTalki.Web.Controllers.LessonController">
             <summary>
             Controller to manage lesson type entities.
