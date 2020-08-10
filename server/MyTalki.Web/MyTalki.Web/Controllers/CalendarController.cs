@@ -71,13 +71,13 @@ namespace MyTalki.Web.Controllers
         /// <summary>
         /// Removes calendar slots from vacant.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
         [Authorize("Admin")]
-        [HttpDelete("{id}")]
-        public async Task DeleteAsync(int id)
+        [HttpDelete]
+        public async Task DeleteAsync([FromBody] IEnumerable<int> ids)
         {
-            await _service.RemoveVacantSlotAsync(id);
+            await _service.RemoveVacantSlotAsync(ids);
         }
 
         ///// <summary>

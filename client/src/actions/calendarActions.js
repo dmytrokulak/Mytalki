@@ -1,7 +1,7 @@
 import {
   GET_CALENDAR,
   ADD_VACANT_SLOTS,
-  DELETE_VACANT_SLOT,
+  DELETE_VACANT_SLOTS,
   CALENDAR_ERROR,
   SET_DAYS_ON_DISPLAY,
   ADD_REQUEST_TO_CALENDAR,
@@ -54,18 +54,20 @@ export const addSlotsToCalendar = (items) => async (dispatch) => {
 };
 
 //Delete vacant slot from calendar
-export const deleteSlotFromCalendar = (id) => async (dispatch) => {
+export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
   try {
-    await fetch(`/calendar-slots/${id}`, {
+    await fetch(`/calendar-slots`, {
       method: 'DELETE',
+      body: JSON.stringify(ids),
       headers: {
+        'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token'),
       },
     });
 
     dispatch({
-      type: DELETE_VACANT_SLOT,
-      payload: id,
+      type: DELETE_VACANT_SLOTS,
+      payload: ids,
     });
   } catch (error) {
     dispatch({

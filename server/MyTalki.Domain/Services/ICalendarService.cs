@@ -10,6 +10,6 @@ namespace MyTalki.Domain.Services
         Task<ICollection<CalendarSlot>> GetCalendarSlotsAsync();
         Task<ICollection<CalendarSlot>> GetCalendarSlotsAsync(CalendarSlotQuery query);
         Task<IEnumerable<CalendarSlot>> CreateVacantSlotsAsync(IEnumerable<CalendarSlot> entities);
-        Task RemoveVacantSlotAsync(int id);
+        Task RemoveVacantSlotAsync(IEnumerable<int> ids);
     }
 }

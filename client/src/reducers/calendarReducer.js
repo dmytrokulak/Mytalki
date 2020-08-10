@@ -1,7 +1,7 @@
 import {
   GET_CALENDAR,
   ADD_VACANT_SLOTS,
-  DELETE_VACANT_SLOT,
+  DELETE_VACANT_SLOTS,
   SET_LOADING,
   CALENDAR_ERROR,
   SET_DAYS_ON_DISPLAY,
@@ -30,10 +30,10 @@ export default (state = initialState, action) => {
         collection: [...state.collection, ...action.payload],
         loading: false,
       };
-    case DELETE_VACANT_SLOT:
+    case DELETE_VACANT_SLOTS:
       return {
         ...state,
-        collection: state.collection.filter((item) => item.id !== action.payload),
+        collection: state.collection.filter((item) => !action.payload.includes(item.id)),
         loading: false,
       };
     case SET_LOADING:

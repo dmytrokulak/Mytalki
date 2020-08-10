@@ -34,11 +34,11 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:MyTalki.Web.Controllers.CalendarController.DeleteAsync(System.Int32)">
+        <member name="M:MyTalki.Web.Controllers.CalendarController.DeleteAsync(System.Collections.Generic.IEnumerable{System.Int32})">
             <summary>
             Removes calendar slots from vacant.
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:MyTalki.Web.Controllers.LessonController">

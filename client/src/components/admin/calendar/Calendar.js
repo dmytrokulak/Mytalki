@@ -6,7 +6,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import {
   getCalendar,
   addSlotsToCalendar,
-  deleteSlotFromCalendar,
+  deleteSlotsFromCalendar,
   setDaysOnDisplay,
 } from '../../../actions/calendarActions';
 import CalendarSaveModal from './CalendarSaveModal';
@@ -21,7 +21,7 @@ const Calendar = ({
   calendarSlots: { collection, daysOnDisplay, loading },
   getCalendar,
   addSlotsToCalendar,
-  deleteSlotFromCalendar,
+  deleteSlotsFromCalendar,
   setDaysOnDisplay,
 }) => {
   const [weekStartMoment, setWeekStartMoment] = useState(initMoment.clone());
@@ -75,14 +75,16 @@ const Calendar = ({
   const deSelectSlotSprint = (e) => {
     const hours = +e.target.dataset.hours;
     const minutes = +e.target.dataset.minutes;
+    const ids = [];
     for (let i = 0; i < daysVisible; i++) {
       let slotMoment = weekStartMoment.clone();
       slotMoment.add(i, 'd').hours(hours).minutes(minutes);
       const slot = collection.find((item) => slotMoment.isSame(moment(item.startAt), 'm'));
       if (slot && !slot.booked) {
-        deleteSlotFromCalendar(slot.id);
+        ids.push(slot.id);
       }
     }
+    deleteSlotsFromCalendar(ids);
   };
 
   const toggleSlotAvailability = (e) => {
@@ -90,7 +92,7 @@ const Calendar = ({
       if (e.target.dataset.booked === 'true') {
         M.toast({ html: `Cannot remove a booked slot.` });
       } else {
-        deleteSlotFromCalendar(+e.target.dataset.slotId);
+        deleteSlotsFromCalendar([+e.target.dataset.slotId]);
       }
     } else {
       addSlotsToCalendar([
@@ -246,12 +248,12 @@ Calendar.propTypes = {
   calendarSlots: PropTypes.object.isRequired,
   getCalendar: PropTypes.func.isRequired,
   addSlotsToCalendar: PropTypes.func.isRequired,
-  deleteSlotFromCalendar: PropTypes.func.isRequired,
+  deleteSlotsFromCalendar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   calendarSlots: state.calendarSlots,
 });
-export default connect(mapStateToProps, { getCalendar, addSlotsToCalendar, deleteSlotFromCalendar, setDaysOnDisplay })(
+export default connect(mapStateToProps, { getCalendar, addSlotsToCalendar, deleteSlotsFromCalendar, setDaysOnDisplay })(
   Calendar
 );

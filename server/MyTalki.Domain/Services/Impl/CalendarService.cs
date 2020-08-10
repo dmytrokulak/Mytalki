@@ -38,12 +38,15 @@ namespace MyTalki.Domain.Services.Impl
             return entities;
         }
 
-        public async Task RemoveVacantSlotAsync(int id)
+        public async Task RemoveVacantSlotAsync(IEnumerable<int> ids)
         {
             using (var transaction = _transactionFactory.Begin())
             {
-                var entity = await _repository.GetAsync<CalendarSlot>(id);
-                await _repository.RemoveAsync(entity);
+                foreach (var id in ids)
+                {
+                    var entity = await _repository.GetAsync<CalendarSlot>(id);
+                    await _repository.RemoveAsync(entity);
+                }
                 transaction.Save();
             }
         }
