@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyTalki.Domain.Entities;
 using MyTalki.Domain.Queries;
@@ -43,6 +44,7 @@ namespace MyTalki.Web.Controllers
         [HttpPost]
         public async Task<LessonModel> PostAsync([FromBody] BookRequestModel model)
         {
+            //ToDo:: var sid =  Request.HttpContext.User.FindFirst(p => p.Type == "sid").Value;
             Request.Headers.TryGetValue("Authorization", out var value);
             var user = await _authService.GetCurrentUserAsync(value[0].Split(' ')[1]);
             var lesson = await _bookingService.AddLessonRequestAsync(model.LessonTypeId, model.SlotIds, user);
