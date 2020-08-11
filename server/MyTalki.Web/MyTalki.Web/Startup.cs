@@ -44,6 +44,7 @@ namespace MyTalki.Web
                 options.UseSqlite(Configuration.GetConnectionString("AppDb")));
             services.AddScoped<IEntityRepository, EntityRepository>();
             services.AddScoped<ILessonTypeService, LessonTypeService>();
+            services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<IBookingService, BookingService>();

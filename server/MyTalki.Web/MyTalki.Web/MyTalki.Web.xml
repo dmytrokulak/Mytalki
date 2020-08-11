@@ -64,7 +64,7 @@
             Controller to manage lesson type entities.
             </summary>
         </member>
-        <member name="M:MyTalki.Web.Controllers.LessonController.#ctor(AutoMapper.IMapper,MyTalki.Domain.Services.ILessonTypeService)">
+        <member name="M:MyTalki.Web.Controllers.LessonController.#ctor(AutoMapper.IMapper,MyTalki.Domain.Services.ILessonService)">
             <summary>
             Controller to manage lesson type entities.
             </summary>
