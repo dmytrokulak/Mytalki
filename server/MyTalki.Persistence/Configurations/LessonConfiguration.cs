@@ -11,6 +11,7 @@ namespace MyTalki.Persistence.Configurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Status).IsRequired();
             builder.HasOne(e => e.LessonType);
+            builder.HasOne(e => e.Offer);
             builder.HasMany(e => e.Slots);
             builder.HasOne(e => e.User);
         }

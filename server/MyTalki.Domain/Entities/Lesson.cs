@@ -8,6 +8,7 @@ namespace MyTalki.Domain.Entities
     public class Lesson : EntityBase
     {
         public virtual LessonType LessonType { get; set; }
+        public virtual Offer Offer { get; set; }
         public virtual LessonStatus Status { get; set; }
         public virtual ICollection<CalendarSlot> Slots { get; set; }
         public virtual DateTimeOffset StartAt => Slots.Select(s => s.StartAt).Min();

@@ -7,6 +7,8 @@ namespace MyTalki.Web.Models
     {
         [Range(1, int.MaxValue)]
         public int LessonTypeId { get; set; }
+        [Range(1, int.MaxValue)]
+        public int OfferId { get; set; }
         [Required]
         public IEnumerable<int> SlotIds { get; set; }
     }

@@ -39,7 +39,8 @@ const ConfirmBookingModal = ({
             });
             addRequestToCalendar(
               selectedSlots.map((slot) => slot.id),
-              lessonType.id
+              lessonType.id,
+              offer.id
             );
           }}
           className='modal-close waves-effect waves-green green white-text btn-flat'

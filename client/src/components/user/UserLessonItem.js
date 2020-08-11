@@ -6,7 +6,7 @@ const UserLessonItem = ({ item, teacher }) => {
     <Fragment>
       <div className='lesson-info'>
         {new moment(item.dateTime).format('ddd MMMM DD, hh:mm')}-
-        {new moment(item.dateTime).add(item.offer.time, 'm').format('hh:mm')}
+        {new moment(item.dateTime).add(item.offer.minutes, 'm').format('hh:mm')}
         <br />
         {item.lessonType.title}
       </div>

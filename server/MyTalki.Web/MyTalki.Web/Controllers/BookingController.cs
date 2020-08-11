@@ -47,7 +47,7 @@ namespace MyTalki.Web.Controllers
             //ToDo:: var sid =  Request.HttpContext.User.FindFirst(p => p.Type == "sid").Value;
             Request.Headers.TryGetValue("Authorization", out var value);
             var user = await _authService.GetCurrentUserAsync(value[0].Split(' ')[1]);
-            var lesson = await _bookingService.AddLessonRequestAsync(model.LessonTypeId, model.SlotIds, user);
+            var lesson = await _bookingService.AddLessonRequestAsync(model.LessonTypeId, model.OfferId, model.SlotIds, user);
             return _mapper.Map<LessonModel>(lesson);
         }
 

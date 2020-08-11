@@ -84,12 +84,13 @@ export const setDaysOnDisplay = (days) => (dispatch) => {
   });
 };
 
-export const addRequestToCalendar = (slotIds, lessonTypeId) => async (dispatch) => {
+export const addRequestToCalendar = (slotIds, lessonTypeId, offerId) => async (dispatch) => {
   try {
     var res = await fetch(`/booking`, {
       method: 'POST',
       body: JSON.stringify({
         lessonTypeId,
+        offerId,
         slotIds,
       }),
       headers: {

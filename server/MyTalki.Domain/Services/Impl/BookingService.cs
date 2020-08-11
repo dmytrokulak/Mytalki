@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MyTalki.Core.Persistence;
 using MyTalki.Domain.Entities;
@@ -16,7 +17,8 @@ namespace MyTalki.Domain.Services.Impl
             _transactionFactory = transactionFactory;
         }
 
-        public async Task<Lesson> AddLessonRequestAsync(int lessonTypeId, IEnumerable<int> slotIds, User user)
+        public async Task<Lesson> AddLessonRequestAsync(int lessonTypeId, int offerId,
+            IEnumerable<int> slotIds, User user)
         {
             using (var transaction = _transactionFactory.Begin())
             {
@@ -33,6 +35,7 @@ namespace MyTalki.Domain.Services.Impl
                 var lesson = new Lesson
                 {
                     LessonType = lessonType,
+                    Offer = lessonType.Offers.Single(o => o.Id == offerId),
                     Status = LessonStatus.Requested,
                     Slots = slots,
                     User = user
