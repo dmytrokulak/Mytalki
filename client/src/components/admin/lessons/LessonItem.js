@@ -17,7 +17,7 @@ const LessonItem = ({ item }) => {
         <br />
         <span>{item.communication}</span>
         {': '}
-        <span>{item.user.communication.filter((c) => c.tool === item.communication).map((c) => c.number)}</span>
+        {/*ToDo:: <span>{item.user.communication.filter((c) => c.tool === item.communication).map((c) => c.number)}</span> */}
       </div>
     </Fragment>
   );

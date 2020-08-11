@@ -49,7 +49,8 @@ namespace MyTalki.Web.Controllers
         public async Task<IEnumerable<LessonModel>> GetAsync([FromQuery] string titleLike,
                    [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
         {
-            return Enumerable.Empty<LessonModel>();
+            var entities = await _service.GetLessonsAsync();
+            return _mapper.Map<IEnumerable<LessonModel>>(entities);
         }
 
 

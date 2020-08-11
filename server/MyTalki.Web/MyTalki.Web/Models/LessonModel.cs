@@ -12,5 +12,6 @@ namespace MyTalki.Web.Models
         public virtual string Status { get; set; }
         public virtual ICollection<CalendarSlotModel> Slots { get; set; }
         public virtual DateTimeOffset StartAt { get; set; }
+        public virtual UserModel User { get; set; }
     }
 }
