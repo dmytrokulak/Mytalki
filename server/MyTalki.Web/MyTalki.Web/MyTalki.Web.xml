@@ -4,6 +4,24 @@
         <name>MyTalki.Web</name>
     </assembly>
     <members>
+        <member name="T:MyTalki.Web.Controllers.BookingController">
+            <summary>
+            Controller to manage lesson type entities.
+            </summary>
+        </member>
+        <member name="M:MyTalki.Web.Controllers.BookingController.#ctor(AutoMapper.IMapper,MyTalki.Domain.Services.IBookingService,MyTalki.Domain.Services.IAuthService)">
+            <summary>
+            Controller to manage lesson type entities.
+            </summary>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:MyTalki.Web.Controllers.BookingController.PostAsync(MyTalki.Web.Models.BookRequestModel)">
+            <summary>
+            Creates a new lesson type in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:MyTalki.Web.Controllers.CalendarController">
             <summary>
             Controller to manage lesson type entities.
@@ -40,11 +58,6 @@
             </summary>
             <param name="ids"></param>
             <returns></returns>
-        </member>
-        <member name="M:MyTalki.Web.Controllers.CalendarController.PutAsync(System.Collections.Generic.IEnumerable{System.Int32})">
-            <summary>
-            Modifies lesson type according to the model in the request.
-            </summary>
         </member>
         <member name="T:MyTalki.Web.Controllers.LessonController">
             <summary>

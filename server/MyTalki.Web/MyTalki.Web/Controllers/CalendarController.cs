@@ -81,51 +81,6 @@ namespace MyTalki.Web.Controllers
         }
 
 
-        /// <summary>
-        /// Modifies lesson type according to the model in the request.
-        /// </summary>
-        [HttpPatch("request/book")]
-        public async Task PutAsync([FromBody] IEnumerable<int> ids)
-        {
-            await _service.RequestBookingAsync(ids);
-        }
-
-
-        ///// <summary>
-        ///// Returns a single lesson type by id.
-        ///// </summary>
-        ///// <param name="id">Lesson type id.</param>
-        ///// <returns></returns>
-        //[HttpGet("{id}")]
-        //public async Task<LessonTypeModel> GetAsync(int id)
-        //{
-        //    var entity = await _service.GetLessonTypeAsync(id);
-        //    return _mapper.Map<LessonTypeModel>(entity);
-        //}
-
-
-        ///// <summary>
-        ///// Marks lesson type as not active (suspends it).
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //[HttpPatch("{id}/suspend")]
-        //public async Task PatchSuspendAsync(int id)
-        //{
-        //    await _service.SuspendLessonTypeAsync(id);
-        //}
-
-
-        ///// <summary>
-        ///// Marks lesson type as active (restores it).
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //[HttpPatch("{id}/restore")]
-        //public async Task PatchRestoreAsync(int id)
-        //{
-        //    await _service.RestoreLessonTypeAsync(id);
-        //}
 
     }
 }

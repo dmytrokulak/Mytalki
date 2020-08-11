@@ -37,7 +37,10 @@ const ConfirmBookingModal = ({
               slot.userId = user.id;
               slot.status = 'book-request';
             });
-            addRequestToCalendar(selectedSlots);
+            addRequestToCalendar(
+              selectedSlots.map((slot) => slot.id),
+              lessonType.id
+            );
           }}
           className='modal-close waves-effect waves-green green white-text btn-flat'
         >

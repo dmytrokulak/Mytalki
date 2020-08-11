@@ -21,7 +21,7 @@ const Booking = ({
     let lessonType = collection.filter((lt) => lt.id === +e.target.dataset.lessonTypeId)[0];
     let offer = lessonType.offers.filter((o) => o.id === +e.target.dataset.offerId)[0];
     setCurrentBooking({ lessonType, offer });
-    M.toast({ html: `${lessonType.title} ${offer.time} min selected` });
+    M.toast({ html: `${lessonType.title} ${offer.minutes} min selected` });
     if (isAuthenticated) {
       history.push('/calendar');
     } else {
@@ -50,10 +50,10 @@ const Booking = ({
                       className='teal lighten-1 btn'
                       data-lesson-type-id={item.id}
                       data-offer-id={offer.id}
-                      data-time={offer.time}
+                      data-minutes={offer.minutes}
                       onClick={onButtonClick}
                     >
-                      {offer.time} min/{offer.price} {offer.currency}{' '}
+                      {offer.minutes} min/{offer.price} {offer.currency}{' '}
                     </a>
                   ))}
                 </div>

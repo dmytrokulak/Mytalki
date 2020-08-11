@@ -11,6 +11,7 @@ namespace MyTalki.Domain.Entities
         public virtual LessonStatus Status { get; set; }
         public virtual ICollection<CalendarSlot> Slots { get; set; }
         public virtual DateTimeOffset StartAt => Slots.Select(s => s.StartAt).Min();
+        public virtual User User { get; set; }
     }
 
 

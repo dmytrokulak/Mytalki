@@ -17,7 +17,8 @@ namespace MyTalki.Web.Models
             CreateMap<CalendarSlotModel, CalendarSlot>().
                 ForMember(p => p.Status, opt => opt.MapFrom(src => Enum.Parse<SlotStatus>(Capitalize(src.Status))));
             CreateMap<CalendarSlot, CalendarSlotModel>().
-                ForMember(p => p.Status, opt => opt.MapFrom(src => ToSnake(src.Status.ToString())));
+                ForMember(p => p.Status, opt => opt.MapFrom(src => Hyphenize(src.Status.ToString())));
+            CreateMap<Lesson, LessonModel>().ReverseMap();
         }
 
 
@@ -26,15 +27,15 @@ namespace MyTalki.Web.Models
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
 
-        public static string ToSnake(string input)
+        public static string Hyphenize(string input)
         {
             var arr = input.ToCharArray();
-            var sb = new StringBuilder(arr[0].ToString());
+            var sb = new StringBuilder(char.ToLower(arr[0]).ToString());
             for (int i = 1; i < arr.Length; i++)
             {
                 if (char.IsUpper(arr[i]))
                 {
-                    sb.Append('_');
+                    sb.Append('-');
                     sb.Append(char.ToLower(arr[i]));
                 }
                 else

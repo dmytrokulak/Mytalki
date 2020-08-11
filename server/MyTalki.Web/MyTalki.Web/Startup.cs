@@ -46,6 +46,7 @@ namespace MyTalki.Web
             services.AddScoped<ILessonTypeService, LessonTypeService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IBookingService, BookingService>();
 
             services.AddControllers();
 
@@ -79,7 +80,7 @@ namespace MyTalki.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().WithExposedHeaders("Authorization"));
+            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().WithExposedHeaders("Authorization").WithHeaders("PATCH"));
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

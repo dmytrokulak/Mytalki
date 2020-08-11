@@ -1,7 +1,7 @@
-import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, SET_LOADING } from '../actions/types';
+import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, SET_LOADING, ADD_REQUEST_TO_CALENDAR } from '../actions/types';
 
 const initialState = {
-  collection: null,
+  collection: [],
   loading: false,
   error: null,
 };
@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
         ...state,
         collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
         loading: false,
+      };
+    case ADD_REQUEST_TO_CALENDAR:
+      return {
+        ...state,
+        collection: [...state.collection, action.payload],
       };
     case SET_LOADING:
       return {

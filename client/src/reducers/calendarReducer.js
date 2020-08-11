@@ -53,8 +53,9 @@ export default (state = initialState, action) => {
         daysOnDisplay: action.payload,
       };
     case ADD_REQUEST_TO_CALENDAR:
-      for (let i = 0; i < action.payload.length; i++) {
-        let requested = state.collection.filter((item) => item.id === action.payload[i]);
+      const slotIds = action.payload.slots.map((slot) => slot.id);
+      for (let i = 0; i < slotIds.length; i++) {
+        let requested = state.collection.filter((item) => item.id === slotIds[i]);
         requested.status = 'book-request';
       }
       return {

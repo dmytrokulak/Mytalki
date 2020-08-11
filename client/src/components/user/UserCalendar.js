@@ -57,7 +57,7 @@ const UserCalendar = ({
   };
   const onSlotSelected = (e) => {
     if (offer && isAuthenticated) {
-      const mins = offer.time;
+      const mins = offer.minutes;
       const thisCell = e.target;
       let rowId = +thisCell.dataset.rowId;
       let colId = +thisCell.dataset.colId;
@@ -89,7 +89,7 @@ const UserCalendar = ({
   };
   const onHoverSelect = (e) => {
     if (offer && isAuthenticated) {
-      const mins = offer.time;
+      const mins = offer.minutes;
       const thisCell = e.target;
       let rowId = +thisCell.dataset.rowId;
       let colId = +thisCell.dataset.colId;
@@ -118,7 +118,7 @@ const UserCalendar = ({
 
   const onHoverDeSelect = (e) => {
     if (offer) {
-      const mins = offer.time;
+      const mins = offer.minutes;
       const thisCell = e.target;
       let rowId = +thisCell.dataset.rowId;
       let colId = +thisCell.dataset.colId;
