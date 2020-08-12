@@ -1,4 +1,11 @@
-import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, SET_LOADING, ADD_REQUEST_TO_CALENDAR } from '../actions/types';
+import {
+  GET_LESSONS,
+  UPDATE_LESSON,
+  LESSON_ERROR,
+  SET_LOADING,
+  ADD_REQUEST_TO_CALENDAR,
+  ACCEPT_BOOK_REQUEST,
+} from '../actions/types';
 
 const initialState = {
   collection: [],
@@ -14,7 +21,9 @@ export default (state = initialState, action) => {
         collection: action.payload,
         loading: false,
       };
+    case ACCEPT_BOOK_REQUEST:
     case UPDATE_LESSON:
+      debugger;
       return {
         ...state,
         collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),

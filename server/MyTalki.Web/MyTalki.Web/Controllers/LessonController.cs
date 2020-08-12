@@ -58,7 +58,7 @@ namespace MyTalki.Web.Controllers
         [HttpGet("student")]
         public async Task<IEnumerable<LessonModel>> GetStudentLessonsAsync()
         {
-            var id = Int32.Parse(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.Sid).Value);
+            var id = int.Parse(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.Sid).Value);
             var entities = await _service.GetLessonsForUserAsync(id);
             return _mapper.Map<IEnumerable<LessonModel>>(entities);
         }

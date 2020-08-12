@@ -6,10 +6,11 @@ import {
   CALENDAR_ERROR,
   SET_DAYS_ON_DISPLAY,
   ADD_REQUEST_TO_CALENDAR,
+  ACCEPT_BOOK_REQUEST,
 } from '../actions/types';
 
 const initialState = {
-  collection: null,
+  collection: [],
   current: null,
   loading: false,
   error: null,
@@ -53,14 +54,14 @@ export default (state = initialState, action) => {
         daysOnDisplay: action.payload,
       };
     case ADD_REQUEST_TO_CALENDAR:
-      const slotIds = action.payload.slots.map((slot) => slot.id);
-      for (let i = 0; i < slotIds.length; i++) {
-        let requested = state.collection.filter((item) => item.id === slotIds[i]);
-        requested.status = 'book-request';
-      }
+    case ACCEPT_BOOK_REQUEST:
+      debugger;
       return {
         ...state,
-        collection: state.collection,
+        collection: state.collection.map((item) => {
+          const updated = action.payload.filter((slot) => slot.id === item.id);
+          return updated ? updated[0] : item;
+        }),
       };
     default:
       return state;

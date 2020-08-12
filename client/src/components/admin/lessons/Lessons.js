@@ -1,11 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLessons, updateLesson } from '../../../actions/lessonActions';
+import { getLessons, acceptBookRequest } from '../../../actions/lessonActions';
 import Preloader from '../../layout/Preloader';
 import LessonItem from './LessonItem';
 
-const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson }) => {
+const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, getLessons }) => {
   const [requested, setRequested] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [completed, setCompleted] = useState([]);
@@ -33,12 +33,6 @@ const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson })
     setCompleted(com);
   }, [collection]);
 
-  const updateLessonStatus = (id, status) => {
-    const item = collection[id];
-    item.status = status;
-    updateLesson(item);
-  };
-
   return (
     <div id='section-lessons' className='section'>
       <h4 className='center-align'>Lessons</h4>
@@ -61,7 +55,7 @@ const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson })
                       </a>
                       <a
                         href='#!'
-                        onClick={() => updateLessonStatus(item.id - 1, 'upcoming')}
+                        onClick={() => acceptBookRequest(collection[item.id - 1])}
                         className='waves-effect waves-light teal white-text btn-flat'
                       >
                         Accept
@@ -107,10 +101,10 @@ const Lessons = ({ lessons: { collection, loading }, getLessons, updateLesson })
 Lessons.propTypes = {
   lessons: PropTypes.object.isRequired,
   getLessons: PropTypes.func.isRequired,
-  updateLesson: PropTypes.func.isRequired,
+  acceptBookRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   lessons: state.lessons,
 });
-export default connect(mapStateToProps, { getLessons, updateLesson })(Lessons);
+export default connect(mapStateToProps, { getLessons, acceptBookRequest })(Lessons);

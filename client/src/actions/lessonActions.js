@@ -1,4 +1,4 @@
-import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR } from './types';
+import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, ACCEPT_BOOK_REQUEST } from './types';
 
 //Get lessons from server
 export const getLessonsByUser = (id) => async (dispatch) => {
@@ -30,7 +30,6 @@ export const getLessons = () => async (dispatch) => {
       },
     });
     const data = await res.json();
-
     dispatch({
       type: GET_LESSONS,
       payload: data,
@@ -38,6 +37,30 @@ export const getLessons = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_ERROR,
+      payload: error,
+    });
+  }
+};
+
+//Accept book request
+export const acceptBookRequest = (item) => async (dispatch) => {
+  try {
+    await fetch(`/booking/accept/${item.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+
+    item.status = 'upcoming';
+    item.slots.forEach((slot) => (slot.status = 'booked'));
+    dispatch({
+      type: ACCEPT_BOOK_REQUEST,
+      payload: item,
+    });
+  } catch (error) {
+    dispatch({
+      type: ACCEPT_BOOK_REQUEST,
       payload: error,
     });
   }

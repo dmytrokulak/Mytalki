@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLessonsByUser, updateLesson } from '../../actions/lessonActions';
+import { getLessonsByUser } from '../../actions/lessonActions';
 import { getTeacherInfo } from '../../actions/teacherActions';
 import Preloader from '../layout/Preloader';
 import UserLessonItem from './UserLessonItem';
@@ -10,7 +10,7 @@ const UserLessons = ({
   lessons: { collection, loading },
   auth: { user },
   getLessonsByUser,
-  updateLesson,
+
   getTeacherInfo,
   teacher,
 }) => {
@@ -43,12 +43,6 @@ const UserLessons = ({
     setUpcoming(upc);
     setCompleted(com);
   }, [collection]);
-
-  const updateLessonStatus = (id, status) => {
-    const item = collection[id];
-    item.status = status;
-    updateLesson(item);
-  };
 
   return (
     <div id='section-lessons' className='section'>
@@ -105,7 +99,6 @@ const UserLessons = ({
 UserLessons.propTypes = {
   lessons: PropTypes.object.isRequired,
   getLessonsByUser: PropTypes.func.isRequired,
-  updateLesson: PropTypes.func.isRequired,
   getTeacherInfo: PropTypes.func.isRequired,
 };
 
@@ -114,4 +107,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   teacher: state.teacher,
 });
-export default connect(mapStateToProps, { getLessonsByUser, updateLesson, getTeacherInfo })(UserLessons);
+export default connect(mapStateToProps, { getLessonsByUser, getTeacherInfo })(UserLessons);

@@ -18,7 +18,7 @@ namespace MyTalki.Domain.Services.Impl
         }
 
         public async Task<Lesson> AddLessonRequestAsync(int lessonTypeId, int offerId,
-            IEnumerable<int> slotIds, User user)
+            IEnumerable<int> slotIds, int userId)
         {
             using (var transaction = _transactionFactory.Begin())
             {
@@ -32,6 +32,8 @@ namespace MyTalki.Domain.Services.Impl
                     slots.Add(entity);
                 }
 
+                var user = await _repository.GetAsync<User>(userId);
+
                 var lesson = new Lesson
                 {
                     LessonType = lessonType,
@@ -44,6 +46,19 @@ namespace MyTalki.Domain.Services.Impl
 
                 transaction.Save();
                 return lesson;
+            }
+        }
+
+        public async Task AcceptLessonRequestAsync(int lessonId)
+        {
+            using (var transaction = _transactionFactory.Begin())
+            {
+                var lesson = await _repository.GetAsync<Lesson>(lessonId);
+                lesson.Status = LessonStatus.Upcoming;
+                foreach (var slot in lesson.Slots) 
+                    slot.Status = SlotStatus.Booked;
+
+                transaction.Save();
             }
         }
     }
