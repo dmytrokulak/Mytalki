@@ -5,6 +5,7 @@ import {
   SET_LOADING,
   ADD_REQUEST_TO_CALENDAR,
   ACCEPT_BOOK_REQUEST,
+  DECLINE_BOOK_REQUEST,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,7 @@ export default (state = initialState, action) => {
         loading: false,
       };
     case ACCEPT_BOOK_REQUEST:
+    case DECLINE_BOOK_REQUEST:
     case UPDATE_LESSON:
       debugger;
       return {

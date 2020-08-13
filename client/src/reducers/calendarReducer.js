@@ -7,6 +7,7 @@ import {
   SET_DAYS_ON_DISPLAY,
   ADD_REQUEST_TO_CALENDAR,
   ACCEPT_BOOK_REQUEST,
+  DECLINE_BOOK_REQUEST,
 } from '../actions/types';
 
 const initialState = {
@@ -54,8 +55,8 @@ export default (state = initialState, action) => {
         daysOnDisplay: action.payload,
       };
     case ADD_REQUEST_TO_CALENDAR:
+    case DECLINE_BOOK_REQUEST:
     case ACCEPT_BOOK_REQUEST:
-      debugger;
       return {
         ...state,
         collection: state.collection.map((item) => {

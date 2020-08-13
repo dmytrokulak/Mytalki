@@ -1,11 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLessons, acceptBookRequest } from '../../../actions/lessonActions';
+import { getLessons, acceptBookRequest, declineBookRequest } from '../../../actions/lessonActions';
 import Preloader from '../../layout/Preloader';
 import LessonItem from './LessonItem';
 
-const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, getLessons }) => {
+const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, declineBookRequest, getLessons }) => {
   const [requested, setRequested] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [completed, setCompleted] = useState([]);
@@ -50,7 +50,11 @@ const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, getLesso
                   <li key={item.id} className='collection-item'>
                     <LessonItem item={item} />
                     <div className='action-buttons'>
-                      <a href='#!' className='waves-effect waves-light grey lighten-3 btn-flat '>
+                      <a
+                        href='#!'
+                        onClick={() => declineBookRequest(collection[item.id - 1])}
+                        className='waves-effect waves-light grey lighten-3 btn-flat '
+                      >
                         Decline
                       </a>
                       <a
@@ -102,9 +106,10 @@ Lessons.propTypes = {
   lessons: PropTypes.object.isRequired,
   getLessons: PropTypes.func.isRequired,
   acceptBookRequest: PropTypes.func.isRequired,
+  declineBookRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   lessons: state.lessons,
 });
-export default connect(mapStateToProps, { getLessons, acceptBookRequest })(Lessons);
+export default connect(mapStateToProps, { getLessons, acceptBookRequest, declineBookRequest })(Lessons);

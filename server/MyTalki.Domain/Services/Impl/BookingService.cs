@@ -40,7 +40,8 @@ namespace MyTalki.Domain.Services.Impl
                     Offer = lessonType.Offers.Single(o => o.Id == offerId),
                     Status = LessonStatus.Requested,
                     Slots = slots,
-                    User = user
+                    User = user,
+                    StartAt = slots.Select(s => s.StartAt).Min()
                 };
                 await _repository.AddAsync(lesson);
 
@@ -57,6 +58,18 @@ namespace MyTalki.Domain.Services.Impl
                 lesson.Status = LessonStatus.Upcoming;
                 foreach (var slot in lesson.Slots) 
                     slot.Status = SlotStatus.Booked;
+
+                transaction.Save();
+            }
+        }
+
+        public async Task DeclineLessonRequestAsync(int lessonId)
+        {
+            using (var transaction = _transactionFactory.Begin())
+            {
+                var lesson = await _repository.GetAsync<Lesson>(lessonId);
+                lesson.Status = LessonStatus.Canceled;
+                await _repository.RemoveSomeAsync(lesson.Slots);
 
                 transaction.Save();
             }

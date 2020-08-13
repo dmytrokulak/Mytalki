@@ -1,4 +1,4 @@
-import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, ACCEPT_BOOK_REQUEST } from './types';
+import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, ACCEPT_BOOK_REQUEST, DECLINE_BOOK_REQUEST } from './types';
 
 //Get lessons from server
 export const getLessonsByUser = (id) => async (dispatch) => {
@@ -61,6 +61,30 @@ export const acceptBookRequest = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ACCEPT_BOOK_REQUEST,
+      payload: error,
+    });
+  }
+};
+
+//Decline book request
+export const declineBookRequest = (item) => async (dispatch) => {
+  try {
+    await fetch(`/booking/decline/${item.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+
+    item.status = 'canceled';
+    item.slots.forEach((slot) => (slot.status = 'blocked'));
+    dispatch({
+      type: DECLINE_BOOK_REQUEST,
+      payload: item,
+    });
+  } catch (error) {
+    dispatch({
+      type: DECLINE_BOOK_REQUEST,
       payload: error,
     });
   }

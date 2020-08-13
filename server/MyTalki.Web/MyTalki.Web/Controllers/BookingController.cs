@@ -50,9 +50,16 @@ namespace MyTalki.Web.Controllers
 
         [Authorize("Admin")]
         [HttpPatch("accept/{lessonId}")]
-        public async Task PatchcAcceptBookRequestAsync(int lessonId)
+        public async Task PatchAcceptBookRequestAsync(int lessonId)
         {
             await _bookingService.AcceptLessonRequestAsync(lessonId);
+        }
+
+        [Authorize("Admin")]
+        [HttpPatch("decline/{lessonId}")]
+        public async Task PatchDeclineBookRequestAsync(int lessonId)
+        {
+            await _bookingService.DeclineLessonRequestAsync(lessonId);
         }
     }
 }

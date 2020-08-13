@@ -8,5 +8,6 @@ namespace MyTalki.Domain.Services
     {
         Task<Lesson> AddLessonRequestAsync(int lessonTypeId, int offerId, IEnumerable<int> slotIds, int userId);
         Task AcceptLessonRequestAsync(int lessonId);
+        Task DeclineLessonRequestAsync(int lessonId);
     }
 }
