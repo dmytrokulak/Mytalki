@@ -23,7 +23,7 @@ export const getCalendar = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -48,7 +48,7 @@ export const addSlotsToCalendar = (items) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -72,7 +72,7 @@ export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -106,7 +106,7 @@ export const addRequestToCalendar = (slotIds, lessonTypeId, offerId) => async (d
   } catch (error) {
     dispatch({
       type: CALENDAR_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };

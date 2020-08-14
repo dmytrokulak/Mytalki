@@ -27,7 +27,7 @@ export const getStudents = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: STUDENT_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };

@@ -16,7 +16,7 @@ import Students from './components/admin/students/Students';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 import { Provider } from 'react-redux';
-import { preLoadUser } from './actions/authActions';
+import { loadUser } from './actions/authActions';
 import store from './store';
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -26,7 +26,7 @@ import './App.css';
 const App = () => {
   useEffect(() => {
     M.AutoInit();
-    (async () => await preLoadUser(store))();
+    (async () => await loadUser()(store.dispatch))();
   }, []);
 
   return (

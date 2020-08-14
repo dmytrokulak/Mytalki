@@ -26,7 +26,7 @@ export const getLessonTypes = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_TYPE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -54,7 +54,7 @@ export const addLessonType = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_TYPE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -80,7 +80,7 @@ export const updateLessonType = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_TYPE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
   clearCurrent();
@@ -105,7 +105,7 @@ export const deleteLessonType = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_TYPE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };

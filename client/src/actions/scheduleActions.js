@@ -24,7 +24,7 @@ export const applySchedule = (schedule, daysOnDisplay) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHEDULE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -45,7 +45,7 @@ export const getSavedSchedules = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHEDULE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -69,7 +69,7 @@ export const saveSchedule = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHEDULE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -89,7 +89,7 @@ export const deleteSchedule = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHEDULE_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };

@@ -16,7 +16,7 @@ export const getLessonsByUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -37,7 +37,7 @@ export const getLessons = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -61,7 +61,7 @@ export const acceptBookRequest = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ACCEPT_BOOK_REQUEST,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -85,7 +85,7 @@ export const declineBookRequest = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DECLINE_BOOK_REQUEST,
-      payload: error,
+      payload: error.message,
     });
   }
 };
@@ -110,7 +110,7 @@ export const updateLesson = (item) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LESSON_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 };
