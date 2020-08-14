@@ -11,28 +11,28 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
       minutes: 30,
       price: 1.0,
       currency: 'USD',
-      onsale: true,
+      onSale: true,
     },
     {
       id: 2,
       minutes: 45,
       price: 1.0,
       currency: 'USD',
-      onsale: false,
+      onSale: false,
     },
     {
       id: 3,
       minutes: 60,
       price: 1.0,
       currency: 'USD',
-      onsale: true,
+      onSale: true,
     },
     {
       id: 4,
       minutes: 90,
       price: 1.0,
       currency: 'USD',
-      onsale: false,
+      onSale: false,
     },
   ];
   const [title, setTitle] = useState('');
@@ -119,7 +119,7 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
                   step='0.1'
                   className='validate'
                   onChange={(e) => {
-                    offers[index].price = e.target.value;
+                    offers[index].price = +e.target.value;
                     setOffers([...offers]);
                   }}
                 />
@@ -130,10 +130,10 @@ const LessonTypeModal = ({ lessonTypes: { current }, addLessonType, updateLesson
                   <label>
                     <input
                       type='checkbox'
-                      checked={offer.onsale}
-                      value={offer.onsale}
+                      checked={offer.onSale}
+                      value={offer.onSale}
                       onChange={(e) => {
-                        offers[index].onsale = !(e.target.value === 'true');
+                        offers[index].onSale = !(e.target.value === 'true');
                         setOffers([...offers]);
                       }}
                     />

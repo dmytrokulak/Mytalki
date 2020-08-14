@@ -61,7 +61,7 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
           <div className='row'>
             {item.offers.map((offer) => (
               <div className='col l3' key={offer.id}>
-                <LessonTypeOffer offer={offer} />
+                <LessonTypeOffer lessonTypeId={item.id} offerId={offer.id} />
               </div>
             ))}
           </div>

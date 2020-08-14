@@ -70,6 +70,7 @@ namespace MyTalki.Domain.Services.Impl
                         trackedOffer.Minutes = offer.Minutes;
                         trackedOffer.Currency = offer.Currency;
                         trackedOffer.Price = offer.Price;
+                        trackedOffer.OnSale = offer.OnSale;
                     }
                     else
                     {

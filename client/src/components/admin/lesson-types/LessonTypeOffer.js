@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const LessonTypeOffer = ({ offer }) => {
+const LessonTypeOffer = ({ lessonTypes: { collection }, lessonTypeId, offerId }) => {
+  const offer = collection.filter((lt) => lt.id === lessonTypeId)[0].offers.filter((o) => o.id === offerId)[0];
   return (
-    <div className={'card ' + (!offer.onsale && 'grey lighten-2')}>
+    <div className={'card ' + (!offer.onSale && 'grey lighten-2')}>
       <div className='card-content'>
         <table>
           <tbody>
@@ -36,7 +39,7 @@ const LessonTypeOffer = ({ offer }) => {
               </td>
               <td>{offer.done ?? 'No'} Done</td>
             </tr>
-            {offer.onsale ? (
+            {offer.onSale ? (
               <tr>
                 <td>
                   <i className='green-text material-icons'>check_circle</i>
@@ -58,4 +61,12 @@ const LessonTypeOffer = ({ offer }) => {
   );
 };
 
-export default LessonTypeOffer;
+LessonTypeOffer.propTypes = {
+  lessonTypes: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  lessonTypes: state.lessonTypes,
+});
+
+export default connect(mapStateToProps, {})(LessonTypeOffer);
