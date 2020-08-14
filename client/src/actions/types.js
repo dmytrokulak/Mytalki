@@ -44,7 +44,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const SET_LOADING_AUTH = 'SET_LOADING_AUTH';
 
 //BOOKING
 export const SET_CURRENT_BOOKING = 'SET_CURRENT_BOOKING';

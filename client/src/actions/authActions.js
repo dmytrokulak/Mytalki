@@ -1,8 +1,18 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  SET_LOADING_AUTH,
+} from './types';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
   try {
+    setLoading();
     const res = await fetch('/user', {
       headers: {
         Authorization: localStorage.getItem('token'),
@@ -24,6 +34,7 @@ export const loadUser = () => async (dispatch) => {
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
+    setLoading();
     const res = await fetch(`/register`, {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -48,6 +59,7 @@ export const register = (formData) => async (dispatch) => {
 // Login User
 export const login = (formData) => async (dispatch) => {
   try {
+    setLoading();
     const body = JSON.stringify(formData);
     const res = await fetch(`/login`, {
       method: 'POST',
@@ -72,3 +84,10 @@ export const login = (formData) => async (dispatch) => {
 
 // Logout
 export const logout = () => (dispatch) => dispatch({ type: LOGOUT });
+
+//Set loading to true
+export const setLoading = () => {
+  return {
+    type: SET_LOADING_AUTH,
+  };
+};
