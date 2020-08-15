@@ -10,7 +10,7 @@ export const executeProtected = async (url, method = 'GET', body = null) => {
     req.headers = { ...req.headers, 'Content-Type': 'application/json' };
   }
   const res = await fetch(url, req);
-  if (method === 'GET' || method == 'POST') {
+  if (method === 'GET' || method === 'POST') {
     return await res.json();
   }
 };

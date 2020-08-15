@@ -169,7 +169,7 @@ const UserCalendar = ({
                   isBooked = slot.status !== 'vacant';
                   slotId = slot.id;
                   if (slot.userId) {
-                    if (user && slot.userId == user.id) {
+                    if (user && slot.userId === user.id) {
                       className = slot.status;
                     }
                   } else {
