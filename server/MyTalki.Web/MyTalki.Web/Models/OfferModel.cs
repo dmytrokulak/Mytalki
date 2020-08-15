@@ -7,8 +7,8 @@
         public decimal Price { get; set; }
         public string Currency { get; set; }
         public bool OnSale { get; set; }
-        public int Active { get; set; } = 1; //ToDo:: offer.active
-        public int Done { get; set; } = 1; //ToDo::offer.done
+        public int Active { get; set; } 
+        public int Done { get; set; } 
 
     }
 }

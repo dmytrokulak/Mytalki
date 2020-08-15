@@ -12,7 +12,10 @@ namespace MyTalki.Web.Models
         public MappingProfile()
         {
             CreateMap<LessonType, LessonTypeModel>().ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
-            CreateMap<Offer, OfferModel>().ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
+            CreateMap<Offer, OfferModel>()
+                .ForMember(p => p.Active, opt => opt.MapFrom(o => o.Lessons.Count(l => l.Status <= LessonStatus.Ongoing )))
+                .ForMember(p => p.Done, opt => opt.MapFrom(o => o.Lessons.Count(l => l.Status == LessonStatus.Passed || l.Status == LessonStatus.Completed )))
+                .ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
             CreateMap<User, UserModel>();
             CreateMap<CalendarSlotModel, CalendarSlot>().
                 ForMember(p => p.Status, opt => opt.MapFrom(src => Enum.Parse<SlotStatus>(Capitalize(src.Status))));

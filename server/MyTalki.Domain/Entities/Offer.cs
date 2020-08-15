@@ -1,4 +1,5 @@
-﻿using MyTalki.Core.Domain.Entities;
+﻿using System.Collections.Generic;
+using MyTalki.Core.Domain.Entities;
 
 namespace MyTalki.Domain.Entities
 {
@@ -9,5 +10,6 @@ namespace MyTalki.Domain.Entities
         public virtual string Currency { get; set; }
         public virtual bool OnSale { get; set; }
         public virtual LessonType LessonType { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

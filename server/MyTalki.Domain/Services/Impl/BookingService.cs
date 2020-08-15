@@ -17,12 +17,11 @@ namespace MyTalki.Domain.Services.Impl
             _transactionFactory = transactionFactory;
         }
 
-        public async Task<Lesson> AddLessonRequestAsync(int lessonTypeId, int offerId,
-            IEnumerable<int> slotIds, int userId)
+        public async Task<Lesson> AddLessonRequestAsync( int offerId, IEnumerable<int> slotIds, int userId)
         {
             using (var transaction = _transactionFactory.Begin())
             {
-                var lessonType = await _repository.GetAsync<LessonType>(lessonTypeId);
+                var offer = await _repository.GetAsync<Offer>(offerId);
 
                 var slots = new List<CalendarSlot>();
                 foreach (var id in slotIds)
@@ -36,8 +35,7 @@ namespace MyTalki.Domain.Services.Impl
 
                 var lesson = new Lesson
                 {
-                    LessonType = lessonType,
-                    Offer = lessonType.Offers.Single(o => o.Id == offerId),
+                    Offer = offer,
                     Status = LessonStatus.Requested,
                     Slots = slots,
                     User = user,

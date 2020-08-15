@@ -13,6 +13,7 @@ namespace MyTalki.Persistence.Configurations
             builder.Property(e => e.Minutes).IsRequired();
             builder.Property(e => e.Price).IsRequired();
             builder.Property(e => e.OnSale).IsRequired();
+            builder.HasMany(e => e.Lessons);
         }
     }
 }

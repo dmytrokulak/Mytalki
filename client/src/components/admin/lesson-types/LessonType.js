@@ -13,8 +13,10 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
 
   useEffect(() => {
     if (item) {
-      setActive(item.offers.map((o) => o.active).reduce((a, b) => a + b));
-      setTotal(item.offers.map((o) => o.done).reduce((a, b) => a + b) + active);
+      let thisActive = item.offers.map((o) => o.active).reduce((a, b) => a + b);
+      let thisTotal = item.offers.map((o) => o.done).reduce((a, b) => a + b) + thisActive;
+      setActive(thisActive);
+      setTotal(thisTotal);
     }
   }, [item]);
 

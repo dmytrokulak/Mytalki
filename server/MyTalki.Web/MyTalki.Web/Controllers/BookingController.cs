@@ -44,7 +44,7 @@ namespace MyTalki.Web.Controllers
         public async Task<LessonModel> PostAsync([FromBody] BookRequestModel model)
         {
             var userId = int.Parse(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.Sid).Value);
-            var lesson = await _bookingService.AddLessonRequestAsync(model.LessonTypeId, model.OfferId, model.SlotIds, userId);
+            var lesson = await _bookingService.AddLessonRequestAsync(model.OfferId, model.SlotIds, userId);
             return _mapper.Map<LessonModel>(lesson);
         }
 
