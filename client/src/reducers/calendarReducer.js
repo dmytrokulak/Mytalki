@@ -2,13 +2,13 @@ import {
   GET_CALENDAR,
   ADD_VACANT_SLOTS,
   DELETE_VACANT_SLOTS,
-  SET_LOADING,
   CALENDAR_ERROR,
   SET_DAYS_ON_DISPLAY,
   ADD_REQUEST_TO_CALENDAR,
   ACCEPT_BOOK_REQUEST,
   DECLINE_BOOK_REQUEST,
   APPLY_SCHEDULE,
+  SET_LOADING_CALENDAR,
 } from '../actions/types';
 
 const initialState = {
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
         collection: state.collection.filter((item) => !action.payload.includes(item.id)),
         loading: false,
       };
-    case SET_LOADING:
+    case SET_LOADING_CALENDAR:
       return {
         ...state,
         loading: true,

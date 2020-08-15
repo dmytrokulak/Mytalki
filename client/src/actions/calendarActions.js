@@ -1,8 +1,16 @@
-import { GET_CALENDAR, ADD_VACANT_SLOTS, DELETE_VACANT_SLOTS, CALENDAR_ERROR, SET_DAYS_ON_DISPLAY } from './types';
+import {
+  GET_CALENDAR,
+  ADD_VACANT_SLOTS,
+  DELETE_VACANT_SLOTS,
+  CALENDAR_ERROR,
+  SET_DAYS_ON_DISPLAY,
+  SET_LOADING_CALENDAR,
+} from './types';
 import { executeProtected } from './baseActions';
 
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
+  setLoading();
   try {
     const data = await executeProtected('/calendar-slots');
     dispatch({
@@ -19,6 +27,7 @@ export const getCalendar = () => async (dispatch) => {
 
 //Add vacant slots to calendar
 export const addSlotsToCalendar = (items) => async (dispatch) => {
+  setLoading();
   try {
     const data = await executeProtected('/calendar-slots', 'POST', items);
     dispatch({
@@ -35,6 +44,7 @@ export const addSlotsToCalendar = (items) => async (dispatch) => {
 
 //Delete vacant slots from calendar
 export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
+  setLoading();
   try {
     await executeProtected('/calendar-slots', 'DELETE', ids);
     dispatch({
@@ -55,4 +65,11 @@ export const setDaysOnDisplay = (days) => (dispatch) => {
     type: SET_DAYS_ON_DISPLAY,
     payload: days,
   });
+};
+
+//Set loading to true
+export const setLoading = () => {
+  return {
+    type: SET_LOADING_CALENDAR,
+  };
 };
