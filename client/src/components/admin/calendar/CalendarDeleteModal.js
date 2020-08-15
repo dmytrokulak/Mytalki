@@ -44,7 +44,7 @@ const CalendarDeleteModal = ({ savedSchedules: { collection }, getSavedSchedules
         <div className='collection'>
           {collection &&
             collection.map((item) => (
-              <a href='#!' id={item.id} className={'collection-item'} onClick={selectItem}>
+              <a href='#!' key={item.id} id={item.id} className={'collection-item'} onClick={selectItem}>
                 {item.title}
                 <br />
                 {item.days.map((d) => getHoursPerDay(d))}
@@ -70,8 +70,6 @@ const CalendarDeleteModal = ({ savedSchedules: { collection }, getSavedSchedules
 
 CalendarDeleteModal.propTypes = {
   getSavedSchedules: PropTypes.func.isRequired,
-  setCurrent: PropTypes.func.isRequired,
-  clearCurrent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
