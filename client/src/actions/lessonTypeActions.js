@@ -8,17 +8,13 @@ import {
   DELETE_LESSON_TYPE,
   LESSON_TYPE_ERROR,
 } from './types';
+import { executeProtected } from './baseActions';
 
 //Get lesson types from server
 export const getLessonTypes = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch('/lesson-types', {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    const data = await res.json();
+    const data = await executeProtected('/lesson-types');
     dispatch({
       type: GET_LESSON_TYPES,
       payload: data,
@@ -35,18 +31,7 @@ export const getLessonTypes = () => async (dispatch) => {
 export const addLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-
-    const res = await fetch(`/lesson-types`, {
-      method: 'POST',
-      body: JSON.stringify(item),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
-    const data = await res.json();
-
+    const data = await executeProtected(`/lesson-types`, 'POST', item);
     dispatch({
       type: ADD_LESSON_TYPE,
       payload: data,
@@ -63,16 +48,7 @@ export const addLessonType = (item) => async (dispatch) => {
 export const updateLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-
-    await fetch(`/lesson-types/${item.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(item),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
+    await executeProtected(`/lesson-types/${item.id}`, 'PUT', item);
     dispatch({
       type: UPDATE_LESSON_TYPE,
       payload: item,
@@ -90,13 +66,7 @@ export const updateLessonType = (item) => async (dispatch) => {
 export const suspendLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-
-    await fetch(`/lesson-types/${item.id}/suspend`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
+    await executeProtected(`/lesson-types/${item.id}/suspend`, 'PATCH');
     item.onSale = false;
     dispatch({
       type: UPDATE_LESSON_TYPE,
@@ -114,13 +84,7 @@ export const suspendLessonType = (item) => async (dispatch) => {
 export const restoreLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-
-    await fetch(`/lesson-types/${item.id}/restore`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
+    await executeProtected(`/lesson-types/${item.id}/restore`, 'PATCH');
     item.onSale = true;
     dispatch({
       type: UPDATE_LESSON_TYPE,
@@ -138,14 +102,7 @@ export const restoreLessonType = (item) => async (dispatch) => {
 export const deleteLessonType = (id) => async (dispatch) => {
   try {
     setLoading();
-
-    await fetch(`/lesson-types/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
+    await executeProtected(`/lesson-types/${id}`, 'DELETE');
     dispatch({
       type: DELETE_LESSON_TYPE,
       payload: id,
