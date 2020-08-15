@@ -8,6 +8,7 @@ import {
   ADD_REQUEST_TO_CALENDAR,
   ACCEPT_BOOK_REQUEST,
   DECLINE_BOOK_REQUEST,
+  APPLY_SCHEDULE,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,7 @@ export default (state = initialState, action) => {
         loading: false,
       };
     case ADD_VACANT_SLOTS:
+    case APPLY_SCHEDULE:
       return {
         ...state,
         collection: [...state.collection, ...action.payload],

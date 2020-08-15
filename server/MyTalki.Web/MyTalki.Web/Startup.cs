@@ -48,6 +48,7 @@ namespace MyTalki.Web
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
 
             services.AddControllers();
 

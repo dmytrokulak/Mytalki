@@ -18,6 +18,6 @@ namespace MyTalki.Domain.Entities
 
     public class ScheduleSlot : EntityBase
     {
-        public virtual DateTime StartAt { get; set; }
+        public virtual TimeSpan StartTime { get; set; }
     }
 }

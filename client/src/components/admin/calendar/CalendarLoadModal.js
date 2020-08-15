@@ -23,7 +23,7 @@ const CalendarLoadModal = ({
 
   const [current, setCurrent] = useState(null);
 
-  const getHoursPerDay = (day) => moment.weekdays(day.day).substring(0, 3) + ' ' + day.slots.length * 2 + 'h. ';
+  const getHoursPerDay = (day) => moment.weekdays(day.dayOfWeek).substring(0, 3) + ' ' + day.slots.length * 2 + 'h.  ';
 
   const clearCurrent = () => {
     setCurrent(null);
@@ -34,6 +34,15 @@ const CalendarLoadModal = ({
     clearCurrent();
     e.target.className = 'collection-item active';
     setCurrent(collection[+e.target.id]);
+  };
+
+  const onSubmit = () => {
+    applySchedule({
+      startDate: daysOnDisplay[0],
+      id: +current.id,
+    });
+    M.toast({ html: `Schedule ${current.title} applied.` });
+    clearCurrent();
   };
 
   return (
@@ -57,10 +66,7 @@ const CalendarLoadModal = ({
         </a>
         <a
           href='#!'
-          onClick={() => {
-            applySchedule(current, daysOnDisplay);
-            M.toast({ html: `Schedule ${current.title} applied.` });
-          }}
+          onClick={onSubmit}
           className={`modal-close waves-effect waves-green green white-text btn-flat ${
             current == null ? 'disabled' : ''
           }`}

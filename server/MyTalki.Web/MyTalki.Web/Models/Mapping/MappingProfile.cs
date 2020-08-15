@@ -26,6 +26,10 @@ namespace MyTalki.Web.Models
                 ForMember(p => p.Status, opt => opt.MapFrom(src => Enum.Parse<LessonStatus>(Capitalize(src.Status))));
             CreateMap<Lesson, LessonModel>().
                 ForMember(p => p.Status, opt => opt.MapFrom(src => src.Status.ToString().ToLower()));
+            CreateMap<Schedule, ScheduleModel>().ReverseMap();
+            CreateMap<ScheduleDay, ScheduleDayModel>().ReverseMap();
+            CreateMap<ScheduleSlot, ScheduleSlotModel>().ReverseMap();
+
         }
 
 

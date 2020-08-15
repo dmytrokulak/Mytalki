@@ -24,7 +24,7 @@ namespace MyTalki.Core.Persistence
 
         Task AddAsync<T>(T entity) where T : EntityBase;
 
-        Task AddSomeAsync<T>(T entities) where T : EntityBase;
+        Task AddSomeAsync<T>(IEnumerable<T> entities) where T : EntityBase;
 
         Task RemoveAsync<T>(T entity) where T : EntityBase;
         Task RemoveSomeAsync<T>(IEnumerable<T> entities) where T : EntityBase;

@@ -104,7 +104,7 @@ namespace MyTalki.Persistence.Repositories
         public async Task AddAsync<T>(T entity) where T : EntityBase
             => await _dbContext.AddAsync(entity);
 
-        public async Task AddSomeAsync<T>(T entities) where T : EntityBase
+        public async Task AddSomeAsync<T>(IEnumerable<T> entities) where T : EntityBase
             => await _dbContext.AddRangeAsync(entities);
 
         public async Task RemoveAsync<T>(T entity) where T : EntityBase

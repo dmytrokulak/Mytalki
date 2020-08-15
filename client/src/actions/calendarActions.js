@@ -1,21 +1,10 @@
-import {
-  GET_CALENDAR,
-  ADD_VACANT_SLOTS,
-  DELETE_VACANT_SLOTS,
-  CALENDAR_ERROR,
-  SET_DAYS_ON_DISPLAY,
-  ADD_REQUEST_TO_CALENDAR,
-} from './types';
+import { GET_CALENDAR, ADD_VACANT_SLOTS, DELETE_VACANT_SLOTS, CALENDAR_ERROR, SET_DAYS_ON_DISPLAY } from './types';
+import { executeProtected } from './baseActions';
 
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
   try {
-    const res = await fetch('/calendar-slots', {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    const data = await res.json();
+    const data = await executeProtected('/calendar-slots');
     dispatch({
       type: GET_CALENDAR,
       payload: data,
@@ -28,19 +17,10 @@ export const getCalendar = () => async (dispatch) => {
   }
 };
 
-//Add vacant slot to calendar
+//Add vacant slots to calendar
 export const addSlotsToCalendar = (items) => async (dispatch) => {
   try {
-    const res = await fetch('/calendar-slots', {
-      method: 'POST',
-      body: JSON.stringify(items),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
-    const data = await res.json();
+    const data = await executeProtected('/calendar-slots', 'POST', items);
     dispatch({
       type: ADD_VACANT_SLOTS,
       payload: data,
@@ -53,18 +33,10 @@ export const addSlotsToCalendar = (items) => async (dispatch) => {
   }
 };
 
-//Delete vacant slot from calendar
+//Delete vacant slots from calendar
 export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
   try {
-    await fetch(`/calendar-slots`, {
-      method: 'DELETE',
-      body: JSON.stringify(ids),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
+    await executeProtected('/calendar-slots', 'DELETE', ids);
     dispatch({
       type: DELETE_VACANT_SLOTS,
       payload: ids,
@@ -77,36 +49,10 @@ export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
   }
 };
 
+//Set days to be currently displayed on the screen
 export const setDaysOnDisplay = (days) => (dispatch) => {
   dispatch({
     type: SET_DAYS_ON_DISPLAY,
     payload: days,
   });
-};
-
-export const addRequestToCalendar = (slotIds, lessonTypeId, offerId) => async (dispatch) => {
-  try {
-    var res = await fetch(`/booking`, {
-      method: 'POST',
-      body: JSON.stringify({
-        lessonTypeId,
-        offerId,
-        slotIds,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    var data = await res.json();
-    dispatch({
-      type: ADD_REQUEST_TO_CALENDAR,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CALENDAR_ERROR,
-      payload: error.message,
-    });
-  }
 };
