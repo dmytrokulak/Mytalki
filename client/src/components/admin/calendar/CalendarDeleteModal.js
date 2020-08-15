@@ -33,7 +33,7 @@ const CalendarDeleteModal = ({
   const selectItem = (e) => {
     clearCurrent();
     e.target.className = 'collection-item active';
-    setCurrent(collection[+e.target.id]);
+    setCurrent(collection.filter((el) => el.id === +e.target.id)[0]);
   };
 
   const onSubmit = () => {
@@ -49,7 +49,7 @@ const CalendarDeleteModal = ({
         <div className='collection'>
           {collection &&
             collection.map((item) => (
-              <a href='#!' id={item.id - 1} className={'collection-item'} onClick={selectItem}>
+              <a href='#!' id={item.id} className={'collection-item'} onClick={selectItem}>
                 {item.title}
                 <br />
                 {item.days.map((d) => getHoursPerDay(d))}
