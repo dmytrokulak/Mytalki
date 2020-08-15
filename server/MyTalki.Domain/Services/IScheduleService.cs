@@ -10,5 +10,6 @@ namespace MyTalki.Domain.Services
         Task<IEnumerable<Schedule>> GetAsync();
         Task<Schedule> CreateScheduleAsync(string title, DateTimeOffset startDate);
         Task<IEnumerable<CalendarSlot>> ApplyScheduleAsync(int id, DateTimeOffset startDate);
+        Task DeleteAsync(int id);
     }
 }

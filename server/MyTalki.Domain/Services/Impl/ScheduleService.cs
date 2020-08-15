@@ -88,5 +88,15 @@ namespace MyTalki.Domain.Services.Impl
 
             return newSlots;
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var entity = await _repository.GetAsync<Schedule>(id);
+            using (var transaction = _transactionFactory.Begin())
+            {
+                await _repository.RemoveAsync(entity);
+                transaction.Save();
+            }
+        }
     }
 }

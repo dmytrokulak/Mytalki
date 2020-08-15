@@ -31,8 +31,7 @@ namespace MyTalki.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<ScheduleModel>> GetAsync([FromQuery] string titleLike,
-                   [FromQuery] bool? active, int? take, int? skip, string orderBy, string orderMode)
+        public async Task<IEnumerable<ScheduleModel>> GetAsync()
         {
             var entities = await _service.GetAsync();
             return _mapper.Map<IEnumerable<ScheduleModel>>(entities);
@@ -52,6 +51,12 @@ namespace MyTalki.Web.Controllers
         {
           var entities =  await _service.ApplyScheduleAsync(model.Id, model.StartDate);
           return _mapper.Map<IEnumerable<CalendarSlotModel>>(entities);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(int id)
+        {
+             await _service.DeleteAsync(id);
         }
 
     }

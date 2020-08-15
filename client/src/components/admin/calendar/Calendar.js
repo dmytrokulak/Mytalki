@@ -11,6 +11,7 @@ import {
 } from '../../../actions/calendarActions';
 import CalendarSaveModal from './CalendarSaveModal';
 import CalendarLoadModal from './CalendarLoadModal';
+import CalendarDeleteModal from './CalendarDeleteModal';
 import Preloader from '../../layout/Preloader';
 
 const daysVisible = 7;
@@ -228,6 +229,16 @@ const Calendar = ({
         <ul>
           <li>
             <a
+              href='#delete-calendar-modal'
+              className='btn-floating red tooltipped modal-trigger'
+              data-position='left'
+              data-tooltip='Delete a calendar schedule'
+            >
+              <i className='material-icons'>delete_forever</i>
+            </a>
+          </li>
+          <li>
+            <a
               href='#load-calendar-modal'
               className='btn-floating green tooltipped modal-trigger'
               data-position='left'
@@ -240,6 +251,7 @@ const Calendar = ({
       </div>
       <CalendarSaveModal />
       <CalendarLoadModal />
+      <CalendarDeleteModal />
     </div>
   );
 };

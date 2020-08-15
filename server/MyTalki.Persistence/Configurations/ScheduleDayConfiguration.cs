@@ -10,7 +10,7 @@ namespace MyTalki.Persistence.Configurations
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.DayOfWeek).IsRequired();
-            builder.HasMany(e => e.Slots);
+            builder.HasMany(e => e.Slots).WithOne(e => e.ScheduleDay).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

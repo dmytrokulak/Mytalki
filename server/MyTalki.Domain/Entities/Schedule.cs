@@ -14,10 +14,12 @@ namespace MyTalki.Domain.Entities
     {
         public virtual DayOfWeek DayOfWeek { get; set; }
         public virtual ICollection<ScheduleSlot> Slots { get; set; }
+        public virtual Schedule Schedule { get; set; }
     }
 
     public class ScheduleSlot : EntityBase
     {
         public virtual TimeSpan StartTime { get; set; }
+        public virtual ScheduleDay ScheduleDay { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace MyTalki.Persistence.Configurations
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Title).HasMaxLength(50).IsRequired();
-            builder.HasMany(e => e.Days);
+            builder.HasMany(e => e.Days).WithOne(e => e.Schedule).OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
