@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LessonTypeOffer from './LessonTypeOffer';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { setCurrent, updateLessonType } from '../../../actions/lessonTypeActions';
+import { setCurrent, suspendLessonType, restoreLessonType } from '../../../actions/lessonTypeActions';
 
-const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonType }) => {
-  let item = collection.filter((c) => c.id === id)[0];
+const LessonType = ({ lessonTypes: { collection }, id, setCurrent, suspendLessonType, restoreLessonType }) => {
+  const item = collection.filter((c) => c.id === id)[0];
 
   const [active, setActive] = useState(0);
   const [total, setTotal] = useState(0);
@@ -20,18 +20,6 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
     }
     M.AutoInit();
   }, [item]);
-
-  const suspendLessonType = () => {
-    item.onSale = false;
-    updateLessonType(item);
-    M.toast({ html: `Lesson type ${item.title} suspended.` });
-  };
-
-  const restoreLessonType = () => {
-    item.onSale = true;
-    updateLessonType(item);
-    M.toast({ html: `Lesson type ${item.title} restored.` });
-  };
 
   return (
     item && (
@@ -70,7 +58,14 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
           </div>
           <div className='lesson-type-actions'>
             {item.onSale ? (
-              <a href='#!' onClick={suspendLessonType} className='waves-effect waves-light red btn right'>
+              <a
+                href='#!'
+                onClick={() => {
+                  suspendLessonType(item);
+                  M.toast({ html: `Lesson type ${item.title} suspended.` });
+                }}
+                className='waves-effect waves-light red btn right'
+              >
                 Suspend
               </a>
             ) : (
@@ -86,7 +81,14 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
                 >
                   Delete
                 </a>
-                <a href='#!' onClick={restoreLessonType} className='waves-effect waves-light green btn right'>
+                <a
+                  href='#!'
+                  onClick={() => {
+                    restoreLessonType(item);
+                    M.toast({ html: `Lesson type ${item.title} restored.` });
+                  }}
+                  className='waves-effect waves-light green btn right'
+                >
                   Restore
                 </a>
               </Fragment>
@@ -107,13 +109,13 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
 };
 
 LessonType.propTypes = {
-  item: PropTypes.object.isRequired,
   setCurrent: PropTypes.func.isRequired,
-  updateLessonType: PropTypes.func.isRequired,
+  suspendLessonType: PropTypes.func.isRequired,
+  restoreLessonType: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   lessonTypes: state.lessonTypes,
 });
 
-export default connect(mapStateToProps, { setCurrent, updateLessonType })(LessonType);
+export default connect(mapStateToProps, { setCurrent, suspendLessonType, restoreLessonType })(LessonType);

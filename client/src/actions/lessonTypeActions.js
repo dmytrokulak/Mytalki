@@ -1,7 +1,7 @@
 import {
   SET_CURRENT_LESSON_TYPE,
   CLEAR_CURRENT_LESSON_TYPE,
-  SET_LOADING,
+  SET_LOADING_LESSON_TYPE,
   GET_LESSON_TYPES,
   ADD_LESSON_TYPE,
   UPDATE_LESSON_TYPE,
@@ -86,6 +86,54 @@ export const updateLessonType = (item) => async (dispatch) => {
   clearCurrent();
 };
 
+//Suspend lesson type
+export const suspendLessonType = (item) => async (dispatch) => {
+  try {
+    setLoading();
+
+    await fetch(`/lesson-types/${item.id}/suspend`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    item.onSale = false;
+    dispatch({
+      type: UPDATE_LESSON_TYPE,
+      payload: item,
+    });
+  } catch (error) {
+    dispatch({
+      type: LESSON_TYPE_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+//Restore lesson type
+export const restoreLessonType = (item) => async (dispatch) => {
+  try {
+    setLoading();
+
+    await fetch(`/lesson-types/${item.id}/restore`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    item.onSale = true;
+    dispatch({
+      type: UPDATE_LESSON_TYPE,
+      payload: item,
+    });
+  } catch (error) {
+    dispatch({
+      type: LESSON_TYPE_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
 //Delete lesson type from server
 export const deleteLessonType = (id) => async (dispatch) => {
   try {
@@ -128,6 +176,6 @@ export const clearCurrent = () => {
 //Set loading to true
 export const setLoading = () => {
   return {
-    type: SET_LOADING,
+    type: SET_LOADING_LESSON_TYPE,
   };
 };

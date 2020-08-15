@@ -1,7 +1,7 @@
 import {
   SET_CURRENT_LESSON_TYPE,
   CLEAR_CURRENT_LESSON_TYPE,
-  SET_LOADING,
+  SET_LOADING_LESSON_TYPE,
   GET_LESSON_TYPES,
   ADD_LESSON_TYPE,
   DELETE_LESSON_TYPE,
@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
         ...state,
         current: null,
       };
-    case SET_LOADING:
+    case SET_LOADING_LESSON_TYPE:
       return {
         ...state,
         loading: true,
