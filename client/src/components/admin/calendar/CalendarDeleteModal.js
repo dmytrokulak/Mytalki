@@ -5,12 +5,7 @@ import moment from 'moment';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { getSavedSchedules, deleteSchedule } from '../../../actions/scheduleActions';
 
-const CalendarDeleteModal = ({
-  savedSchedules: { collection },
-  calendarSlots: { daysOnDisplay },
-  getSavedSchedules,
-  deleteSchedule,
-}) => {
+const CalendarDeleteModal = ({ savedSchedules: { collection }, getSavedSchedules, deleteSchedule }) => {
   useEffect(() => {
     document.addEventListener('DOMContentLoaded', function () {
       var elem = document.getElementById('delete-calendar-modal');
@@ -23,7 +18,7 @@ const CalendarDeleteModal = ({
 
   const [current, setCurrent] = useState(null);
 
-  const getHoursPerDay = (day) => moment.weekdays(day.dayOfWeek).substring(0, 3) + ' ' + day.slots.length * 2 + 'h.  ';
+  const getHoursPerDay = (day) => moment.weekdays(day.dayOfWeek).substring(0, 3) + ' ' + day.slots.length / 2 + 'h.  ';
 
   const clearCurrent = () => {
     setCurrent(null);
@@ -81,7 +76,6 @@ CalendarDeleteModal.propTypes = {
 
 const mapStateToProps = (state) => ({
   savedSchedules: state.savedSchedules,
-  calendarSlots: state.calendarSlots,
 });
 
 export default connect(mapStateToProps, { getSavedSchedules, deleteSchedule })(CalendarDeleteModal);

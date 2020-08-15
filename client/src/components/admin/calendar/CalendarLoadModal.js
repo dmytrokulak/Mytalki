@@ -23,7 +23,7 @@ const CalendarLoadModal = ({
 
   const [current, setCurrent] = useState(null);
 
-  const getHoursPerDay = (day) => moment.weekdays(day.dayOfWeek).substring(0, 3) + ' ' + day.slots.length * 2 + 'h.  ';
+  const getHoursPerDay = (day) => moment.weekdays(day.dayOfWeek).substring(0, 3) + ' ' + day.slots.length / 2 + 'h.  ';
 
   const clearCurrent = () => {
     setCurrent(null);
