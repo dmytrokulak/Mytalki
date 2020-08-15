@@ -40,6 +40,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         collection: state.collection.filter((item) => item.id !== action.payload),
+        current: null,
         loading: false,
       };
     case SET_CURRENT_LESSON_TYPE:

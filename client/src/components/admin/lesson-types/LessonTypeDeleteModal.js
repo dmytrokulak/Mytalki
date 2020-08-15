@@ -28,7 +28,6 @@ function LessonTypeDeleteModal({ lessonTypes: { current }, deleteLessonType, cle
           onClick={() => {
             deleteLessonType(current.id);
             M.toast({ html: `Lesson type ${current.title} deleted.` });
-            clearCurrent();
           }}
           className='modal-close waves-effect waves-red red white-text btn-flat'
         >

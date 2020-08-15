@@ -18,18 +18,19 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
       setActive(thisActive);
       setTotal(thisTotal);
     }
+    M.AutoInit();
   }, [item]);
 
   const suspendLessonType = () => {
     item.onSale = false;
-    M.toast({ html: `Lesson type ${item.title} suspended.` });
     updateLessonType(item);
+    M.toast({ html: `Lesson type ${item.title} suspended.` });
   };
 
   const restoreLessonType = () => {
     item.onSale = true;
-    M.toast({ html: `Lesson type ${item.title} restored.` });
     updateLessonType(item);
+    M.toast({ html: `Lesson type ${item.title} restored.` });
   };
 
   return (
@@ -77,7 +78,11 @@ const LessonType = ({ lessonTypes: { collection }, id, setCurrent, updateLessonT
                 <a
                   href='#confirm-delete-modal'
                   onClick={() => setCurrent(item)}
-                  className='waves-effect waves-light red btn right modal-trigger'
+                  className={
+                    'waves-effect waves-light red btn right modal-trigger' + (active > 0 ? ' disabled tooltipped' : '')
+                  }
+                  data-position='right'
+                  data-tooltip='Cannot delete a lesson type with active lessons'
                 >
                   Delete
                 </a>

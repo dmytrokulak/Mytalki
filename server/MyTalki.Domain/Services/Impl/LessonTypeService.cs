@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MyTalki.Core.Domain.Exceptions;
 using MyTalki.Core.Persistence;
 using MyTalki.Domain.Entities;
 using MyTalki.Domain.Queries;
@@ -112,6 +113,8 @@ namespace MyTalki.Domain.Services.Impl
             using (var transaction = _transactionFactory.Begin())
             {
                 var entity = await _repository.LoadAsync<LessonType>(id);
+                if (entity.Offers.Any(o => o.Lessons.Any(l => l.Status < LessonStatus.Passed)))
+                    throw new DomainException("Cannot delete a lesson type with active lessons.");
                 await _repository.RemoveAsync(entity);
                 transaction.Save();
             }
