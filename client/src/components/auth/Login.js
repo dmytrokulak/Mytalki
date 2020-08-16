@@ -2,10 +2,10 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login, loadUser } from '../../actions/authActions';
+import { login } from '../../actions/authActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, loadUser, location }) => {
+const Login = ({ auth: { error, isAuthenticated, isAdmin, user }, history, login, location }) => {
   useEffect(() => {
     M.AutoInit();
     if (isAuthenticated) {
@@ -29,16 +29,16 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, load
       M.toast({ html: error });
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, history]);
+  }, [user]);
 
-  const [user, setUser] = useState({
+  const [formData, setformData] = useState({
     email: '',
     password: '',
   });
 
-  const { email, password } = user;
+  const { email, password } = formData;
 
-  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
+  const onChange = (e) => setformData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -100,10 +100,9 @@ const Login = ({ auth: { error, isAuthenticated, isAdmin }, history, login, load
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  loadUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login, loadUser })(Login);
+export default connect(mapStateToProps, { login })(Login);
