@@ -1,4 +1,4 @@
-export const executeProtected = async (url, method = 'GET', body = null) => {
+export const fetchProtected = async (url, method = 'GET', body = null) => {
   const req = {
     method: method,
     headers: {

@@ -8,13 +8,13 @@ import {
   DELETE_LESSON_TYPE,
   LESSON_TYPE_ERROR,
 } from './types';
-import { executeProtected } from './baseActions';
+import { fetchProtected } from './baseActions';
 
 //Get lesson types from server
 export const getLessonTypes = () => async (dispatch) => {
   try {
     setLoading();
-    const data = await executeProtected('/lesson-types');
+    const data = await fetchProtected('/lesson-types');
     dispatch({
       type: GET_LESSON_TYPES,
       payload: data,
@@ -31,7 +31,7 @@ export const getLessonTypes = () => async (dispatch) => {
 export const addLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-    const data = await executeProtected(`/lesson-types`, 'POST', item);
+    const data = await fetchProtected(`/lesson-types`, 'POST', item);
     dispatch({
       type: ADD_LESSON_TYPE,
       payload: data,
@@ -48,7 +48,7 @@ export const addLessonType = (item) => async (dispatch) => {
 export const updateLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-    await executeProtected(`/lesson-types/${item.id}`, 'PUT', item);
+    await fetchProtected(`/lesson-types/${item.id}`, 'PUT', item);
     dispatch({
       type: UPDATE_LESSON_TYPE,
       payload: item,
@@ -66,7 +66,7 @@ export const updateLessonType = (item) => async (dispatch) => {
 export const suspendLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-    await executeProtected(`/lesson-types/${item.id}/suspend`, 'PATCH');
+    await fetchProtected(`/lesson-types/${item.id}/suspend`, 'PATCH');
     item.onSale = false;
     dispatch({
       type: UPDATE_LESSON_TYPE,
@@ -84,7 +84,7 @@ export const suspendLessonType = (item) => async (dispatch) => {
 export const restoreLessonType = (item) => async (dispatch) => {
   try {
     setLoading();
-    await executeProtected(`/lesson-types/${item.id}/restore`, 'PATCH');
+    await fetchProtected(`/lesson-types/${item.id}/restore`, 'PATCH');
     item.onSale = true;
     dispatch({
       type: UPDATE_LESSON_TYPE,
@@ -102,7 +102,7 @@ export const restoreLessonType = (item) => async (dispatch) => {
 export const deleteLessonType = (id) => async (dispatch) => {
   try {
     setLoading();
-    await executeProtected(`/lesson-types/${id}`, 'DELETE');
+    await fetchProtected(`/lesson-types/${id}`, 'DELETE');
     dispatch({
       type: DELETE_LESSON_TYPE,
       payload: id,

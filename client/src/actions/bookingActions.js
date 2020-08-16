@@ -5,11 +5,11 @@ import {
   ADD_REQUEST_TO_CALENDAR,
   CALENDAR_ERROR,
 } from './types';
-import { executeProtected } from './baseActions';
+import { fetchProtected } from './baseActions';
 
 export const addRequestToCalendar = (slotIds, lessonTypeId, offerId) => async (dispatch) => {
   try {
-    const data = await executeProtected('/booking', 'POST', {
+    const data = await fetchProtected('/booking', 'POST', {
       lessonTypeId,
       offerId,
       slotIds,

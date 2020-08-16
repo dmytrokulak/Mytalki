@@ -6,13 +6,13 @@ import {
   SET_DAYS_ON_DISPLAY,
   SET_LOADING_CALENDAR,
 } from './types';
-import { executeProtected } from './baseActions';
+import { fetchProtected } from './baseActions';
 
 //Get calendar from server
 export const getCalendar = () => async (dispatch) => {
   setLoading();
   try {
-    const data = await executeProtected('/calendar-slots');
+    const data = await fetchProtected('/calendar-slots');
     dispatch({
       type: GET_CALENDAR,
       payload: data,
@@ -29,7 +29,7 @@ export const getCalendar = () => async (dispatch) => {
 export const addSlotsToCalendar = (items) => async (dispatch) => {
   setLoading();
   try {
-    const data = await executeProtected('/calendar-slots', 'POST', items);
+    const data = await fetchProtected('/calendar-slots', 'POST', items);
     dispatch({
       type: ADD_VACANT_SLOTS,
       payload: data,
@@ -46,7 +46,7 @@ export const addSlotsToCalendar = (items) => async (dispatch) => {
 export const deleteSlotsFromCalendar = (ids) => async (dispatch) => {
   setLoading();
   try {
-    await executeProtected('/calendar-slots', 'DELETE', ids);
+    await fetchProtected('/calendar-slots', 'DELETE', ids);
     dispatch({
       type: DELETE_VACANT_SLOTS,
       payload: ids,
