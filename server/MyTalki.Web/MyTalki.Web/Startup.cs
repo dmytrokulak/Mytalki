@@ -49,6 +49,7 @@ namespace MyTalki.Web
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IStudentService, StudentService>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
