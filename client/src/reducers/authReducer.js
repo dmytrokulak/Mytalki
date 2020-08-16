@@ -73,6 +73,11 @@ export default (state = initialState, action) => {
         ...state,
         user: { ...state.user, firstName: action.payload.firstName, lastName: action.payload.lastName },
       };
+    case ACCOUNT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }
