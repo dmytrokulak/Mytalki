@@ -209,3 +209,29 @@ nav a {
 #section-booking .collection-item a {
   margin: 0.3rem;
 }
+
+/*********************************** ACCOUNT ***********************************/
+
+#section-account .user-info > * {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+#section-account .user-info i {
+  margin-left: 2rem;
+}
+#section-account .user-info a:hover,
+#section-account .user-info i:hover {
+  cursor: pointer;
+  color: #009688;
+}
+
+#section-account .user-info .time-zone {
+  margin-left: 2rem;
+  font-size: large;
+  font-weight: 600;
+}
+
+#section-account .user-info .edit-name-actions {
+  padding-top: 1rem;
+}

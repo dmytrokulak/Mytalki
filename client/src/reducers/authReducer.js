@@ -7,6 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_LOADING_AUTH,
+  SET_ACCOUNT_NAME,
+  ACCOUNT_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -65,6 +67,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case SET_ACCOUNT_NAME:
+      return {
+        ...state,
+        user: { ...state.user, firstName: action.payload.firstName, lastName: action.payload.lastName },
       };
     default:
       return state;

@@ -16,7 +16,6 @@ namespace MyTalki.Web.Models
                 .ForMember(p => p.Active, opt => opt.MapFrom(o => o.Lessons.Count(l => l.Status <= LessonStatus.Ongoing )))
                 .ForMember(p => p.Done, opt => opt.MapFrom(o => o.Lessons.Count(l => l.Status == LessonStatus.Passed || l.Status == LessonStatus.Completed )))
                 .ReverseMap().ForMember(p => p.Id, opt => opt.Ignore());
-            CreateMap<User, UserModel>();
             CreateMap<CalendarSlotModel, CalendarSlot>().
                 ForMember(p => p.Status, opt => opt.MapFrom(src => Enum.Parse<SlotStatus>(Capitalize(src.Status))));
             CreateMap<CalendarSlot, CalendarSlotModel>().
@@ -29,6 +28,7 @@ namespace MyTalki.Web.Models
             CreateMap<Schedule, ScheduleModel>().ReverseMap();
             CreateMap<ScheduleDay, ScheduleDayModel>().ReverseMap();
             CreateMap<ScheduleSlot, ScheduleSlotModel>().ReverseMap();
+            CreateMap<User, UserModel>().ForMember(u => u.Avatar, opt => opt.MapFrom(u =>  "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"));
             CreateMap<User, StudentModel>().ForMember(u => u.Avatar, opt => opt.MapFrom(u =>  "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"));
 
         }
