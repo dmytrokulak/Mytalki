@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import LessonItem from './LessonItem';
 import Utils from '../../../utils';
 
-const LessonsPanel = ({ lessons: { collection }, status, actions = () => {} }) => {
+const LessonsPanel = ({ lessons: { collection }, status, actions = () => {}, teacher }) => {
   const listItems = collection
     .filter((item) => item.status === status)
     .map((item) => (
       <li key={item.id} className='collection-item'>
-        <LessonItem item={item} />
+        <LessonItem item={item} teacher={teacher} />
         <div className='action-buttons'>{actions(item.id)}</div>
       </li>
     ));

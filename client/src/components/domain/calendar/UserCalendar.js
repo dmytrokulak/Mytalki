@@ -3,10 +3,10 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { getCalendar, addSlotsToCalendar, setDaysOnDisplay } from '../../actions/calendarActions';
-import { setSelectedSlots, clearBooking } from '../../actions/bookingActions';
-import Preloader from '../layout/Preloader';
-import ConfirmBookingModal from './ConfirmBookingModal';
+import { getCalendar, addSlotsToCalendar, setDaysOnDisplay } from '../../../actions/calendarActions';
+import { setSelectedSlots, clearBooking } from '../../../actions/bookingActions';
+import Preloader from '../../layout/Preloader';
+import ConfirmBookingModal from '../booking/ConfirmBookingModal';
 
 const daysVisible = 7;
 const initMoment = new moment.utc().hours(0).minutes(0).seconds(0);

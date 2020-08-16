@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import moment from 'moment';
 
-const LessonItem = ({ item }) => {
+const LessonItem = ({ item, teacher }) => {
   return (
     <Fragment>
       <div className='lesson-info'>
@@ -12,7 +12,7 @@ const LessonItem = ({ item }) => {
       </div>
       <div className='user-info'>
         <span>
-          {item.user.firstName} {item.user.lastName}
+          {teacher ? `${teacher.firstName} ${teacher.lastName}` : `${item.user.firstName} ${item.user.lastName}`}
         </span>
         <br />
         <span>{item.communication}</span>

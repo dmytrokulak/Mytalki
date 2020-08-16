@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { addRequestToCalendar } from '../../actions/bookingActions';
+import { addRequestToCalendar } from '../../../actions/bookingActions';
 
 const ConfirmBookingModal = ({
   booking: { lessonType, offer, selectedSlots },
