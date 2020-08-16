@@ -9,7 +9,7 @@ import { executeProtected } from './baseActions';
 
 export const addRequestToCalendar = (slotIds, lessonTypeId, offerId) => async (dispatch) => {
   try {
-    const data = await executeProtected('/booking', {
+    const data = await executeProtected('/booking', 'POST', {
       lessonTypeId,
       offerId,
       slotIds,

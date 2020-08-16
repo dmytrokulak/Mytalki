@@ -8,7 +8,8 @@
         public string Currency { get; set; }
         public bool OnSale { get; set; }
         public int Active { get; set; } 
-        public int Done { get; set; } 
+        public int Done { get; set; }
+        public virtual LessonTypeModel LessonType { get; set; }
 
     }
 }

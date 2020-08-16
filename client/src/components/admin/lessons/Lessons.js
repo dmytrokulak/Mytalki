@@ -1,37 +1,15 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLessons, acceptBookRequest, declineBookRequest } from '../../../actions/lessonActions';
 import Preloader from '../../layout/Preloader';
-import LessonItem from './LessonItem';
+import LessonsPanel from './LessonsPanel';
 
 const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, declineBookRequest, getLessons }) => {
-  const [requested, setRequested] = useState([]);
-  const [upcoming, setUpcoming] = useState([]);
-  const [completed, setCompleted] = useState([]);
-
   useEffect(() => {
     getLessons();
     //eslint-disable-next-line
   }, []);
-
-  useEffect(() => {
-    let req = [];
-    let upc = [];
-    let com = [];
-    for (let i = 0; collection && i < collection.length; i++) {
-      if (collection[i].status === 'requested') {
-        req.push(collection[i]);
-      } else if (collection[i].status === 'upcoming') {
-        upc.push(collection[i]);
-      } else if (collection[i].status === 'completed') {
-        com.push(collection[i]);
-      }
-    }
-    setRequested(req);
-    setUpcoming(upc);
-    setCompleted(com);
-  }, [collection]);
 
   return (
     <div id='section-lessons' className='section'>
@@ -42,60 +20,29 @@ const Lessons = ({ lessons: { collection, loading }, acceptBookRequest, declineB
         <h6 className='center-align'>Nothing to display</h6>
       ) : (
         <Fragment>
-          {requested.length > 0 && (
-            <Fragment>
-              <blockquote>Requested</blockquote>
-              <ul className='collection'>
-                {requested.map((item) => (
-                  <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
-                    <div className='action-buttons'>
-                      <a
-                        href='#!'
-                        onClick={() => declineBookRequest(collection[item.id - 1])}
-                        className='waves-effect waves-light grey lighten-3 btn-flat '
-                      >
-                        Decline
-                      </a>
-                      <a
-                        href='#!'
-                        onClick={() => acceptBookRequest(collection[item.id - 1])}
-                        className='waves-effect waves-light teal white-text btn-flat'
-                      >
-                        Accept
-                      </a>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </Fragment>
-          )}
-          {upcoming.length > 0 && (
-            <Fragment>
-              <blockquote>Upcoming</blockquote>
-              <ul className='collection'>
-                {upcoming.map((item) => (
-                  <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
-                    <div className='action-buttons'></div>
-                  </li>
-                ))}
-              </ul>
-            </Fragment>
-          )}
-          {completed.length > 0 && (
-            <Fragment>
-              <blockquote>Completed</blockquote>
-              <ul className='collection'>
-                {completed.map((item) => (
-                  <li key={item.id} className='collection-item'>
-                    <LessonItem item={item} />
-                    <div className='action-buttons'></div>
-                  </li>
-                ))}
-              </ul>
-            </Fragment>
-          )}
+          <LessonsPanel
+            status='requested'
+            actions={(id) => (
+              <Fragment>
+                <a
+                  href='#!'
+                  onClick={() => declineBookRequest(collection.filter((item) => item.id === id)[0])}
+                  className='waves-effect waves-light grey lighten-3 btn-flat '
+                >
+                  Decline
+                </a>
+                <a
+                  href='#!'
+                  onClick={() => acceptBookRequest(collection.filter((item) => item.id === id)[0])}
+                  className='waves-effect waves-light teal white-text btn-flat'
+                >
+                  Accept
+                </a>
+              </Fragment>
+            )}
+          />
+          <LessonsPanel status='upcoming' />
+          <LessonsPanel status='completed' />
         </Fragment>
       )}
     </div>

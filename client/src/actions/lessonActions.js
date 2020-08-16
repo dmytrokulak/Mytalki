@@ -1,14 +1,10 @@
 import { GET_LESSONS, UPDATE_LESSON, LESSON_ERROR, ACCEPT_BOOK_REQUEST, DECLINE_BOOK_REQUEST } from './types';
+import { executeProtected } from './baseActions';
 
 //Get lessons from server
 export const getLessonsByUser = (id) => async (dispatch) => {
   try {
-    const res = await fetch('/lessons/student', {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    const data = await res.json();
+    const data = await executeProtected('/lessons/student');
     dispatch({
       type: GET_LESSONS,
       payload: data,
@@ -24,12 +20,7 @@ export const getLessonsByUser = (id) => async (dispatch) => {
 //Get lessons from server
 export const getLessons = () => async (dispatch) => {
   try {
-    const res = await fetch('/lessons/teacher', {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    const data = await res.json();
+    const data = await executeProtected('/lessons/teacher');
     dispatch({
       type: GET_LESSONS,
       payload: data,
@@ -45,13 +36,7 @@ export const getLessons = () => async (dispatch) => {
 //Accept book request
 export const acceptBookRequest = (item) => async (dispatch) => {
   try {
-    await fetch(`/booking/accept/${item.id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
+    await executeProtected(`/booking/accept/${item.id}`, 'PATCH');
     item.status = 'upcoming';
     item.slots.forEach((slot) => (slot.status = 'booked'));
     dispatch({
@@ -69,13 +54,7 @@ export const acceptBookRequest = (item) => async (dispatch) => {
 //Decline book request
 export const declineBookRequest = (item) => async (dispatch) => {
   try {
-    await fetch(`/booking/decline/${item.id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-
+    await executeProtected(`/booking/decline/${item.id}`, 'PATCH');
     item.status = 'canceled';
     item.slots.forEach((slot) => (slot.status = 'blocked'));
     dispatch({
@@ -93,19 +72,10 @@ export const declineBookRequest = (item) => async (dispatch) => {
 //Update lesson on server
 export const updateLesson = (item) => async (dispatch) => {
   try {
-    const res = await fetch(`/lessons/${item.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(item),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await res.json();
-
+    await executeProtected(`/lessons/${item.id}`, 'PUT');
     dispatch({
       type: UPDATE_LESSON,
-      payload: data,
+      payload: item,
     });
   } catch (error) {
     dispatch({

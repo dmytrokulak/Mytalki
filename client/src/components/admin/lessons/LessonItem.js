@@ -8,7 +8,7 @@ const LessonItem = ({ item }) => {
         {new moment(item.dateTime).format('ddd MMMM DD, hh:mm')}-
         {new moment(item.dateTime).add(item.offer.time, 'm').format('hh:mm')}
         <br />
-        {item.lessonType.title}
+        {item.offer.lessonType.title}
       </div>
       <div className='user-info'>
         <span>

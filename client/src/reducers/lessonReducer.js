@@ -25,7 +25,6 @@ export default (state = initialState, action) => {
     case ACCEPT_BOOK_REQUEST:
     case DECLINE_BOOK_REQUEST:
     case UPDATE_LESSON:
-      debugger;
       return {
         ...state,
         collection: state.collection.map((item) => (item.id === action.payload.id ? action.payload : item)),
