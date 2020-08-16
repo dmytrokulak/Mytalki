@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -24,15 +24,8 @@ const Account = ({ auth: { user }, changeUserName }) => {
     setLastName(user.lastName);
     setEditName(false);
   };
-
-  const resetAll = (e) => {
-    if (!e.target.classList.contains('user-info-action')) {
-      resetName();
-    }
-  };
-
   return (
-    <div id='section-account' className='section' onClick={resetAll}>
+    <div id='section-account' className='section'>
       <h4 className='center-align'>Account</h4>
       <div className='row'>
         <div className='col s3'>
@@ -49,7 +42,7 @@ const Account = ({ auth: { user }, changeUserName }) => {
                   value={firstName}
                 />
               </div>
-              <div className='col s3'>
+              <div className=' col s3'>
                 <input
                   type='text'
                   className='validate'
@@ -58,8 +51,11 @@ const Account = ({ auth: { user }, changeUserName }) => {
                 />
               </div>
               <div className='edit-name-actions'>
-                <i className='material-icons small green-text user-info-action' onClick={saveName}>
+                <i className='material-icons small green-text' onClick={saveName}>
                   save
+                </i>
+                <i className='material-icons small red-text' onClick={resetName}>
+                  cancel
                 </i>
               </div>
             </div>
@@ -68,20 +64,20 @@ const Account = ({ auth: { user }, changeUserName }) => {
               <span>
                 {user.firstName} {user.lastName}
               </span>
-              <i className='material-icons user-info-action' onClick={() => setEditName(true)}>
+              <i className='material-icons' onClick={() => setEditName(true)}>
                 edit
               </i>
             </h5>
           )}
           <h6>
             <span>{user.email}</span>
-            <i className='material-icons user-info-action'>edit</i>
+            <i className='material-icons'>edit</i>
           </h6>
           <h6>
             <a href='#!'>Change password</a>
           </h6>
           <div>
-            <a className='dropdown-trigger btn' href='#!' data-target='timezone-dropdown'>
+            <a className='dropdown-trigger btn' href='#' data-target='timezone-dropdown'>
               Timezone
             </a>
             <ul id='timezone-dropdown' className='dropdown-content'>
@@ -104,7 +100,7 @@ const Account = ({ auth: { user }, changeUserName }) => {
 };
 
 Account.propTypes = {
-  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   changeUserName: PropTypes.func.isRequired,
 };
 
