@@ -56,10 +56,19 @@ namespace MyTalki.Web.Controllers
 
         [Authorize]
         [HttpGet("user")]
-        public async Task<UserModel> GetCurrentUser()
+        public async Task<UserModel> GetCurrentUserAsync()
         {
             Request.Headers.TryGetValue("Authorization", out var value);
             var entity = await _service.GetCurrentUserAsync(value[0].Split(' ')[1]);
+            return _mapper.Map<UserModel>(entity);
+        }
+
+
+        [Authorize]
+        [HttpGet("teacher")]
+        public async Task<UserModel> GetTeacherInfoAsync()
+        {
+            var entity = await _service.GetAdminUserAsync();
             return _mapper.Map<UserModel>(entity);
         }
     }

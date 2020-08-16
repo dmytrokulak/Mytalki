@@ -1,18 +1,18 @@
-import { GET_TEACHER_INFO } from './types';
+import { GET_TEACHER_INFO, GET_TEACHER_ERROR } from './types';
+import { executeProtected } from './baseActions';
 
 //Get teacher info for student
 export const getTeacherInfo = () => async (dispatch) => {
   try {
-    const res = await fetch('/account');
-    const data = await res.json();
+    const data = await executeProtected('/teacher');
     dispatch({
       type: GET_TEACHER_INFO,
       payload: data,
     });
   } catch (error) {
-    //   dispatch({
-    //     type: LESSON_TYPE_ERROR,
-    //     payload: error.message,
-    //   });
+    dispatch({
+      type: GET_TEACHER_ERROR,
+      payload: error.message,
+    });
   }
 };

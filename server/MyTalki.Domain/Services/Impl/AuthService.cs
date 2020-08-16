@@ -64,6 +64,11 @@ namespace MyTalki.Domain.Services.Impl
             return await _repository.GetAsync<User>(id);
         }
 
+        public async Task<User> GetAdminUserAsync()
+        {
+            return (await _repository.GetSomeAsync<User>(predicate:user => user.IsAdmin)).Single();
+        }
+
 
         private int GetIdFromToken(string input)
         {
