@@ -9,5 +9,8 @@ namespace MyTalki.Domain.Services
         Task<string> RegisterAsync(string email, string password, string secret, string firstName, string lastName);
         Task<User> GetCurrentUserAsync(string token);
         Task<User> GetAdminUserAsync();
+        Task ChangeEmailAsync(int userId, string email);
+        Task ChangePasswordAsync(int userId, string oldPassword, string newPassword, string secret);
+
     }
 }

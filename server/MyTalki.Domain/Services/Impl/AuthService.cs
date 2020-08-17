@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using MyTalki.Core.Domain.Exceptions;
 using MyTalki.Core.Persistence;
 using MyTalki.Domain.Entities;
 
@@ -67,6 +68,31 @@ namespace MyTalki.Domain.Services.Impl
         public async Task<User> GetAdminUserAsync()
         {
             return (await _repository.GetSomeAsync<User>(predicate:user => user.IsAdmin)).Single();
+        }
+
+        public async Task ChangePasswordAsync(int userId, string oldPassword, string newPassword, string secret)
+        {
+            var user = await _repository.GetAsync<User>(userId);
+            if (user == null)
+                throw new DomainException("No user found.");
+            if (user.Password != Encrypt(oldPassword, secret))
+                throw new DomainException("Wrong password.");
+
+            using (var transaction = _transactionFactory.Begin())
+            {
+                user.Password = Encrypt(newPassword, secret);
+                transaction.Save();
+            }
+        }
+
+        public async Task ChangeEmailAsync(int userId, string email)
+        {
+            var entity = await _repository.GetAsync<User>(userId);
+            using (var transaction = _transactionFactory.Begin())
+            {
+                entity.Email = email;
+                transaction.Save();
+            }
         }
 
 

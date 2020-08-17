@@ -20,6 +20,8 @@ namespace MyTalki.Persistence.Configurations
             builder.Property(e => e.RegisteredAt).HasMaxLength(10).IsRequired();
             builder.HasMany(e => e.Lessons);
 
+            builder.HasIndex(e => e.Email).IsUnique();
+
             //ToDo:: remove seed data
             builder.HasData(new User
             {
