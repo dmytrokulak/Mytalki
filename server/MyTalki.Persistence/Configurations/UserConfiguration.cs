@@ -32,7 +32,7 @@ namespace MyTalki.Persistence.Configurations
                 Password = "91fe2c86987e41bd3b2acf74a8f1eb438cfa284aa90814e83e38963e22425dbe",
                 IsAdmin = true,
                 RegisteredAt = DateTimeOffset.Now,
-                TimeZone = "GMT"
+                TimeZone = "FLE Standard Time"
             });
         }
     }

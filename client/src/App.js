@@ -17,6 +17,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 import { Provider } from 'react-redux';
 import { loadUser } from './actions/authActions';
+import { getTimezones } from './actions/systemActions';
 import store from './store';
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -26,6 +27,7 @@ import './App.css';
 const App = () => {
   useEffect(() => {
     M.AutoInit();
+    (async () => await getTimezones()(store.dispatch))();
     (async () => await loadUser()(store.dispatch))();
   }, []);
 

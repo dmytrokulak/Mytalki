@@ -2,9 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { changeUserName, changeEmail, changePassword } from '../../actions/accountActions';
+import { changeUserName, changeEmail, changePassword, changeTimezone } from '../../actions/accountActions';
 
-const Account = ({ auth: { user }, changeUserName, changeEmail, changePassword }) => {
+const Account = ({
+  auth: { user },
+  system: { timezones },
+  changeUserName,
+  changeEmail,
+  changePassword,
+  changeTimezone,
+}) => {
   useEffect(() => {
     M.AutoInit();
     //eslint-disable-next-line
@@ -68,6 +75,12 @@ const Account = ({ auth: { user }, changeUserName, changeEmail, changePassword }
     setPasswordNew('');
     setPasswordRepeat('');
     setEditPassword(false);
+  };
+
+  const saveTimezone = (tz) => {
+    setTimezone(tz);
+    changeTimezone(tz);
+    M.toast({ html: 'Timezone changed' });
   };
 
   return (
@@ -198,22 +211,20 @@ const Account = ({ auth: { user }, changeUserName, changeEmail, changePassword }
             </h6>
           )}
 
-          <div>
+          <div className='timezone-container'>
             <a className='dropdown-trigger btn' href='#' data-target='timezone-dropdown'>
-              Timezone
+              {timezone.displayName}
             </a>
             <ul id='timezone-dropdown' className='dropdown-content'>
-              <li>
-                <a href='#!'>GMT</a>
-              </li>
-              <li>
-                <a href='#!'>CET</a>
-              </li>
-              <li>
-                <a href='#!'>EEST</a>
-              </li>
+              {timezones &&
+                timezones.map((tz) => (
+                  <li key={tz.id}>
+                    <a href='#!' onClick={() => saveTimezone({ id: tz.id, displayName: tz.displayName })}>
+                      {tz.displayName}
+                    </a>
+                  </li>
+                ))}
             </ul>
-            <span className='teal-text time-zone'>{user.timeZone}</span>
           </div>
         </div>
       </div>
@@ -230,6 +241,7 @@ Account.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  system: state.system,
 });
 
-export default connect(mapStateToProps, { changeUserName, changeEmail, changePassword })(Account);
+export default connect(mapStateToProps, { changeUserName, changeEmail, changePassword, changeTimezone })(Account);

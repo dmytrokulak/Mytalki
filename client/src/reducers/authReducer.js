@@ -10,6 +10,7 @@ import {
   SET_ACCOUNT_NAME,
   SET_ACCOUNT_EMAIL,
   SET_ACCOUNT_PASSWORD,
+  SET_ACCOUNT_TIMEZONE,
   ACCOUNT_ERROR,
 } from '../actions/types';
 
@@ -82,6 +83,11 @@ export default (state = initialState, action) => {
       };
     case SET_ACCOUNT_PASSWORD:
       return state;
+    case SET_ACCOUNT_TIMEZONE:
+      return {
+        ...state,
+        user: { ...state.user, timezone: action.payload },
+      };
     default:
       return state;
   }

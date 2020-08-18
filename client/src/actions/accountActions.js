@@ -1,4 +1,10 @@
-import { SET_ACCOUNT_NAME, SET_ACCOUNT_EMAIL, SET_ACCOUNT_PASSWORD, ACCOUNT_ERROR } from './types';
+import {
+  SET_ACCOUNT_NAME,
+  SET_ACCOUNT_EMAIL,
+  SET_ACCOUNT_PASSWORD,
+  SET_ACCOUNT_TIMEZONE,
+  ACCOUNT_ERROR,
+} from './types';
 import { fetchProtected } from './baseActions';
 import { login } from './authActions';
 
@@ -46,6 +52,21 @@ export const changePassword = (email, passwordOld, passwordNew) => async (dispat
       email: email,
       password: passwordNew,
     })(dispatch);
+  } catch (error) {
+    dispatch({
+      type: ACCOUNT_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+export const changeTimezone = (timezone) => async (dispatch) => {
+  try {
+    await fetchProtected('/account/timezone', 'PATCH', { timezone: timezone.id });
+    dispatch({
+      type: SET_ACCOUNT_TIMEZONE,
+      payload: timezone,
+    });
   } catch (error) {
     dispatch({
       type: ACCOUNT_ERROR,
