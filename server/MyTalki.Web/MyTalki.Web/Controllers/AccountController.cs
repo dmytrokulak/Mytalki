@@ -48,7 +48,7 @@ namespace MyTalki.Web.Controllers
         public async Task ChangePasswordAsync([FromBody] AccountChangePasswordModel model)
         {
             var id = int.Parse(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.Sid).Value);
-            await _authService.ChangePasswordAsync(id, model.OldPassword, model.NewPassword, _configuration["ServerSecret"]);
+            await _authService.ChangePasswordAsync(id, model.PasswordOld, model.PasswordNew, _configuration["ServerSecret"]);
         }
 
         [HttpPatch("timezone")]

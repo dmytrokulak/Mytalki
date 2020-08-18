@@ -8,6 +8,8 @@ import {
   LOGOUT,
   SET_LOADING_AUTH,
   SET_ACCOUNT_NAME,
+  SET_ACCOUNT_EMAIL,
+  SET_ACCOUNT_PASSWORD,
   ACCOUNT_ERROR,
 } from '../actions/types';
 
@@ -73,6 +75,13 @@ export default (state = initialState, action) => {
         ...state,
         user: { ...state.user, firstName: action.payload.firstName, lastName: action.payload.lastName },
       };
+    case SET_ACCOUNT_EMAIL:
+      return {
+        ...state,
+        user: { ...state.user, email: action.payload },
+      };
+    case SET_ACCOUNT_PASSWORD:
+      return state;
     default:
       return state;
   }
